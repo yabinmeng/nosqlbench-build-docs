@@ -1,14 +1,15 @@
 ---
 title: "02 Results"
-weight: 3
+weight: 13
 ---
 
-We just ran a very simple workload against our database. In that example, we saw that NoSQLBench
+We just ran a very simple workload against our database. In that example, we saw that nb5
 writes to a log file, and it is in that log file where the most basic form of metrics are displayed.
 
 ## Log File Metrics
 
-For our previous run, we saw that NoSQLBench was writing to `logs/scenario_20190812_154431_028.log`
+For our previous run, we saw that NoSQLBench was writing to a 
+file like `logs/scenario_20190812_154431_028.log`
 
 Even when you don't configure NoSQLBench to write its metrics to another location, it will
 periodically report all the metrics to the log file. At the end of a scenario, before NoSQLBench
@@ -39,6 +40,9 @@ We recommend that you use one of these methods, according to your environment or
 
 1. `--docker-metrics` with a local docker-based grafana dashboard (See the section on Docker Based
    Metrics)
+2. `--docker-metrics-at <addr>` with a remote docker-based grafana dashboard that you have 
+   previously 
+   set up.
 2. Send your metrics to a dedicated graphite server with `--report-graphite-to graphitehost`
 3. Record your metrics to local CSV files with `--report-csv-to my_metrics_dir`
 4. Record your metrics to HDR logs with `--log-histograms my_hdr_metrics.log`

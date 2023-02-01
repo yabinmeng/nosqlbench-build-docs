@@ -1,6 +1,6 @@
 ---
 title: "03 Metrics"
-weight: 4
+weight: 14
 ---
 
 A set of core metrics are provided for every workload that runs with NoSQLBench, regardless of the activity type and
