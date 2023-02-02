@@ -70,10 +70,6 @@ jobs:
         run: |
           echo "builddocs.nosqlbench.io" > site/static/CNAME
 
-      - name: trust owned theme repo
-        run: |
-          git config --global --add safe.directory /github/workspace/site/themes/abridge_modified
-
       - name: 'Build and Deploy Static Site'
         uses: shalzz/zola-deploy-action@master
         env:
