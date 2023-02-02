@@ -1,4 +1,4 @@
-name: builddocs
+name: build-site
 
 on:
   push:
