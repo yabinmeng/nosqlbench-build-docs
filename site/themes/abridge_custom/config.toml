@@ -1,12 +1,13 @@
 # do NOT include a trailing slash on the base URL for web urls
-base_url = "https://builddocs.nosqlbench.io"
-title = "NoSQLBench Project (BUILD)"
-description = "NoSQLBench is an Open Source, Multi-Protocol, Pluggable, Scriptable, NoSQL (and more) Testing System."
+base_url = "https://abridge.netlify.app"
+#base_url = "/home/jieiku/.dev/abridge/public/" # for locally usable build directly from disk, also set in [extra] section uglyurls = true
+title = "Abridge"
+description = "Abridge is a fast and lightweight Zola theme using semantic html, abridge.css class-light CSS, and No Mandatory JS."
 default_language = "en"
 output_dir = "public"
 compile_sass = true
 minify_html = false
-generate_feed = false
+generate_feed = true
 feed_filename = "atom.xml"
 #ignored_content = ["*.{graphml,xlsx}", "temp.*"]
 #hard_link_static = false # set to true to hard link instead of copying, useful for very large files.
@@ -15,12 +16,12 @@ taxonomies = [
     {name = "tags", feed = true},
 ]
 
-theme = "abridge_custom"
+#theme = "abridge"
 
 build_search_index = true
 [search]                # Options specific to elasticlunr search.
 include_title = true        # include title of page/section in index
-include_description = true # include description of page/section in index
+include_description = false # include description of page/section in index
 include_content = true      # include rendered content of page/section in index
 # Truncate content at nth character. Useful if index size significantly slows down the site.
 # truncate_content_length = 100
@@ -36,17 +37,15 @@ external_links_no_referrer = false # rel="noreferrer"
 smart_punctuation = false          # `...` to `…`, `"quote"` to `“curly”` etc
 
 [extra]
-supress_titles = false
 uglyurls = false # if set to true then links are generated with the full path. eg https://abridge.netlify.app/index.html
 language_code = "en-US"
 title_separator = "|"  # Separator between title and title_addition, set as |, -, _, etc
 # To disable title_addition but keep built in page additions eg, Posts page: "Posts | Abridge" set title_addition to an empty string
 # To always set the page title exactly eg "Abridge" then comment out the below line (not recommend, bad for SEO)
 title_addition = "Fast & Lightweight Zola Theme" # a default value for title addition
-recent = false # TOC / index
+recent = true # TOC / index
 recent_items = 9
-toc = true
-#author = "NoSQLBench Maintainers" # Put Your Name here
+author = "Jake G" # Put Your Name here
 
 title_size_index = "s85" # size: s95, s90, s85, s80, s75, s70, false(full size)
 meta_index = { position="bottom", size="s90", author=false, readtime=false, readstring="min", date=true, categories_tags=true, divider=" " }
@@ -55,38 +54,32 @@ meta_post = { position="top", size="s95", author=true, readtime=false, readstrin
 ## divider:    "&middot;"    "&bull;"    " "
 
 footer_size = "s90" # size: s95, s90, s85, s80, s75, s70, false(full size)
-footer_credit = false
-footer_credit_override = ''
-#footer_credit_override='<p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> &#38; <a href="https://github.com/Jieiku/abridge/" target="_blank">Abridge</a></p>'
+footer_credit = true
+#footer_credit_override = '<p class="s90">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> &#38; <a href="https://github.com/Jieiku/abridge/" target="_blank">Abridge</a></p>'
 
 #uncomment one of the two lines, or neither, depending on which type of logo you want to use:
-logo = { file="nb5logo.png", width="32", height="32", alt="NoSQLBench5 (build)", text="NoSQLBench v5 (BUILD)"}
-#logo = { file="engine.svg", width="64", height="64", alt="NoSQLBench5", text="NoSQLBench"}
-#logo = { file="nb5.png", width=32, height="32", alt="NoSQLBench5", text="NoSQLBench"}
 #logo = { file="logo.svg", width="32", height="32", alt="Abridge", text="bridge" }
 #textlogo = '<font color="#f90">A</font>bridge'
-#textlogo = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f90" viewBox="0 0 96 96" width="32" height="32"><path stroke-width="14" d="M14 99 46 7h4l32 92"/><path stroke-width="9" d="M-3 82c43-26 59-26 102 0"/><path stroke-linecap="round" stroke-width="1.5" d="M94 72v7m-5-9.8v7m-5-9.8v7.1M79 64v7M63 57.7v7m-5-8.2v7m-5-7.8v7m-5-7.2v7m-5-6.7v7m-5-6.3v7m-5-5.8v7M17 64v7m-5-4.6v7m-5-4.2v7M2 72v7"/></svg>bridge'
+textlogo = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#f90" viewBox="0 0 96 96" width="32" height="32"><path stroke-width="14" d="M14 99 46 7h4l32 92"/><path stroke-width="9" d="M-3 82c43-26 59-26 102 0"/><path stroke-linecap="round" stroke-width="1.5" d="M94 72v7m-5-9.8v7m-5-9.8v7.1M79 64v7M63 57.7v7m-5-8.2v7m-5-7.8v7m-5-7.2v7m-5-6.7v7m-5-6.3v7m-5-5.8v7M17 64v7m-5-4.6v7m-5-4.2v7M2 72v7"/></svg>bridge'
 
 sitedesc = false # enables or disables the display of the site description below the logo.
-copyright_start_year = 2023  # optional
+#copyright_start_year = 2019  # optional
 #copyright_end_year = 2020  # optional, recommend leaving unset, zola build will set this to current year by default
 headhr = false # show or hide horizontal rule below header
 foothr = true # show or hide horizontal rule above footer
 
 menu = [
-    {url = "/getting_started/", name = "Getting Started", slash = true, blank = false},
-    {url = "/release_notes/", name = "Release Notes", slash = true, blank = false},
-#    {url = "https://github.com/nosqlbench/nosqlbench-build-docs", name = "Docs Repo", slash = true, blank = "true" },
-#    {url = "/posts/", name = "Posts", slash = true, blank = false},
-#    {url = "/categories/", name = "Categories", slash = true, blank = false},
-#    {url = "/tags/", name = "Tags", slash = true, blank = false},
+    {url = "/about/", name = "About", slash = true, blank = false},
+    {url = "/posts/", name = "Posts", slash = true, blank = false},
+    {url = "/categories/", name = "Categories", slash = true, blank = false},
+    {url = "/tags/", name = "Tags", slash = true, blank = false},
 ]
-#menu_footer = [
-#    {url = "/about/", name = "About", slash = true, blank = false},
-#    {url = "/contact/", name = "Contact", slash = true, blank = false},
-#    {url = "/privacy/", name = "Privacy", slash = true, blank = false},
-#    {url = "/sitemap.xml", name = "Sitemap", slash = false, blank = true},
-#]
+menu_footer = [
+    {url = "/about/", name = "About", slash = true, blank = false},
+    {url = "/contact/", name = "Contact", slash = true, blank = false},
+    {url = "/privacy/", name = "Privacy", slash = true, blank = false},
+    {url = "/sitemap.xml", name = "Sitemap", slash = false, blank = true},
+]
 
 # Security Headers should preferably be set by your webserver (Nginx, Apache) https://observatory.mozilla.org  https://csp-evaluator.withgoogle.com/
 # If you are unable to load your security headers with your webserver, this will load a couple of them as meta tags.
@@ -103,9 +96,9 @@ menu = [
 integrity = true # setting this to false is useful for developing, should normally be true.
 js_bundle = true # multiple javascript files combined into a single file
 js_switcher = true
-js_search_facade = false # Do not load search until user interaction with search.
+js_search_facade = true # Do not load search until user interaction with search.
 # search library to use, valid values are: false, "elasticlunr", "tinysearch", "stork"
-search_library = "elasticlunr"
+search_library = false
 
 js_search_index = "search_index.en.js" # Separate Always, generated each build
 js_prestyle = "prestyle.js"# Bundleable - used to preload: FontAwesome, Katex, external Google Fonts
@@ -135,7 +128,7 @@ stylesheets = [ "abridge-switcher.css" ] # Orange Automatic Dark/Light Theme bas
 #stylesheets = [ "abridge.css", "extra.css" ] # example loading extra css
 #stylesheets = [ "abridge.css", "syntax/syntax-abridge.css" ]
 
-banner = "nb5banner.png" # Used as default image for OpenGraph/Twitter if page specific image is undefined.
+banner = "banner.png" # Used as default image for OpenGraph/Twitter if page specific image is undefined.
 # favicons, comment out a line to disable loading some or all of these.
 favicon_theme_color = "#333333"
 favicon_ms_color = "#333333"
@@ -202,49 +195,25 @@ seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twit
 
 # Footer social links; full options listed in macros/social.html
 [extra.social]
-#feed = true
-#mail_encode = true # This obfuscates your email address, javascript is used to decode it at page load.
-#mail = "name@example.com"
-#mastodon = "@your-user-name"
-#element = "matrix.example.com"
-##matrix = "matrix.example.com"
-#buymeacoffee = "your-user-name"
-#twitter = "your-user-name"
-#facebook = "your-user-name"
-#linkedin = "your-user-name"
-#gitlab = "your-user-name"
-#github = "your-user-name"
-#github_sponsor = "your-user-name"
-#bitbucket = "your-user-name"
-#python = "your-user-name"
-#docker = "your-user-name"
-#stack = "your-user-name"
-#instagram = "your-user-name"
-#pinterest = "your-user-name"
-#twitch = "your-user-name"
-#youtube = "channel/your-channel-id"
-#researchgate = "your-profile-id"
-
-[[extra.list]]
-title = 'Join our Community'
-content = '<a href="https://discord.gg/dBHRakusMN"><img src="Discord-Logo-Wordmark-Color.png" style="width:117px;height:32px;"></img></a>'
-
-[[extra.list]]
-title = "WHY NoSQLBench?"
-content = '<a href="docs/nosqlbench/showcase">Why NoSQLBench was created?</a>'
-
-[[extra.list]]
-title = "Concepts"
-content = '<a href="docs/nosqlbench/core-concepts">What are the high-level building blocks?</a>'
-
-[[extra.list]]
-title = "Workloads 101"
-content = '<a href="docs/workloads_101/00-designing-workloads">How can I build a custom workload?</a>'
-
-[[extra.list]]
-title = "NoSQLBench Drivers"
-content = '<a href="docs/drivers/">What drivers are available for NoSQLBench?</a>'
-
-[[extra.list]]
-title = "Contributing"
-content = '<a href="docs/nosqlbench/community">How can I contribute to NoSQLBench?</a>'
+feed = true
+mail_encode = true # This obfuscates your email address, javascript is used to decode it at page load.
+mail = "name@example.com"
+mastodon = "@your-user-name"
+element = "matrix.example.com"
+#matrix = "matrix.example.com"
+buymeacoffee = "your-user-name"
+twitter = "your-user-name"
+facebook = "your-user-name"
+linkedin = "your-user-name"
+gitlab = "your-user-name"
+github = "your-user-name"
+github_sponsor = "your-user-name"
+bitbucket = "your-user-name"
+python = "your-user-name"
+docker = "your-user-name"
+stack = "your-user-name"
+instagram = "your-user-name"
+pinterest = "your-user-name"
+twitch = "your-user-name"
+youtube = "channel/your-channel-id"
+researchgate = "your-profile-id"

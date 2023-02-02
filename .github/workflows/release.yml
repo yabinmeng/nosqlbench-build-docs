@@ -1,4 +1,4 @@
-name: preview
+name: release
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  sync-to-preview:
+  sync-to-release:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/master'
 
@@ -50,6 +50,9 @@ jobs:
           rsync -av --exclude='.git*'  --delete nosqlbench-build-docs/ nosqlbench-docs/
           perl -pi -e 's/ \(BUILD\)//' nosqlbench-docs/site/config.toml
           perl -pi -e 's/ \(build\)//' nosqlbench-docs/site/config.toml
+          perl -pi -e 's/builddocs/docs/' nosqlbench-docs/site/config.toml
+          perl -pi -e 's/builddocs/docc/' nosqlbench-docs/site/static/CNAME
+
 
       - name: "commit imported changes"
         env:
