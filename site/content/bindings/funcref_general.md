@@ -756,6 +756,14 @@ and then stitched together according to the template provided.
 @param funcs    A varargs length of LongFunctions of any output type
 
 
+## TextOfFile
+
+Provides a single line of text from a target file provided.
+
+- Object -> TextOfFile(String: targetFile) -> String
+  - *example:* `TextOfFile()`
+  - *Provides the first line of text in the specified file.*
+
 ## ThreadNumToInteger
 
 Matches a digit sequence in the current thread name and caches it in a thread local. This allows you to use any intentionally indexed thread factories to provide an analogue for concurrency. Note that once the thread number is cached, it will not be refreshed. This means you can't change the thread name and get an updated value.
