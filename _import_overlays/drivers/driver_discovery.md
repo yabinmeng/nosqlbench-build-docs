@@ -3,7 +3,7 @@ title: "Built-In Adapters"
 weight: 1
 ---
 
-# Adapters Explained
+# Built-In Adapters
 
 NoSQLBench supports a variety of different operations. For operations like
 sending a query to a database, a native driver is typically used with help of the

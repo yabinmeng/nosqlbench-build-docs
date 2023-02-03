@@ -9,7 +9,7 @@ something up, you have some options:
 
 - [Run DSE in docker](#run-dse-in-docker)
 - [Run an Astra Cluster (cloud)](#run-an-astra-cluster)
-- [Run Apache Cassandra in docker](https://hub.docker.com/_/cassandra)
+- [Run Apache Cassandra in docker](#run-apache-cassandra-in-docker)
 
 # Run DSE in docker
 
@@ -60,8 +60,9 @@ reference a different directory.
 
 👉 It might be helpful to refer back to this section later when you learn about activity parameters.
 
+# Run Apache Cassandra in Docker
 
-
+https://hub.docker.com/_/cassandra
 
 
 
