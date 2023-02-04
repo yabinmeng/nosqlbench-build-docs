@@ -81,7 +81,7 @@ checked at initialization time:
 - If the whole workload template provided does not include actual op templates **AND** a
   default driver is provided which can create synthetic op templates, it is given the raw
   workload template, incomplete as it is, and asked to provide op templates which have all
-  normalization, naming, etc. already done. This is injected before the tag-filtering step.
+  normalization, naming, etc. already done. This is injected before the tag-filtering phase.
 - In any case that an actual non-zero list of op templates is provided and tag filtering removes
   them all, an error is thrown.
 - If, after tag filtering no op template are in the active list, an error is thrown.

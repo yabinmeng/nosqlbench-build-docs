@@ -57,7 +57,7 @@ The initial version of the cql workload generator provides these defaults:
 * Data bindings are created using the simplest possible binding recipes that work.
 * Cardinalities on partition-specific bindings are multiplied by 10. This presumes even data
   distribution, replication factor 3, and 30 nodes. This method will be improved in the future.
-* For the main activity, reads, writes, updates, and scans are included, 1 each.
+* For the main phase, reads, writes, updates, and scans are included, 1 each.
   * reads select * from a fully qualified predicate.
   * writes will write to all named fields.
   * updates change all fields with a fully qualified predicate.
@@ -96,7 +96,7 @@ gives you the ability to enable and disable certain stages and behaviors, like:
 * default timeouts
 * block naming and construction (which type of operations are included in each)
 
-These are mostly controlled by a series of processing steps known as transformers.
+These are mostly controlled by a series of processing phases known as transformers.
 Some transformers depend on others upstream, but if the data provided is not sufficient, they
 will silently pass-through.
 
