@@ -42,7 +42,7 @@ ops:
  op1:
   op:
    driver: stdout
-   stmt: "example {{Identity()}}"
+   stmt: "example {{/*Identity()*/}}"
 ```
 
 ## alias
