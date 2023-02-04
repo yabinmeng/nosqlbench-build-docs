@@ -51,7 +51,8 @@ worse, some densities have painful corner cases in performance, like
 'Zipf', which can make tests unbearably slow and flawed as they chew up
 CPU resources.
 
-👉 Functions like 'Zipf' can still take a long time to initialize for certain
+**NOTE:**
+Functions like 'Zipf' can still take a long time to initialize for certain
 parameters. If you are seeing a workload that seems to hang while
 initializing, it might be computing complex integrals for large parameters
 of Zipf. We hope to pre-compute and cache these at a future time to avoid
@@ -157,7 +158,8 @@ worse, some densities have painful corner cases in performance, like
 'Zipf', which can make tests unbearably slow and flawed as they chew up
 CPU resources.
 
-👉 Functions like 'Zipf' can still take a long time to initialize for certain
+**NOTE:**
+Functions like 'Zipf' can still take a long time to initialize for certain
 parameters. If you are seeing a workload that seems to hang while
 initializing, it might be computing complex integrals for large parameters
 of Zipf. We hope to pre-compute and cache these at a future time to avoid
