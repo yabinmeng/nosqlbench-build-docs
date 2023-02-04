@@ -38,12 +38,17 @@ The driver selection for an op template determines the valid constructions for t
 For example:
 
 ```yaml
+# file test.yaml
 ops:
  op1:
   op:
    driver: stdout
    stmt: "example {{/*Identity()*/}}"
 ```
+
+If an activity were started up which references this file as `workload=test.yaml`, then all of 
+the activity params recognized by the stdout driver would be valid, in addition to the core 
+activity params documented in this section.
 
 ## alias
 
@@ -52,13 +57,12 @@ ops:
 - _required_: no
 - _dynamic_: no
 
-You *should* set the _alias_ parameter when you have multiple activities,
-when you want to name metrics per-activity, or when you want to control
-activities via scripting.
+You *should* set the _alias_ parameter when you have multiple activities, when you want to name 
+metrics per-activity, or when you want to control activities via scripting.
 
-Each activity can be given a symbolic name known as an _alias_. It is good
-practice to give all your activities an alias, since this determines the
-named used in logging, metrics, and even scripting control.
+Each activity can be given a symbolic name known as an _alias_. It is good practice to give all 
+your activities an alias, since this determines the named used in logging, metrics, and even 
+scripting control.
 
 _default value_ : The name of any provided YAML filename is used as the
 basis for the default alias. Otherwise, the activity type name is used.
@@ -74,71 +78,53 @@ This is a convenience for simple test scenarios only.
 You *should* set the _threads_ parameter when you need to ramp up a
 workload.
 
-Each activity can be created with a number of threads. It is important to
-adjust this setting to the system types used by NoSQLBench.
+Each activity can be created with a number of threads. It is important to adjust this setting 
+ to the system types used by NoSQLBench.
 
-_default value_ : For now, the default is simply *1*. Users must be aware
-of this setting and adjust it to a reasonable value for their workloads.
+_default value_ : For now, the default is simply *1*. Users must be aware of this setting and 
+adjust it to a reasonable value for their workloads.
 
-`threads=auto` : When you set `threads=auto`, it will set the number of
-threads to 10x the number of cores in your system. There is no distinction
-here between full cores and hardware threads. This is generally a
-reasonable number of threads to tap into the processing power of a client
-system.
+`threads=auto` : When you set `threads=auto`, it will set the number of threads to 10x the 
+number of cores in your system. There is no distinction here between full cores and hardware 
+threads. This is generally a reasonable number of threads to tap into the processing power of a 
+client system.
 
-`threads=__x` : When you set `threads=5x` or `threads=10x`, you will set
-the number of threads to some multiplier of the logical CPUs in the local
-system.
+`threads=__x` : When you set `threads=5x` or `threads=10x`, you will set the number of threads 
+to some multiplier of the logical CPUs in the local system.
 
-👉 The threads parameter will work slightly differently for activities using
-the async parameter. For example, when `async=500` is provided, then the
-number of async operations is split between all configured threads, and
-each thread will juggle a number of in-flight operations asynchronously.
-Without the async parameter, threads determines the logical concurrency
-level of NoSQLBench in the classic 'request-per-thread' mode. Neither mode
-is strictly correct, and both modes can be used for more accurate testing
-depending on the constraints of your environment.
-
-A good rule of thumb for setting threads for maximum effect is to set it
-relatively high, such as 10XvCPU when running synchronous workloads
-(when not providing the async parameter), and to 5XvCPU for all async
-workloads. Variation in system dynamics make it difficult to peg an ideal
-number, so experimentation is encouraged while you dial in your settings
-initially.
+A good rule of thumb for setting threads for maximum effect is to set it relatively high, such 
+as 10XvCPU when running synchronous workloads (when not providing the async parameter), and to 
+5XvCPU for all async workloads. Variation in system dynamics make it difficult to peg an ideal 
+number, so experimentation is encouraged while you dial in your settings initially.
 
 ## cycles
 
 - `cycles=<cycle count>`
 - `cycles=<cycle min>..<cycle max>`
-- _default_: same as `stride`
+- _default_: 1
 - _required_: no
 - _dynamic_: no
 
-The cycles parameter determines the starting and ending point for an
-activity. It determines the range of values which will act as seed values
-for each operation. For each cycle of the test, a statement is built from
-a statement template and executed as an operation.
+ The cycles parameter determines the starting and ending point for an activity. It determines 
+  the range of values which will act as seed values for each operation. For each cycle of the 
+  test, a statement is built from a statement template and executed as an operation.
 
-If you do not set the cycles parameter, then it will automatically be set
-to the size of the sequence. The sequence is simply the length of the op
-sequence that is constructed from the active statements and ratios in your
-activity YAML.
+ If you do not set the cycles parameter, then it will automatically be set to the size of the 
+  sequence. The sequence is simply the length of the op sequence that is constructed from the 
+  active statements and ratios in your activity YAML.
 
-You *should* set the cycles for every activity except for schema-like
-activities, or activities which you run just as a sanity check of active
-statements.
+You *should* set the cycles for every activity except for schema-like activities, or activities 
+which you run just as a sanity check of active statements.
 
-In the `cycles=<cycle count>` version, the count indicates the total
-number of cycles, and is equivalent to `cycles=0..<cycle max>`. In both
-cases, the max value is not the actual number of the last cycle. This is
-because all cycle parameters define a closed-open interval. In other
-words, the minimum value is either zero by default or the specified
-minimum value, but the maximum value is the first value *not* included in
-the interval. This means that you can easily stack intervals over
-subsequent runs while knowing that you will cover all logical cycles
-without gaps or duplicates. For example, given `cycles=1000` and then
-`cycles=1000..2000`, and then `cycles=2000..5K`, you know that all cycles
-between 0 (inclusive) and 5000 (exclusive) have been specified.
+In the `cycles=<cycle count>` version, the count indicates the total number of cycles, and is 
+equivalent to `cycles=0..<cycle max>`. In both cases, the max value is not the actual number 
+of the last cycle. This is because all cycle parameters define a closed-open interval. In other 
+words, the minimum value is either zero by default or the specified minimum value, but the 
+maximum value is the first value *not* included in the interval. This means that you can easily 
+stack intervals over subsequent runs while knowing that you will cover all logical cycles 
+without gaps or duplicates. For example, given `cycles=1000` and then `cycles=1000..2000`, and 
+then `cycles=2000..5K`, you know that all cycles between 0 (inclusive) and 5000 (exclusive) 
+have been specified.
 
 ## stride
 
@@ -147,56 +133,22 @@ between 0 (inclusive) and 5000 (exclusive) have been specified.
 - _required_: no
 - _dynamic_: no
 
-Usually, you don't want to provide a setting for stride, but it is still
-important to understand what it does. Within NoSQLBench, each time a
-thread needs to allocate a set of cycles to operate on, it takes a
-contiguous range of values from a shared atomic value. Thus, the stride is
-the unit of micro-batching within NoSQLBench. It also means that you can
-use stride to optimize a workload by setting the value higher than the
-default. For example if you are running a single-statement workload at a
-very high rate, it doesn't make sense for threads to allocate one op at a
-time from a shared atomic value. You can simply set
-`stride=1000` to cause (ballpark estimation) about 1000X less internal
-contention.
+Usually, you don't want to provide a setting for stride, but it is still important to 
+understand what it does. Within NoSQLBench, each time a thread needs to allocate a set of 
+cycles to operate on, it takes a contiguous range of values from a shared atomic value. Thus, 
+the stride is the unit of micro-batching within NoSQLBench. It also means that you can use 
+stride to optimize a workload by setting the value higher than the default. For example if you 
+are running a single-statement workload at a very high rate, it doesn't make sense for threads 
+to allocate one op at a time from a shared atomic value. You can simply set `stride=1000` to 
+cause (ballpark estimation) about 1000X less internal contention.
 
-The stride is initialized to the calculated sequence length. The sequence
-length is simply the number of operations in the op sequence that is
-planned from your active statements and their ratios.
+The stride is initialized to the calculated sequence length. The sequence length is simply the 
+number of operations in the op sequence that is planned from your active statements and their 
+ratios.
 
-You usually do not want to set the stride directly. If you do, make sure
-it is a multiple of what it would normally be set to if you need to ensure
-that sequences are not divided up differently. This can be important when
-simulating the access patterns of applications.
-
-👉 When simulating multi-op access patterns in non-async mode, the stride
-metric can tell you how long it took for a whole group of operations to
-complete.
-
-## async
-
-- `async=<ops>`
-- _default_: unset
-- _required_: no
-- _dynamic_: no
-
-The `async=<ops>` parameter puts an activity into an asynchronous dispatch
-mode and configures each thread to juggle a proportion of the operations
-specified. If you specify `async=500 threads=10`, then each of 10 threads
-will manage execution of 50 operations at a time. With async mode, a
-thread will always prepare and send operations if there are fewer in
-flight than it is allotted before servicing any pending responses.
-
-Async mode also puts threads into a different sequencing behavior. When in
-async mode, responses from an operation may arrive in a different order
-than they are sent, and thus linearized operations can't be guaranteed as
-with the non-async mode. This means that sometimes you use want to avoid
-async mode when you are intentionally simulating access patterns with
-multiple linearized operations per user as you may see in your
-application.
-
-The absence of the async parameter leaves the activity in the default
-non-async mode, where each thread works through a sequence of ops one
-operation at a time.
+You usually do not want to set the stride directly. If you do, make sure it is a multiple of 
+what it would normally be set to if you need to ensure that sequences are not divided up 
+differently. This can be important when simulating the access patterns of applications.
 
 ## cyclerate
 
@@ -206,23 +158,18 @@ operation at a time.
 - _required_: no
 - _dynamic_: yes
 
-The cyclerate parameter sets a maximum op rate for individual cycles
-within the activity, across the whole activity, irrespective of how many
-threads are active.
+The cyclerate parameter sets a maximum op rate for individual cycles within the activity, 
+ across the whole activity, irrespective of how many threads are active.
 
 👉 The cyclerate is a rate limiter, and can thus only throttle an activity to
 be slower than it would otherwise run. Rate limiting is also an invasive
 element in a workload, and will always come at a cost. For extremely high
 throughput testing, consider carefully whether your testing would benefit
-more from concurrency-based throttling as with async or the striderate
-described below.
+more from concurrency-based throttling such as adjust the number of threads.
 
 When the cyclerate parameter is provided, two additional metrics are
-tracked: the wait time and the response time. See the 'Reference|Timing
-Terms' section for more details on these metrics.
-
-_default_: None. When the cyclerate parameter is not provided, an activity
-runs as fast as it can, given how fast operations can complete.
+tracked: the wait time and the response time.
+See [Timing Terms Explained](../reference/timing_terms) for more details.
 
 Examples:
 
@@ -232,11 +179,6 @@ Examples:
   (use it or lose it, not usually desired)
 - `cyclerate=1000,1.5` - same as above, with burst rate set to 1.5 (aka
   50% burst allowed)
-
-Synonyms:
-
-- `rate`
-- `targetrate`
 
 **burst ratio**
 
@@ -302,7 +244,7 @@ irrespective of how many threads it has.
 **WARNING:**
 When using the cyclerate and striderate options together, operations are
 delayed based on both rate limiters. If the relative rates are not
-synchronised with the side of a stride, then one rate limiter will
+synchronised with the size of a stride, then one rate limiter will
 artificially throttle the other. Thus, it usually doesn't make sense to
 use both of these settings in the same activity.
 
