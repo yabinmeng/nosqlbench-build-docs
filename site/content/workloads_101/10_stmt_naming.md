@@ -34,8 +34,7 @@ format `doc#--block#--stmt#`.
 For example, the full name of statement1 above would
 be `doc1--block1--stmt1`.
 
-**NOTE:**
-If you anticipate wanting to get metrics for a specific statement in
+👉 If you anticipate wanting to get metrics for a specific statement in
 addition to the other metrics, then you will want to adopt the habit of
 naming all your op templates something basic and descriptive.
 

@@ -73,8 +73,7 @@ error-prone to keep the filename matched to the command template. Just leave it 
 _However_, if you are doing advanced scripting across multiple systems, you can actually provide
 a `workload=` parameter particularly to use another workload description in your test.
 
-**NOTE:**
-This is a powerful feature for workload automation and organization. However, it can get unwieldy
+👉 This is a powerful feature for workload automation and organization. However, it can get unwieldy
 quickly. Caution is advised for deep-linking too many scenarios in a workspace, as there is no
 mechanism for keeping them in sync when small changes are made.
 
@@ -247,8 +246,7 @@ Because it is important to have uniquely named activities for the sake of sane m
 any alias provided when using named scenarios which does not include the three tokens above will
 cause a warning to be issued to the user explaining why this is a bad idea.
 
-**NOTE:**
-UNDEF is handled before alias expansion above, so it is possible to force the default activity
+👉 UNDEF is handled before alias expansion above, so it is possible to force the default activity
 naming behavior above with `alias===UNDEF`. This is generally recommended, and will inform users if
 they try to set the alias in an unsafe way.
 

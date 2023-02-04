@@ -193,8 +193,7 @@ Note the differences between this and the command that we used to generate the s
 100,000 writes. You will want to pick an appropriately large number of
 cycles in actual testing to make your main test meaningful.
 
-**NOTE:**
-The cycles parameter is not just a quantity. It is a range of values.
+👉 The cycles parameter is not just a quantity. It is a range of values.
 The `cycles=n` format is short for
 `cycles=0..n`, which makes cycles a zero-based range. For example,
 cycles=5 means that the activity will use cycles 0,1,2,3,4, but not 5. The

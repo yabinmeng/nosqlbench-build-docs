@@ -307,8 +307,7 @@ additionally `waittime` and `responsetime` are reported.
 
 ## Advanced Testing Features
 
-**NOTE:**
-Some features discussed here are only for advanced testing scenarios. First-time users should
+👉 Some features discussed here are only for advanced testing scenarios. First-time users should
 become familiar with the basic options first.
 
 ##### Hybrid Rate Limiting

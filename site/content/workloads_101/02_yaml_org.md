@@ -10,8 +10,7 @@ It is best to keep every workload templaet self-contained within a single YAML f
 schema, rampup, and the main steps in your testing workflow. These steps in a typical testing 
 workflow are controlled by tags as described below.
 
-**NOTE:**
-The step names described below have been adopted as a convention within the built-in workloads 
+👉 The step names described below have been adopted as a convention within the built-in workloads 
 templates. It is strongly advised that new workload templates use the same naming scheme so 
 that they are easier to re-use..
 

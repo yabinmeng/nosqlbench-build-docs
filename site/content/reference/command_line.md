@@ -171,7 +171,7 @@ or
 
     --progress logonly:5m
 
-NOTE: The progress indicator on console is provided by default unless logging levels are turned up
+👉 The progress indicator on console is provided by default unless logging levels are turned up
 or there is a script invocation on the command line.
 
 If you want to add in classic time decaying histogram metrics for your histograms and timers, you

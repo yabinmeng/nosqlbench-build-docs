@@ -3,54 +3,47 @@ title: "Core Activity Params"
 weight: 20
 ---
 
-Activity parameters are passed as named arguments for an activity, either
-on the command line or via a scenario script. On the command line, these
-take the form of
+Activity parameters are passed as named arguments for an activity, either on the command line 
+or from a scenario script. On the command line, these take the form of
 
-    <paramname>=<paramvalue>
+    ... <param>=<value> ...
 
-Some activity parameters are universal in that they can be used with any
-driver type. These parameters are recognized by NoSQLBench whether or not
-they are recognized by a particular driver implementation. These are
-called _core parameters_. Only core activity parameters are documented
-here.
+Some activity parameters are universal in that they can be used with any driver type. These
+parameters are called _core_ activity params. Only core parameters are documented here. 
+Depending on which driver (a core parameter) you set for an activity or an op templates in an 
+activity, additional parameters become available.
 
-**NOTE:**
-To see what activity parameters are valid for a given activity type, see
-the documentation for that activity type with
-`nb5 help <activity type>`.
+👉 To see what activity parameters are valid for a given activity type, see the documentation 
+ for that activity type with `nb5 help <driver>`.
 
-When starting out, you want to familiarize yourself with these parameters.
-The most important ones to learn about first are driver, cycles and
-threads.
+When starting out, you want to familiarize yourself with these parameters. The most important 
+ ones to learn about first are driver, cycles and threads.
 
 ## driver
 
-- `driver=<activity type>`
-- _default_: inferred from `alias` or `yaml` parameters, or unset
-- _required_: yes, unless inferred
+- `driver=<driver>`
+- _default_: unset
+- _required_: no
 - _dynamic_: no
 
-Every activity can have a default driver which is used for any op template which doesn't specify 
-the driver to use. In nb5, the activity driver is merely the default, whereas before it was 
-required and applied to every op template in the workload.
+Every activity can have a default driver. If provided, it will be used for any op template which 
+does not have one directly assigned in the workload template. For each op template in the 
+workload, if no driver is set, an error is thrown.
 
+As each activity can have multiple op templates, and each op template can have its own driver, 
+the available activity params for a workload are determined by the superset of valid params for 
+all active drivers.
 
-TODO:
+The driver selection for an op template determines the valid constructions for the op template. 
+For example:
 
-Every activity is powered by a named ActivityType. Thus, you must set
-the `type` parameter. If you do not specify this parameter, it will be
-inferred from a substring match against the alias and/or yaml parameters.
-If there is more than one valid match for a valid type value, then you
-must set the type parameter directly.
-
-Telling NoSQLBench what type of activity will be run also determines
-what other parameters are considered valid and how they will be used. So
-in this way, the type parameter is actually the base parameter for any
-activity. When used with scenario commands like `run` or `start`, an
-activity of the named type will be initialized, and then further activity
-parameters on the command line will be used to configure it before it is
-started.
+```yaml
+ops:
+ op1:
+  op:
+   driver: stdout
+   stmt: "example {{Identity()}}"
+```
 
 ## alias
 
@@ -97,8 +90,7 @@ system.
 the number of threads to some multiplier of the logical CPUs in the local
 system.
 
-**NOTE:**
-The threads parameter will work slightly differently for activities using
+👉 The threads parameter will work slightly differently for activities using
 the async parameter. For example, when `async=500` is provided, then the
 number of async operations is split between all configured threads, and
 each thread will juggle a number of in-flight operations asynchronously.
@@ -176,8 +168,7 @@ it is a multiple of what it would normally be set to if you need to ensure
 that sequences are not divided up differently. This can be important when
 simulating the access patterns of applications.
 
-**NOTE:**
-When simulating multi-op access patterns in non-async mode, the stride
+👉 When simulating multi-op access patterns in non-async mode, the stride
 metric can tell you how long it took for a whole group of operations to
 complete.
 
@@ -219,8 +210,7 @@ The cyclerate parameter sets a maximum op rate for individual cycles
 within the activity, across the whole activity, irrespective of how many
 threads are active.
 
-**NOTE:**
-The cyclerate is a rate limiter, and can thus only throttle an activity to
+👉 The cyclerate is a rate limiter, and can thus only throttle an activity to
 be slower than it would otherwise run. Rate limiting is also an invasive
 element in a workload, and will always come at a cost. For extremely high
 throughput testing, consider carefully whether your testing would benefit
@@ -279,8 +269,7 @@ controllable bursting rates. This ability allows for near-strict behavior
 while allowing clients to still track truer to rate limit expectations, so
 long as the overall workload is not saturating resources.
 
-**NOTE:**
-The default burst ratio of 1.1 makes testing results slightly more stable
+👉 The default burst ratio of 1.1 makes testing results slightly more stable
 on average, but can also hide some short-term slow-downs in system
 throughput. It is set at the default to fit most tester's expectations for
 averaging results, but it may not be strict enough for your testing
@@ -339,8 +328,7 @@ might expect wil happen: those statements will occur multiple times to
 meet their ratio in the op mix. You can customize the op mix further by
 changing the seq parameter to concat or interval.
 
-**NOTE:**
-The op sequence is a look up table of statement templates, *not*
+👉 The op sequence is a look up table of statement templates, *not*
 individual statements or operations. Thus, the cycle still determines the
 uniqueness of an operation as you would expect. For example, if statement
 form ABC occurs 3x per sequence because you set its ratio to 3, then each
