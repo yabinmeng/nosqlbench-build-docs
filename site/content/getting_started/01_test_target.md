@@ -29,9 +29,6 @@ If you plan to follow along this tutorial using AstraDB, you will need to follow
 
   ![Keyspace](/../getting_started/keyspace.png)
 
-- Add an IP to connect to your DB Instance, you can do that by going to the settings of your Astra DB
-  and clicking 'Add Access'. Make note of your IP.
-
 - In the connect menu of your Astra DB Instance, download your secure connect bundle and make note of its path.
 
 - In your organization settings, you need to generate a Read/Write token and make note of the Client ID and Client Secret.

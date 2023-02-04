@@ -186,7 +186,8 @@ cycle=9
 $
 ```
 
-Sometimes, this is appropriate, such as when specifying settings like `threads==` for schema phases.
+Sometimes, this is appropriate, such as when specifying settings like `threads==` for schema 
+activities.
 
 ### Verbose Locking example
 
@@ -212,7 +213,7 @@ If you want to ensure that any parameter in a named scenario template remains un
 scenario script, you can assign it a value of `UNDEF`. The locking behaviors described above apply to
 this one as well. Thus, for schema commands which rely on the default sequence length (which is
 based on the number of active statements), you can set `cycles==UNDEF` to ensure that when a user
-passes a cycles parameter the schema phase doesn't break with too many cycles.
+passes a cycles parameter, the schema activity doesn't break with too many cycles.
 
 ## Automatic Parameters
 

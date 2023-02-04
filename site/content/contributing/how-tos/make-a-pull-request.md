@@ -38,7 +38,7 @@ the NoSQLBench project.
 ## Iterate
    1. resolve conversations or issues
    2. repush and ask for review 
-      - You are done with this phase once your PR is green, changes have been approved by 
+      - You are done with this step once your PR is green, changes have been approved by 
         reviewers, and there are no unresolved issues.
 
 ## Merge

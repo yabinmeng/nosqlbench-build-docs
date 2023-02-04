@@ -306,7 +306,7 @@ in the workload construction guide.
 
 ```yaml
 tags:
-  phase: main
+  block: main
 ```
 
 *json:*
@@ -315,7 +315,7 @@ tags:
 
 {
   "tags": {
-    "phase": "main"
+    "block": "main"
   }
 }
 ```

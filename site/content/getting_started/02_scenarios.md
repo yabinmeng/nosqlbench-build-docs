@@ -3,11 +3,11 @@ title: "02 Scenarios"
 weight: 12
 ---
 
-# Example Scenario
+# Scenarios
 
 👉 The commands in this section are examples to show you how the command line works with nb5.
 
-## Run a Scenario
+## run a scenario
 
 To run a simple built-in scenario run one of these:
 
@@ -30,13 +30,13 @@ details, but these should *not* be added to the workload template anyway.
 This also captures some workflow for us. It takes care of:
 
 1. Initializing your schema.
-2. Loading background data to provide a realistic scenario.
-3. Running a main phase against the background data.
+2. Loading background data to provide a realistic scenario. 
+3. Running a main activity against the background data.
 
 How this works is explained in more depth throughout this guide. For now, just know that all of 
 these details are completely open for you to change simply by modifying the workload template.
 
-## Discover Scenarios
+## discover Scenarios
 
 To get a list of built-in scenarios run:
 
@@ -57,7 +57,7 @@ The example works above when we specify the workload, because it has a default s
 directory. To learn more about how to design custom workloads see
 [[Workloads 101](/../workloads_101)].
 
-## Compose Scenarios
+## compose scenarios
 
 We could easily ask nb5 to run a different named scenario of our choosing by running this:
 
@@ -106,7 +106,7 @@ command line, go ahead and execute the following command, replacing
 the `host=<host-or-ip>` with that of one of your database nodes.
 
 ```
-./nb5 run driver=cqld4 workload=cql-keyvalue tags=phase:schema ...
+./nb5 run driver=cqld4 workload=cql-keyvalue tags=block:schema ...
 ```
 
 This follows the basic command pattern of all nb5 commands. The first bare word is a command, 
@@ -140,8 +140,8 @@ and execute CQL statements against a database.
 this example, we use `cql-keyvalue` which is a pre-built workload that is packaged with 
 NoSQLBench.
 
-`tags=phase:schema` tells NoSQLBench to run the op templates from a block that is
-tagged with `phase:schema`. In this example, that is the DDL portion of the `cql-keyvalue` 
+`tags=block:schema` tells NoSQLBench to run the op templates from a block that is
+tagged with `block:schema`. In this example, that is the DDL portion of the `cql-keyvalue` 
 workload.
 
 `...` should be the endpoint and authentication details that you used from the first example.
@@ -154,10 +154,9 @@ keyspace in cqlsh or DataStax Studio with
 
 Before running a test of typical access patterns where you want to capture the results, you 
 need to make the test more interesting than loading an empty table. For this, we use the 
-rampup phase.
+rampup activity.
 
-Before sending our test writes to the database, we will use the `stdout` activity type, so we 
-can see what NoSQLBench is generating for CQL statements.
+Before sending our test writes to the database, we will use the `stdout` driver, so we can see what NoSQLBench is generating for CQL statements.
 
 Go ahead and execute the following command:
 
@@ -225,7 +224,7 @@ cql-keyvalue-astra (remaining,active,completed)=(87378,50,12622) 013%
 cql-keyvalue-astra (remaining,active,completed)=(0,0,100000) 100% (last report)
 ```
 
-## Run the main test phase
+## Run the main activity
 
 Now that we have a base dataset of 50K rows in the database, we will now
 run a mixed read / write workload, by default this runs a 50% read / 50%

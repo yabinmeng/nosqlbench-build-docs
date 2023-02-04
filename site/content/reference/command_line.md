@@ -3,40 +3,37 @@ title: "CLI Options"
 weight: 10
 ---
 
-This is the same documentation you get in markdown format with the
-`nb5 --help` command.
-
----------------------------------------
+### Command-Line Options ###
 
 Help ( You're looking at it. )
 
     --help
 
-Short options, like `-v` represent simple options, like verbosity. Using multiples increases the
-level of the option, like `-vvv`.
+Short options, like '-v' represent simple options, like verbosity. Using multiples increases the
+level of the option, like '-vvv'.
 
-Long options, like `--help` are top-level options that may only be used once. These modify general
-behavior, or allow you to get more details on how to use nb.
+Long options, like '--help' are top-level options that may only be used once. These modify general
+behavior, or allow you to get more details on how to use PROG.
 
 All other options are either commands, or named arguments to commands. Any single word without
 dashes is a command that will be converted into script form. Any option that includes an equals sign
 is a named argument to the previous command. The following example is a commandline with a command *
 start*, and two named arguments to that command.
 
-    nb5 start driver=diag alias=example
+    PROG start driver=diag alias=example
 
 ### Discovery options ###
 
-These options help you learn more about running nb, and about the plugins that are present in your
+These options help you learn more about running PROG, and about the plugins that are present in your
 particular version.
 
 Get a list of additional help topics that have more detailed documentation:
 
-    nb5 help topics
+    PROG help topics
 
 Provide specific help for the named activity type:
 
-    nb5 help <activity type>
+    PROG help <activity type>
 
 List the available drivers:
 
@@ -60,7 +57,7 @@ Provide the metrics that are available for scripting
 
 ### Execution Options ###
 
-This is how you actually tell nb5 what scenario to run. Each of these commands appends script logic
+This is how you actually tell PROG what scenario to run. Each of these commands appends script logic
 to the scenario that will be executed. These are considered as commands, can occur in any order and
 quantity. The only rule is that arguments in the arg=value form will apply to the preceding script
 or activity.
@@ -189,13 +186,13 @@ a logfile will be created for this name.
 
     --session-name <name>
 
-EnlistNoSQLBenchto stand up your metrics infrastructure using a local docker runtime:
+Enlist nosqlbench to stand up your metrics infrastructure using a local docker runtime:
 
     --docker-metrics
 
-When this option is set,NoSQLBenchwill start graphite, prometheus, and grafana automatically on
-your local docker, configure them to work together, and point NoSQLBench to send metrics the system
-automatically. It also imports a base dashboard for NoSQLBench and configures grafana snapshot
+When this option is set, nosqlbench will start graphite, prometheus, and grafana automatically on
+your local docker, configure them to work together, and point nosqlbench to send metrics the system
+automatically. It also imports a base dashboard for nosqlbench and configures grafana snapshot
 export to share with a central DataStax grafana instance (grafana can be found on localhost:3000
 with the default credentials admin/admin).
 
@@ -241,6 +238,7 @@ name and log directory.
 
 The reason for the optional timing parameter is to allow for results of short scenario runs to be
 squelched. Metrics for short runs are not generally accurate nor meaningful. Spamming the console
-with boilerplate in such cases is undesirable. If the minimum session length is not specified, it
+with boiler-plate in such cases is undesirable. If the minimum session length is not specified, it
 is assumed to be 0, meaning that a report will always show on that channel.
+
 

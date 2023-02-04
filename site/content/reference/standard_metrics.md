@@ -33,8 +33,7 @@ represents an iteration of a workload. This corresponds to a single operation ex
 some statement definition.
 
 The **cycles** metric is a timer that starts counting at the start of a cycle, before any specific
-activity behavior has control. It stops timing once the logical cycle is complete. This includes and
-additional phases that are executed by multi-phase actions.
+activity behavior has control. It stops timing once the logical cycle is complete.
 
 ## cycles.servicetime
 

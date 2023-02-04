@@ -44,11 +44,11 @@ new scenarios to be included in the built-ins.
 ### Phases
 
 Each built-in contains the following tags that can be used to break the workload up into uniform
-phases:
+steps:
 
-- schema - selected with `tags=phase:schema`
-- rampup - selected with `tags=phase:rampup`
-- main - selected with `tags=phase:main`
+- schema - selected with `tags=block:schema`
+- rampup - selected with `tags=block:rampup`
+- main - selected with `tags=block:main`
 
 ### Parameters
 

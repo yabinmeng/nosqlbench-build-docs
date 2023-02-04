@@ -1,5 +1,5 @@
 ---
-title: "Core Activity Parameters"
+title: "Core Activity Params"
 weight: 20
 ---
 
@@ -26,15 +26,17 @@ threads.
 
 ## driver
 
-For historic reasons, you can also use `type`. They both mean the same
-thing for now, but `driver` is more descriptive. The `type` parameter will
-continue to be supported in this major version (3.x), but it will be an
-error to use it in 4.x and newer.
-
 - `driver=<activity type>`
 - _default_: inferred from `alias` or `yaml` parameters, or unset
 - _required_: yes, unless inferred
 - _dynamic_: no
+
+Every activity can have a default driver which is used for any op template which doesn't specify 
+the driver to use. In nb5, the activity driver is merely the default, whereas before it was 
+required and applied to every op template in the workload.
+
+
+TODO:
 
 Every activity is powered by a named ActivityType. Thus, you must set
 the `type` parameter. If you do not specify this parameter, it will be

@@ -8,7 +8,7 @@ This section touches on topics of using randomized data within NoSQLBench tests.
 ## Benefits
 
 The benefits of using procedural generation for the purposes of load testing is taken as granted in
-this section. For a more thorough discussion on the assumed merits, please see the showcase 
+this section. For a more thorough discussion on the merits, please see the showcase 
 section for [Virtual DataSet](@/nosqlbench/showcase.md#virtual-data-set)
 
 ## Basic Theory
@@ -17,21 +17,21 @@ In NoSQLBench, the data used for each operation is generated on the fly. However
 deterministic by default. That means, for a given activity, any numbered cycle will produce the same
 operation from test to test, so long as the parameters are the same.
 
-NoSQLBench runs each activity over a specific range of cycles. Each cycle is based on a specific
-number from the cycle range. This cycle number is used as the seed value for that cycle. It
-determines not only which operation is selected, but also what data is generated and bound to that
-operation for execution. The data generation is initialized at the start, and optimized for rapid
-access during steady state operation.
+NoSQLBench runs each activity over a specific range of cycles. For each cycle, an operation is 
+built from a template using that cycle as a seed. The cycle value determines which op template 
+to use as well as all the payload values and/or configuration details for that operation.
 
-This is by-design. However, there are ways of selecting how much variation you have from one test
-scenario to another.
+The machinery which is responsible for dispatching operations to run is initialized before an 
+activity starts to optimize performance while the activity is running.
 
 ## Managing Variation
 
+There are ways of selecting how much variation you have from one test scenario to another.
+
 Sometimes you will want to run the same test with the same operations, access patterns, and data.
-For certain types of testing and comparisons, this is the only way to shed a light on a specific
-issue, or variation in performance. The ability to run the same test between different target
-systems is extremely valuable.
+This may be necessary in advanced testing scenarios, since it can make data or order-specific 
+problems reproducible. The ability to run the same test between different target systems is 
+extremely valuable.
 
 ### Selecting Cycles
 
@@ -48,25 +48,25 @@ short-hand for `cycles=0..100M`.
 
 ### Selecting Bindings
 
-The built-in workloads come with bindings which support the "rampup" and "main" phases
+The built-in workloads come with bindings which support the _rampup_ and _main_ testing activities
 appropriately. This means that the cycles for rampup will use a binding that lays data into a
 dataset incrementally, as you would build a log cabin. Each cycle adds to the data. The bindings are
-chosen for this effect so that the rampup phase is incremental with the cycle value.
+chosen for this effect so that the rampup activity is incremental with the cycle value.
 
-The main phase is selected differently. In the main phase, you don't want to address over the data
-in order. To emulate a real workload, you need to select the data pseudo-randomly so that storage
-devices don't get to cheat with read-ahead (more than they would realistically) and so on. That
-means that the main phase bindings are also specifically chosen for the "random" access patterns
-that you might expect in some workloads.
+The main activity bindings are selected differently. In the main activity, you don't want to 
+address over the data in order. To emulate a real workload, you need to select the data 
+pseudo-randomly so that storage devices don't get to cheat with read-ahead (more than they 
+would realistically) and so on. That means that the main activity bindings are also specifically 
+chosen for the "random" access patterns that you might expect in some workloads.
 
 The distinction between these two types of bindings should tell you something about the binding
 capabilities. You can really do what ever you want as long as you can stitch the right functions
-together to get there. Although the data produced by some of the functions (like `Hash()` for
-example) look random, it is not. It is, however, effectively random enough for most distributed
-systems performance testing.
+together to get there. Although the data produced by some functions (like `Hash()` for
+example) look random, they are not. They are, however, effectively random enough for most 
+distributed systems performance testing.
 
 If you need to add randomization to fields, it doesn't hurt to add an additional `Hash()` to the
-front. Just be advised that the same constructions from one binding recipe to the next will yield
+front. Just be advised that the same constructions from one bind point to the next will yield
 the same outputs, so season to taste.
 
 

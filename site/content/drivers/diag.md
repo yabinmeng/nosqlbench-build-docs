@@ -24,5 +24,3 @@ active motor.
 - errormodulo - The cycle rate at which to generate a non-zero status code
   (1=every cycle, 10=every 10th cycle)
   ( default: errormodule=1000 )
-- phases - The number of phases to run.
-  ( default: phases=1 )

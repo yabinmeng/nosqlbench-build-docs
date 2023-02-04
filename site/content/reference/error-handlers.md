@@ -3,6 +3,16 @@ title: "Error Handlers"
 weight: 22
 ---
 
+NoSQLBench v5 has a standard error handler mechanism which is available to all drivers.
+
+## defaults
+
+If no error handler is configured for an activity, then the default error handler is used:
+
+    errors=stop
+
+The activity param
+
 A new error handler facility has been introduced to NoSQLBench in the HTTP driver. This error
 handler is a modular and highly configurable error handler with a very basic set of defaults:
 If you don't configure it, then any error thrown by an activity will cause it to stop. This is
