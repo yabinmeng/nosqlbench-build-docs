@@ -76,6 +76,7 @@ foothr = true # show or hide horizontal rule above footer
 menu = [
     {url = "/getting_started/", name = "Getting Started", slash = true, blank = false},
     {url = "/release_notes/", name = "Release Notes", slash = true, blank = false},
+#    {url = "http://nosqlbench.io/", icon = "ICON", slash=true, blank=true }
 #    {url = "https://github.com/nosqlbench/nosqlbench-build-docs", name = "Docs Repo", slash = true, blank = "true" },
 #    {url = "/posts/", name = "Posts", slash = true, blank = false},
 #    {url = "/categories/", name = "Categories", slash = true, blank = false},
