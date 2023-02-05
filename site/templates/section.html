@@ -38,6 +38,27 @@
 {{- macros_head::seo(config=config, title=title, title_addition=title_addition, description=description, type="article", is_page=true, created_time=created_time, updated_time=updated_time) }}
 {%- endblock seo %}
 
+{%- block breadcrumbs -%}
+<div style="position:sticky">
+  {%- set active_page = get_page(path=mapper::this_page(section=section|default(value=false),page=page|default(value=false))) -%}
+  {%- set active_section=get_section(path=active_page.ancestors | reverse | first) -%}
+  {%- set lower_root=get_section(path=mapper::lower_root(section=section|default(value=false),page=page|default(value=false))) -%}
+  {%- set upper_root=get_section(path=mapper::upper_root(section=section|default(value=false),page=page|default(value=false))) -%}
+  {%- for section_name in active_page.ancestors -%}
+    {%- set section_on_path = get_section(path=section_name) -%}
+
+    {%- if section_on_path.title -%}
+    {%- if section_on_path.relative_path == active_section.relative_path -%}
+      <span title="[current section]"><a href="{{ section_on_path.path }}"><strong>{{ section_on_path.title }}▼</strong> </a></span>
+    {%- else -%}
+      <span><a href="{{ section_on_path.path }}">{{ section_on_path.title }}► </a></span>
+    {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+  <span title="[current page]"><a href="{{active_page.path}}"><strong>{{active_page.title}} 🖺</strong></a></span>
+</div>
+{%- endblock breadcrumbs -%}
+
 {# CONTENT #}
 {%- block content -%}
 
@@ -54,7 +75,7 @@
 <!-- >upper_root: {{ mapper::upper_root(section=section|default(value=false),page=page|default(value=false)) }} -->
 
 <div class="toc" aria-hidden="true" id="">
-  <h4>{{ active_section.extra.topicheader | default(value=active_section.title) }}</h4>
+<!--  <h4>{{ active_section.extra.topicheader | default(value=active_section.title) }}</h4>-->
   {%- set root_section = get_section(path="_index.md") -%}
   <div class="toc-sticky">
 

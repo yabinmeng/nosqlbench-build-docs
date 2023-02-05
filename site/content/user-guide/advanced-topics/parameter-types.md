@@ -7,7 +7,8 @@ To configure a NoSQLBench Scenario to do something useful, you have to provide p
 This can occur in one of several ways. This section is a guide on parameter types and how 
 they layer together.
 
-Casual users do not need to understand all the ways you can parameterize nb5. 
+Most users will not need to understand all the ways you can parameterize nb5. If you are doing 
+lots of customization or scenario design, then the details of this section may be useful. 
 
 # Global Options
 

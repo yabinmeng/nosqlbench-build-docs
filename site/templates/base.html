@@ -75,6 +75,7 @@
       </div>
       {%- endif %}
     </nav>
+
     {%- if config.extra.sitedesc %}
     {%- if config.description %}
     <div>{{ config.description }}</div>
@@ -83,6 +84,8 @@
     {%- if config.extra.headhr %}
     <hr />
     {%- endif %}
+    {%- block breadcrumbs -%}
+    {%- endblock breadcrumbs -%}
   </header>
 {%- endblock header %}
   <main>

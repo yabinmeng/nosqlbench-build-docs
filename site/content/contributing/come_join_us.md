@@ -16,7 +16,7 @@ Other than that, we're always happy to find ways for contributors to get engaged
 interested but don't know how to get started, join us on our
 [discord server](https://discord.gg/dBHRakusMN) and we can figure something out.
 
-## formalities
+**CLA or contributor covenants**
 
 NoSQLBench does not presently have a contributor covenant or CLA (Contributor Licensing Agreement), 
 but this may be added if necessary. In general, we try to keep the friction low for new 

@@ -70,7 +70,7 @@ logo = { file="nb5logo.png", width="32", height="32", alt="NoSQLBench5 (build)",
 sitedesc = false # enables or disables the display of the site description below the logo.
 copyright_start_year = 2023  # optional
 #copyright_end_year = 2020  # optional, recommend leaving unset, zola build will set this to current year by default
-headhr = false # show or hide horizontal rule below header
+headhr = true # show or hide horizontal rule below header
 foothr = true # show or hide horizontal rule above footer
 
 menu = [
