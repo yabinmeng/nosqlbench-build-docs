@@ -1,6 +1,6 @@
 ---
 title: "Core Op Fields"
-weight: 21
+weight: 22
 ---
 
 Some op template fields are reserved by nb5. These are provided by the runtime, not any 
@@ -10,6 +10,50 @@ particular driver, and can be used in any op template.
 template which do not have this op field by name will automatically inherit it.
 
 # Core Op Fields
+
+## *driver*
+
+- _default_: unset
+- _required_: yes, by op template or by activity params
+- _dynamic_: no
+
+Each op template in an activity can use a specific driver.  If this op field is not provided in 
+the op template, then it is set by default from the activity params. If neither is set, an error 
+is thrown.
+
+Since each op template can have a unique driver, and each activity can have multiple op 
+templates, each activity will have multiple drivers active while it is running. These drivers 
+are instanced and shared between op templates which specify the same driver by name.
+
+During activity initialization, all the drivers which are loaded by active op templates (those 
+not filtered out) are consulted for valid activity params. Only params which are valid for at least 
+one active driver will be allowed to be set on the activity. This includes [core activity 
+params](@/user-guide/core-activity-params.md).
+
+## *space*
+
+- _default_: "default"
+- _required_: yes, but set by default
+- _dynamic_: yes
+
+The space is a named cache of driver state. For each driver, a cache of driver-specific "driver 
+space" objects is kept. If the value is not set in the op template, then the effect is the same 
+as all op templates sharing a single instance of a driver for a given name (Where the name is 
+the same for multiple op templates). However, if the users sets the `space` op field to 
+a binding, then the driver will be virtualized over the names provided, allowing for a given 
+driver to be effectively multi-instanced within the activity.
+
+👉 **Be careful with this op field!** The way it works allows for quite advanced testing 
+scenarios to be built with _very minimal_ effort, compared to nearly all other approaches. 
+However, if you set this op field to a binding function which produces a high cardinality values,
+you will be asking your client to create many instances of a native driver. This is not likely 
+to end well for at least the client, and in some cases the server. This does present interesting 
+stress testing scenarios, however!
+
+When an activity is shutting down, it will automatically close out any driver spaces 
+according to their own built-in shutdown logic, but not until the activity is complete. At 
+present, there is no space cache expiry mechanism, but this can be added if someone
+needs it.
 
 ## *ratio*
 

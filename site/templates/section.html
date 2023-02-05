@@ -67,9 +67,17 @@
     {%- endif -%}
     <div class="toc-item">
       {%- if page.relative_path == active_page.relative_path -%}
-      <a href="{{page.path}}"><strong>{{- page.title -}}</strong></a>
+      <a href="{{page.path}}"
+         {%- if page.description -%}
+         title="{{ page.description }}"
+         {%- endif -%}
+      ><strong>{{- page.title -}}</strong></a>
       {%- else -%}
-      <a href="{{page.path}}">{{- page.title -}}</a>
+      <a href="{{page.path}}"
+         {%- if page.description -%}
+         title="{{ page.description }}"
+         {%- endif -%}
+      >{{- page.title -}}</a>
       {%- endif -%}
     </div>
 
@@ -79,11 +87,15 @@
 
     {%- set subsection = get_section(path=subsection_path) -%}
 
-    <div class="toc-item">
+    <div class="toc-item"
+         {%- if subsection.description -%}
+         title="{{ subsection.description }}"
+         {%- endif -%}
+    >
       {%- if subsection.relative_path == active_section.relative_path -%}
-      <strong>{{- subsection.title -}}</strong>
+      <strong>▼ {{- subsection.title -}}</strong>
       {%- else -%}
-      <a href="{{subsection.path}}">{{- subsection.title -}}</a>
+      <a href="{{subsection.path}}">► {{- subsection.title -}}</a>
       {%- endif -%}
     </div>
 
@@ -106,7 +118,11 @@
     <!-- subsubsection_path: {{ subsubsection_path }} -->
     {%- set subsubsection = get_section(path=subsubsection_path) -%}
     <div class="toc-item-child">
-      <a href="{{subsubsection.path}}">{{subsubsection.title}}</a>
+      <a href="{{subsubsection.path}}"
+         {%- if subsection.description -%}
+         title="{{subsection.description}}"
+         {%- endif -%}
+      >‣ {{subsubsection.title}}</a>
     </div>
     {%- endfor -%}
 

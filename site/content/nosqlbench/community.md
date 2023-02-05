@@ -13,7 +13,8 @@ find those places where the docs are lacking. Maybe you can help us by adding so
 
 This site is intended to be the first and most useful form of documentation for NoSQLBench. It is
 hosted on a separate project repo on github so that it can be owned and maintained by the NoSQLBench
-user and developer community. (Click the github link [[here](https://github.com/nosqlbench/nosqlbench-docs)]  to go directly there.) If you
+user and developer community. 
+(Click the github link [[here](https://github.com/nosqlbench/nosqlbench-docs)]  to go directly there.) If you
 see something here that should be updated or expanded, please submit an issue, reach out on discord,
 or even better, submit a pull request!
 
@@ -27,22 +28,16 @@ each other. Please
 
 We welcome all builders to NoSQLBench to help us improve it. Whether you are focused on improving
 docs or building a new subsystem or scripting extension, there is room for everyone, and all are
-appreciated. Please read about
-[[CONTRIBUTING](https://github.com/nosqlbench/nosqlbench/blob/main/CONTRIBUTING.md)]
+appreciated. We have a new [contributing](@/contributing/_index.md) section 
 if you are interested.
 
-## Built-In Docs
+## Documentation
 
-NoSQLBench has some built-in docs which are available on the command line. You can see a list of
-built-in docs with the command:
+The primary documentation for NoSQLBench has been moved to this site. While there are still some 
+comment line help facilities, like `nb5 help <driver>`, this is the best place to read it.
+When nb5 is built, it automatically exports all of the rendered docs content to this site.
 
-    nb5 help topics
-
-or, to read any topic, simply use the command:
-
-    nb5 help <topic>
-
-This doc site contains much more documentation than you will want to browse on the command line. 
+This site contains much more documentation than you will want to browse on the command line. 
 It is recommended that you look here first with the search function when possible.
 
 ## Bug Fixes

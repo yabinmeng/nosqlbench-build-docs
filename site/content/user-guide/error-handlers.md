@@ -1,22 +1,17 @@
 ---
 title: "Error Handlers"
-weight: 22
+weight: 25
 ---
 
 NoSQLBench v5 has a standard error handler mechanism which is available to all drivers.
-
-## defaults
 
 If no error handler is configured for an activity, then the default error handler is used:
 
     errors=stop
 
-The activity param
-
-A new error handler facility has been introduced to NoSQLBench in the HTTP driver. This error
-handler is a modular and highly configurable error handler with a very basic set of defaults:
-If you don't configure it, then any error thrown by an activity will cause it to stop. This is
-indicated by the default `errors=stop`.
+This error handler is a modular and highly configurable error handler with a very basic set of 
+defaults: If you don't configure it, then any error thrown by an activity will cause it to 
+stop. This is indicated by the default `errors=stop`.
 
 The default configuration is just a fail-fast default. It is the simplest possible error handler
 configuration.
@@ -25,19 +20,19 @@ configuration.
 
 The currently supported handler verbs, like `stop` above, are:
 
-* **ignore** If an error matches this verb in a handler chain, then it will be silently ignored. 
+* **ignore** If an error matches this verb in a handler chain, then it will be silently ignored.
   It will not be retried. Although combining ignore with retry will cause it to be silently retried.
 * **counter** Count each uniquely named error with a counter metric.
-* **meter** Meter each uniquely named error with a meter metric.
 * **histogram** Track the session time of each uniquely named error with a histogram.
+* **meter** Meter each uniquely named error with a meter metric.
+* **retry** - Mark the error as retryable. If an activity has retries available, the operation will
+  be retried. By default, activities which allow ops to be retried will have `maxtries=10`.
+* **stop** Allow the error to propagate through the stack to cause the activity to be stopped.
 * **timer** Count, Meter, and Track session times of each uniquely named error with a timer metric,
   which combines the three forms above.
 * **warn** Log a warning to the log with the error details.
-* **stop** Allow the error to propagate through the stack to cause the activity to be stopped.
 * **code** Assign a specific result code to any matching errors. You can configure this as
   short-hand in a handler list as just a number: `errors=RuntimeException:33,warn`
-* **retry** - Mark the error as retryable. If an activity has retries available, the operation will
-  be retried. By default, activities which allow ops to be retried will have `maxtries=10`.
 
 You can use any of these verbs in any order in a handler list.
 

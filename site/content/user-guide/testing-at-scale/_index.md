@@ -6,4 +6,6 @@ updated = 2021-11-09T15:32:00
 sort_by = "weight"
 weight = 50
 draft = false
+[extra]
+localroot=true
 +++
