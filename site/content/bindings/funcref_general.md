@@ -1,6 +1,6 @@
 ---
-title: general functions
 weight: 20
+title: general functions
 ---
 
 These functions have no particular category, so they ended up here by default.
@@ -755,14 +755,6 @@ and then stitched together according to the template provided.
 @param template A string template containing <pre>{}</pre> anchors
 @param funcs    A varargs length of LongFunctions of any output type
 
-
-## TextOfFile
-
-Provides a single line of text from a target file provided.
-
-- Object -> TextOfFile(String: targetFile) -> String
-  - *example:* `TextOfFile()`
-  - *Provides the first line of text in the specified file.*
 
 ## ThreadNumToInteger
 
