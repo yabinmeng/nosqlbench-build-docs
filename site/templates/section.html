@@ -49,13 +49,13 @@
 
     {%- if section_on_path.title -%}
     {%- if section_on_path.relative_path == active_section.relative_path -%}
-      <span title="[current section]"><a href="{{ section_on_path.path }}"><strong>{{ section_on_path.title }}▼</strong> </a></span>
+      <span title="{{- section_on_path.description | default(value='[current section]') -}}"><a href="{{ section_on_path.path }}"><strong>{{ section_on_path.title }}▼</strong> </a></span>
     {%- else -%}
-      <span><a href="{{ section_on_path.path }}">{{ section_on_path.title }}► </a></span>
+      <span><a href="{{- section_on_path.path -}}">{{ section_on_path.title }}► </a></span>
     {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
-  <span title="[current page]"><a href="{{active_page.path}}"><strong>{{active_page.title}} 🖺</strong></a></span>
+  <span title="{{ active_page.description | default(value='[current page]') }}"><a href="{{active_page.path}}"><strong>{{active_page.title}} 🖺</strong></a></span>
 </div>
 {%- endblock breadcrumbs -%}
 
