@@ -1,8 +1,7 @@
----
-title: "Community"
-weight: 10
-date: "2021-11-09T15:35:37"
----
++++
+title= "Community"
+weight= 10
++++
 
 In general, our goals with NoSQLBench are to make the help systems and examples wrap around the
 users like a suit of armor, so that they feel capable of doing most things without having to ask for

@@ -1,6 +1,6 @@
 ---
 title: "03 Data Bindings"
-weight: 3
+weight: 103
 ---
 
 ## Virtual Data Set

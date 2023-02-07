@@ -1,6 +1,6 @@
 ---
 title: "00 Download"
-weight: 10
+weight: 100
 ---
 
 NoSQLBench version 5 is packaged directly as a Linux binary named

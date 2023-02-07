@@ -1,6 +1,6 @@
 ---
 title: "05 Next Steps"
-weight: 15
+weight: 105
 ---
 
 Now that you've run NoSQLBench for the first time and seen what it does, you can choose what level

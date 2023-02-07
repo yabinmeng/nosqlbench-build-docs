@@ -1,6 +1,6 @@
 ---
 title: "00 Designing Workloads"
-weight: 0
+weight: 100
 ---
 
 # This is a Tutorial

@@ -1,7 +1,6 @@
 ---
 title: "Download"
 weight: 10
-date: "2021-11-09T15:35:37"
 ---
 
 In general, our goals with NoSQLBench are to make the help systems and examples wrap around the

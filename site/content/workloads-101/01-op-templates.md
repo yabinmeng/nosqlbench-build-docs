@@ -1,6 +1,6 @@
 ---
 title: "01 Op Templates"
-weight: 1
+weight: 101
 ---
 
 Op templates are data blueprints that represent a particular kind of operation. They are 

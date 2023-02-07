@@ -1,6 +1,6 @@
 ---
 title: "02 Workload Template Layout"
-weight: 2
+weight: 102
 extra:
  math: true
  math_auto_render: true

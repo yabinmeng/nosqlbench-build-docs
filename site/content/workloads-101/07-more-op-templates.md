@@ -1,6 +1,6 @@
 ---
 title: "07 More Op Templates"
-weight: 7
+weight: 107
 ---
 
 The template forms available in NoSQLBench are very flexible. That means that there are multiple

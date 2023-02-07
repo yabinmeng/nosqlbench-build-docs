@@ -1,6 +1,6 @@
 ---
 title: "09 Template Params"
-weight: 9
+weight: 109
 ---
 
 ## Template Params Defined

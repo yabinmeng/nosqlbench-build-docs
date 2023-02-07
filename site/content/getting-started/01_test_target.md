@@ -1,6 +1,6 @@
 ---
 title: "01 Test Target"
-weight: 11
+weight: 101
 ---
 
 You need a target system to run your test against. If you already have one, you can skip this 

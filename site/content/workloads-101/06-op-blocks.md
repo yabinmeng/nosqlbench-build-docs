@@ -1,6 +1,6 @@
 ---
 title: "06 Op Blocks"
-weight: 6
+weight: 106
 ---
 
 ## Op Blocks Defined

@@ -1,9 +1,6 @@
 ---
 title: "Showcase"
 description: "A description of what makes NoSQLBench Unique"
-date: "2021-11-09T15:35:37"
-updated: "2021-11-09T15:35:37"
-sort_by: "weight"
 draft: false
 weight: 3
 ---

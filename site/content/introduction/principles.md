@@ -1,7 +1,6 @@
 ---
 title: "Design Principles"
 weight: 15
-date: "2021-11-09T15:35:37"
 ---
 
 There are a few core design principles that steer the technical design of NoSQLBench. They are 
