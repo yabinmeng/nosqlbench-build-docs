@@ -27,14 +27,14 @@ If you plan to follow along this tutorial using AstraDB, you will need to follow
 - Add a keyspace named 'baselines' to your Astra Database (this is because Astra does not 
   support adding keyspaces through CQLSH), see the following for details:
 
-  ![Keyspace](/../getting_started/keyspace.png)
+  ![Keyspace](../keyspace.png)
 
 - In the connect menu of your Astra DB Instance, download your secure connect bundle and make note of its path.
 
 - In your organization settings, you need to generate a Read/Write token and make note of the Client ID and Client Secret.
   see below for details:
 
-  ![Token](/../getting_started/token.png)
+  ![Token](../token.png)
 
 ## Configuring for AstraDB
 
