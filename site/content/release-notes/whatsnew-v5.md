@@ -1,5 +1,7 @@
 +++
 title = "What's New - NB5"
+description = "A list of nb5 release highlights"
+weight = 50
 +++
 
 # Updates in Progress

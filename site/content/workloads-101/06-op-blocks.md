@@ -1,5 +1,6 @@
 ---
 title: "06 Op Blocks"
+sort_by: "weight"
 weight: 106
 ---
 

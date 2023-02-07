@@ -1,7 +1,7 @@
----
-title: "Built-In Adapters"
-weight: 1
----
++++
+title= "Built-In Adapters"
+weight= 1
++++
 
 # Built-In Adapters
 

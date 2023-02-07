@@ -1,5 +1,6 @@
 ---
 title: "04 Op Params"
+sort_by: "weight"
 weight: 104
 ---
 

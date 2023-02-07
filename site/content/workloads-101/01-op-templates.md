@@ -1,5 +1,6 @@
 ---
 title: "01 Op Templates"
+sort_by: "weight"
 weight: 101
 ---
 

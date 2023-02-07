@@ -1,6 +1,7 @@
 +++
 title= "Developer How-Tos"
 description = "How to contribute in different ways, step-by-step"
+sort_by="weight"
 weight = 400
 [extra]
 localroot=false

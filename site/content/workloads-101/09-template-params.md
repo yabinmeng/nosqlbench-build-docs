@@ -1,5 +1,6 @@
 ---
 title: "09 Template Params"
+sort_by: "weight"
 weight: 109
 ---
 

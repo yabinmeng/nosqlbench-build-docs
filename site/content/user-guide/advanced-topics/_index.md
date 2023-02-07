@@ -1,8 +1,8 @@
 +++
 title= "Advanced Topics"
 description = "thorough explanation of selected advanced topics"
-weight = 10
-draft = false
+sort_by="weight"
+weight = 30
 [extra]
 localroot=true
 +++

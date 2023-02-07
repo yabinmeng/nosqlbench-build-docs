@@ -1,5 +1,6 @@
 ---
 title: "08 Multi-Docs"
+sort_by: "weight"
 weight: 108
 ---
 

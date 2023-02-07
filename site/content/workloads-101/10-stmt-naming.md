@@ -1,5 +1,6 @@
 ---
 title: "10 Op Naming"
+sort_by: "weight"
 weight: 110
 ---
 

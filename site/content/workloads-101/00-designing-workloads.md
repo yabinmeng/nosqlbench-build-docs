@@ -1,5 +1,6 @@
 ---
 title: "00 Designing Workloads"
+sort_by: "weight"
 weight: 100
 ---
 

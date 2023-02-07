@@ -1,5 +1,6 @@
 ---
 title: "YAML Diagnostics"
+sort_by: "weight"
 weight: 199
 ---
 

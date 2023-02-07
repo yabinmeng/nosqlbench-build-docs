@@ -1,5 +1,6 @@
 ---
 title: "03 Data Bindings"
+sort_by: "weight"
 weight: 103
 ---
 

@@ -1,5 +1,6 @@
 ---
 title: "02 Workload Template Layout"
+sort_by: "weight"
 weight: 102
 extra:
  math: true

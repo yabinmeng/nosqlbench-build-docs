@@ -1,5 +1,6 @@
 ---
 title: "05 Op Tags"
+sort_by: "weight"
 weight: 105
 ---
 
