@@ -1,12 +1,4 @@
 ---
-weight: 30
-title: conversion functions
----
-
-Conversion functions simply allow values of one type
-to be converted to another type in an obvious way.
-
----
 title: conversion functions
 weight: 30
 ---

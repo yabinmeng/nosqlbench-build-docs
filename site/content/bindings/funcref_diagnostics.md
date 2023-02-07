@@ -1,11 +1,4 @@
 ---
-weight: 40
-title: diagnostic functions
----
-
-Diagnostic functions can be used to help you construct the right VirtData recipe.
-
----
 title: diagnostic functions
 weight: 40
 ---
