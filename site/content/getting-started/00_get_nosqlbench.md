@@ -75,7 +75,7 @@ If you want a simple list of _workload templates_ which contain _named scenarios
 
 👉 These commands will include workloads that were shipped with nb5 and workloads in your local 
  directory. To learn more about how to design custom workloads see
-[[designing workloads](/../workloads_101)].
+[[designing workloads](/../workloads-101)].
 
 Additionally, if you have docker installed on your local system, and your user has permissions to
 use it, you can use

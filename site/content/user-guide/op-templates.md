@@ -8,7 +8,7 @@ Understanding op templates in detail will help you bring other features of NoSQL
 focus more quickly.
 
 Each activity that you run in an nb5 scenario is built from operations. These operations are 
-[_generated_](@/bindings/binding_concepts.md) at the time they are needed. 
+[_generated_](@/reference/bindings/binding-concepts.md) at the time they are needed. 
 They need a blueprint for what an operation looks like, which we provide in the form of a 
 simple data structure called an _op template_.
 
@@ -69,7 +69,8 @@ trivial to the sophisticated.
 
 ## How?
 
-The rules for this mechanism are part of the nb [workload definition](../../workload_definition/)
+The rules for this mechanism are part of the nb5 
+[workload definition](@/reference/workload_definition/_index.md)
 standard, which covers all the details and corner cases. The nb5 runtime handles all the
 structural processing for users and developers, so there is little ambiguity about valid or
 equivalent forms. This standard is elevated to a tested specification because it is part of the 
@@ -85,10 +86,13 @@ The design principles used when building this standard include:
 
 # Valid Forms
 
-👉 The [Workloads 101](../../workloads-101) tutorial is a great way to learn about op templates.
+👉 The [Workloads 101](@/workloads-101/_index.md) tutorial is a great way to learn about op 
+templates.
 
 What determines if a given op template is valid or not depends on a couple of things: Can it be 
-recognized according to the [workload definition](../../workload_definition/) standard? Can it be 
+recognized according to the [workload definition](@/reference/workload_definition/_index.md) 
+standard? 
+Can it be 
 recognized by the specified driver as a valid op template, _according to the field names and values?_
 
 In general, you have three places to look for valid op templates. Here they are in order of 
@@ -100,10 +104,10 @@ preference:
 - The driver documentation. Each driver should provide clear examples that can be pasted right 
   into a new workload if you want. Access the documentation for a specific driver with `nb5 help 
   <driver>`.
-- The [Workloads_101](../../workloads_101) tutorial.
-- Finally, the detailed [workload definition specification](../../workload_definition), if you 
-  need, for example to see all the possibilities. Developers will generally want to know what 
-  can be specified, but those who are just using nb5 will get by easily on the examples.
+- The [Workloads_101](@/workloads-101/_index.md) tutorial.
+- Finally, the detailed [workload definition specification](@/reference/workload_definition/_index.md),
+  if you need, for example to see all the possibilities. Developers will generally want to know 
+  what can be specified, but those who are just using nb5 will get by easily on the examples.
 
 # Template Form
 
@@ -228,7 +232,8 @@ strictly necessary.
 All the op fields can be fully dynamic! However, it is not efficient for everything about an 
 operation to be undetermined until cycle time. Therefore, driver developers will often require 
 certain identifying op fields to be static for the purposes of determining op type. The rules 
-for this are up to each driver. For example, with the [cqld4 driver](../../drivers/cqld4/), you can 
+for this are up to each driver. For example, with the [cqld4 driver](@/reference/drivers/cqld4.md)
+, you can 
 specify that you want a raw, prepared, or other type of statement to be executed, but each op 
 template must pick one. This is necessary to allow activities to pre-compute or pre-bake much 
 of the op synthesis logic as it can. This can be done much more efficiently if at least the 

@@ -38,7 +38,7 @@ parameters which will be recognized on the command line.
 # Scenario Commands
 
 Any command line argument which is not a global option (starting with a `-` or `--`), is a 
-scenario command. These are all described in [CLI Scripting](../cli-scripting). 
+scenario command. These are all described in [CLI Scripting](@/user-guide/cli-scripting.md). 
 
 Most of the time, when you are running scenario commands, they are being used to start, modify, 
 or stop an activity. **Scenario commands are all about managing activities.** So, in practice, 
@@ -71,7 +71,8 @@ allow you to initialize your workload. There are a few ways that these parameter
 
 # Named Scenario Params
 
-It is common to use the [Named Scenarios](@/workloads_101/11_named_scenarios.md) feature to 
+It is common to use the [Named Scenarios](@/workloads-101/11-named-scenarios.md) 
+feature to 
 bundle up multiple activity workflows into a single command. When you do this, it is 
 possible to apply params on the command line to the named scenario. In effect, this means you are 
 applying a single set of parameters to possibly multiple activities, so there is a one-to-many 
@@ -87,7 +88,7 @@ scenario steps which are not locked.
 
 Activities, *all activities*, are based on a set of op templates. These are the
 [YAML](https://yaml.org/), [json](https://www.json.org/), [jsonnet](https://jsonnet.org/), or direct 
-data structures which follow the [workload definition](../workload_definition)
+data structures which follow the [workload definition](@/reference/workload_definition/_index.md)
 standard. These schematic values are provided to the selected driver to be mapped to native 
 operations.
 
@@ -109,7 +110,7 @@ default from this.
 
 Some parameters that can be specified for an activity are standardized in the NoSQLBench design.
 These include parameters like `driver`, `alias`, and `threads`. Find more info on standard 
-params at [Standard Activity Params](../standard-activity-parameters).
+params at [Standard Activity Params](@/user-guide/core-activity-params.md).
 
 ## Dynamic Activity Params
 

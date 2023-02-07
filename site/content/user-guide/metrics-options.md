@@ -1,5 +1,5 @@
 ---
-title: "Advanced Metrics Options"
+title: "Metrics Options"
 weight: 38
 ---
 

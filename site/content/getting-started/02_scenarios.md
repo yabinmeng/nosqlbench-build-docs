@@ -55,7 +55,7 @@ The example works above when we specify the workload, because it has a default s
 
 👉 These commands will include workloads that were shipped with nb5 and workloads in your local
 directory. To learn more about how to design custom workloads see
-[[Workloads 101](/../workloads_101)].
+[[Workloads 101](/../workloads-101)].
 
 ## compose scenarios
 

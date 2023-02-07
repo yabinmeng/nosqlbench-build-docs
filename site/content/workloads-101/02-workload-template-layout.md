@@ -1,5 +1,5 @@
 ---
-title: "02 YAML Organization"
+title: "02 Workload Template Layout"
 weight: 2
 extra:
  math: true

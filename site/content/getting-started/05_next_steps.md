@@ -23,7 +23,7 @@ the available workloads and their options.
 If you want to use NoSQLBench to build a tailored workload that closely emulates what a specific
 application would do, then you can build a self-contained and portable YAML file that specifies all 
 the details. You can specify the access patterns, data distributions, and more. This is 
-explained further in [Workloads 101](/../workloads_101)
+explained further in [Workloads 101](/../workloads-101)
 
 ### Built-In Sources
 

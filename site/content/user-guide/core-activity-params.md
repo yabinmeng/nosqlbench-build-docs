@@ -107,8 +107,8 @@ template has a set of tags, which include two auto-tags that are provided by the
   an op in `block0` with a base name of `opexample2` would be `block0--opexample2`. This allows for 
   regex matching that can be globally distinct within a workload.
 
-The rules for tag filtering are explained in depth in the [Op Tags](@/workloads_101/05_op_tags.md) 
-of the [Workloads 101](@/workloads_101/_index.md) tutorial.
+The rules for tag filtering are explained in depth in the [Op Tags](@/workloads-101/05-op-tags.md) 
+of the [Workloads 101](@/workloads-101/_index.md) tutorial.
 
 ## threads
 
