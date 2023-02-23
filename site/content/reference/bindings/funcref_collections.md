@@ -1,6 +1,6 @@
 ---
-weight: 40
 title: collection functions
+weight: 40
 ---
 
 Collection functions allow you to construct Java Lists, Maps or Sets.
@@ -114,6 +114,14 @@ Create a String-String map from the specified file, ranging in size from 0 to th
 Create a list of longs.
 
 - long -> HashedRangeToLongList(int: minVal, int: maxVal, int: minSize, int: maxSize) -> List<Long>
+
+## Join
+
+This takes any collection and concatenates the String representation with a specified delimiter.
+
+- Collection<T> -> Join(String: delim) -> String
+  - *example:* `Join(',')`
+  - *Concatenate the incoming collection with ','*
 
 ## List
 
