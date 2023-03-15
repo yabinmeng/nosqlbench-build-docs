@@ -14,7 +14,7 @@ authors=["Jeff Banks"]
 
 # NoSQLBench - CQL-Starter
 
-{{ img(src="./start_here.png" alt="Start Here" w=300 h=200) }}
+![cql-starter](/start_here.png "start_tooltip")
 
 ## Introduction
 
