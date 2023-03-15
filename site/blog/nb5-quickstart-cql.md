@@ -1,6 +1,6 @@
 +++
 title="NB5 QuickByte CQL Starter"
-date = 2023-02-17
+date = 2023-03-18
 year = "2023"
 author = "Jeff Banks"
 template = "blogpost.html"
@@ -14,7 +14,7 @@ authors=["Jeff Banks"]
 
 # NoSQLBench - CQL-Starter
 
-{{ img(src="/blog/start_here.png" alt="Start Here" w=300 h=200) }}
+{{ img(src="./start_here.png" alt="Start Here" w=300 h=200) }}
 
 ## Introduction
 
@@ -40,12 +40,12 @@ This session was tested with:
 * NoSQLBench (v5.17.2)
 * Apache Cassandra (v4.1)
 
-### 01 Docker
+### 1. Install Docker
 
 Ensure Docker is installed on your operation system. You can download it from
 [https://www.docker.com/](https://www.docker.com/)
 
-### 02 Get NB5
+### 2. Get NB5
 
 Obtain official NB5 release, if you don't already have it, from
 [latest nb5 release](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb5),
@@ -59,7 +59,7 @@ You should be able to see your version installed using:
 ./nb5 --version
 ```
 
-### 03 Cassandra
+### 3. Run Cassandra
 
 Run the latest Cassandra 4.* docker.
 
@@ -81,8 +81,10 @@ docker container logs <your-container-id>
 
 Now, we are ready to run the cql-starter NoSQLBench scenario.
 
-1. Navigate via your local command line to where the nb5 binary was previously downloaded.
-2. Ensure that issuing the following command identifies the workload used for this session.
+### 1. Locate NB5 
+Navigate via your local command line to where the nb5 binary was previously downloaded.
+### 2. Verify 
+Ensure that issuing the following command identifies the workload used for this session.
 
 ```shell
 ./nb5 --list-workloads | grep cql-starter
@@ -90,10 +92,11 @@ Now, we are ready to run the cql-starter NoSQLBench scenario.
 
 Example output:
 
-```shell
+```text
 /activities/baselines/cql-starter.yaml
 ```
 
+### 3. Optional step
 An alternative is to copy the workload configuration listed below to your own local file in a 
 folder of your choosing. You can name it whatever you like, as you will specify the absolute 
 file path directly when issuing the scenario command.
@@ -109,7 +112,7 @@ values can be set to millions or more!  That is where the full power of NoSQLBen
 generate critical metrics for analysis to make a system more robust.
 
 ```yaml,linenos
-description: |
+description: |>
  A cql-starter workload.
  * Cassandra: 3.x, 4.x.
  * DataStax Enterprise: 6.8.x.
@@ -238,7 +241,7 @@ The machine_id is a unique identifier type, the message field is a text type, an
 Since the example is designed to be run locally, the Cassandra keyspace replication is defined 
  using a SimpleStrategy with a replication factor of 1.
 
-```
+```sql92
 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:1>>'}
 ```
 
@@ -246,7 +249,7 @@ WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '<<rf:1>>'}
 
 For this session, the ‘default’ scenario is being used.
 
-```
+```yaml
     scenarios:
       default:
         schema: run driver=cql tags==block:schema …
@@ -260,10 +263,10 @@ defined (e.g. ‘-astra’).  References to ‘astra’ are simply there to show
 scenarios can be defined in a single workload file.
 
 
-```
-astra:
- 	  schema: run driver=cql tags==block:schema-astra threads==1 cycles==UNDEF
-	  …
+```yaml
+    astra:
+      schema: run driver=cql tags==block:schema-astra threads==1 cycles==UNDEF
+      ...
 ```
 
 This illustrates how flexible and customizable the workload file can become.  The words are 
@@ -276,7 +279,7 @@ Basic examples are included in the cql-starter, but this illustrates how binding
 values to be used by operations.  Again, these are basic, just to illustrate how binding 
 functions can be utilized.
 
-```
+```yaml
     bindings:
      machine_id: ElapsedNanoTime(); ToHashedUUID() -> java.util.UUID
      message: Discard(); TextOfFile('data/cql-starter-message.txt');
@@ -290,7 +293,7 @@ but illustrates how tests can leverage external information from files for decou
 from the workload file itself.  Think of this for things like secret token references, etc. 
 that need to be referenced.
 
-```
+```java
 Discard(); TextOfFile('data/cql-starter-message.txt')
 ```
 
@@ -299,11 +302,13 @@ may change in the future, but for now it is a necessity due to the nature of bin
 defaulting to Long values.  This is why the rampup_message was included and it uses a
 `ToString();`  as a binding value.  By default the value is 0L.
 
-## Running a workload
+## Hands on
 
 Let’s run the cql-starter.
 
-1. Using the nb5 binary, issue the following command
+### 1. Running
+
+Using the nb5 binary, issue the following command
 
 ```shell
 ./nb5 activities/baselines/cql-starter.yaml default hosts=localhost localdc=datacenter1
@@ -312,10 +317,8 @@ Let’s run the cql-starter.
 This command identifies that the default setting is used with the key-value args passed along 
 for use by the cqld4 adapter.
 
-### Examine the results
-
-After the workload has been run, let’s take a look at the results from Cassandra itself using 
- cqlsh.
+### 2. Examine the results
+After the workload has been run, let’s take a look at the results from Cassandra itself using cqlsh.
 
 ```shell
 docker container exec -it cass4 sh
@@ -325,17 +328,16 @@ select * from starter.cqlstarter;
 
 You should see the single rampup entry along main operation entries in the Cassandra table.
 
-![alt_text](images/image2.png "image_tooltip")
 
-### Customize
+### 3. Customize
 
 Now, let’s customize the cql-starter to make it a bit more your own.
 
-1. Save the .yaml file to your local environment.
-2. Edit the file and uncomment under the default scenario the following entry:
+#### 1. Save the .yaml file to your local environment.
+#### 2. Edit the file and uncomment under the default scenario the following entry:
 
 
-```
+```yaml
    # rampdown: run driver=cql tags==block:rampdown threads==1 cycles==UNDEF
 ```
 
@@ -346,7 +348,7 @@ When you want to customize the cql-starter, you can simply target the file it ou
 ./nb5 adapter-cqld4/<rel-path-to-customized-file>.yaml default hosts=localhost localdc=datacenter1
 ```
 
-Also, if you would like to see more details in the output add (-v, -vv, or -vvv) to the command.
+Also, if you would like to see more details in the output, add (-v, -vv, or -vvv) to the command.
 
 ```shell
 ./nb5 adapter-cqld4/<rel-path-to-customized-file>.yaml default hosts=localhost localdc=datacenter1 -v
