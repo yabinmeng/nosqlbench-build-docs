@@ -15,17 +15,22 @@
 
 ## Introduction
 
-Welcome to the NoSQLBench Quick Byte, second session in a “Getting Started” series for NoSQLBench. This session introduces a new Http-Rest Starter workload now available in version 5 of NoSQLBench.
+Welcome to the NoSQLBench Quick Byte, second session in a “Getting Started” series for NoSQLBench. This session 
+introduces a new Http-Rest Starter workload now available in version 5 of NoSQLBench.
 
 * If you haven't heard of NoSQLBench, checkout our introduction material [here](https://docs.nosqlbench.io/introduction/).
 
-* If you already have a foundation with NoSQLBench and would like to understand what's included in the most recent version, checkout the release notes [here](https://github.com/nosqlbench/nosqlbench/releases).
+* If you already have a foundation with NoSQLBench and would like to understand what's included in the most recent 
+version, checkout the release notes [here](https://github.com/nosqlbench/nosqlbench/releases).
 
-* If you would like to start with the first session in the NoSQLBench “Getting Started” series, check it out [here](./cql-starter/quickstart-cql.md).
+* If you would like to start with the first session in the NoSQLBench “Getting Started” series, check it out [here](../cql-starter/quickstart-cql.md).
 
-This session illustrates use of http-rest methods, using NoSQLBench v5, along with a Docker deployment of an open source data gateway called Stargate.  For more information about Stargate, checkout the repository [here](https://github.com/stargate/stargate).
+This session illustrates use of http-rest methods, using NoSQLBench v5, along with a Docker deployment of an open source 
+data gateway called [Stargate](https://stargate.io/).  
+For more information about Stargate, checkout the repository [here](https://github.com/stargate/stargate).
 
-In comparison to the cql-starter, this starter focuses on http-rest interactions with the data gateway itself instead of via a CQL driver’s interaction with Cassandra.
+In comparison to the previous [cql-starter](../cql-starter/quickstart-cql.md), this starter focuses on http-rest interactions with the data gateway itself instead 
+of via a CQL driver’s interaction with Cassandra.
 
 Let’s get rolling and learn about http-rest operations!
 
@@ -285,7 +290,7 @@ There will be two fields for our table, `key` and `value`, both with types of `t
 ```
 
 
-In this scenario, the ‘key’ will become the partitioningKey:
+In this scenario, the `key` will become the value for `partitioningKey`:
 
 
 ```yaml
@@ -331,17 +336,20 @@ Basic examples are included in the http-rest-starter, but this illustrates how b
      rw_key: Uniform(0,10000000)->int; ToString() -> String
      rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
 
-     restapi_host: ToString(); MirrorToString('<<host:>>'); ToString();
+     restapi_host: ToString(); MirrorToString('<<host:>>');
 ```
 
 
 Let’s break down the bindings to understand how they will be used as values in various operations.
 
 * request_id - represents a unique ID used when making the http-rest calls.
-* auto_gen_token - this binding uses a newly added function StargateToken(), providing the generation of an identifying token required by Stargate.  The endpoint `http://{host}:8081/v1/auth` is decoupled from the operation in the event a different endpoint is needed in the future.
+* auto_gen_token - this binding uses a newly added function StargateToken(), providing the generation of an identifying 
+ token required by Stargate.  The endpoint `http://{host}:8081/v1/auth` is decoupled from the operation in the event a different 
+ endpoint is needed in the future.
 * seq_key and seq_value - are values generated for use by rampup write operations.
 * rw_key and rw_value - are values generated for use by the main read and write operations.
-* restapi_host - constructed a binding value based on the ‘host’ value provided by the user in the command line.  The MirrorToString() function does exactly what it says and allows for customization of default and user-supplied values.
+* restapi_host - constructed a binding value based on the `host` value provided by the user in the command line.  
+ The MirrorToString() function does exactly what it says and allows for customization of default and user-supplied values.
 
 ### Running a workload
 
@@ -392,7 +400,7 @@ In fact, they expand on the use of the Stargate data gateway covering topics suc
 ### Want to contribute?
 
 It’s worth mentioning, NoSQLBench is open source and we are looking for contributions to expand its features!  
-Head on over to the [contributions](https://docs.nosqlbench.io/contributing) page to find out more.
+Head on over to the [contributions](https://docs.nosqlbench.io/dev-guide/contributing) page to find out more.
 
 
 ### Need more advanced scenarios?
