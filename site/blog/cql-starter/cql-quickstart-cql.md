@@ -228,7 +228,7 @@ NoSQLBench and Cassandra using basic, direct CQL.
 
 ### Table and Keyspace
 
-For the default scenario, a simple table named ‘cqlstarter’ will be created with a keyspace 
+For the default scenario workload, a simple table named ‘cqlstarter’ will be created with a keyspace 
  named ‘starter’.  There will be three fields for our table:
 
 * machine_id
@@ -314,7 +314,7 @@ Using the nb5 binary, issue the following command
 ./nb5 activities/baselines/cql-starter.yaml default hosts=localhost localdc=datacenter1
 ```
  
-This command identifies that the default setting is used with the key-value args passed along 
+This command identifies that the default scenario workload is used with the key-value args passed along 
 for use by the cqld4 adapter.
 
 ### 2. Examine the results
@@ -341,7 +341,7 @@ Now, let’s customize the cql-starter to make it a bit more your own.
    # rampdown: run driver=cql tags==block:rampdown threads==1 cycles==UNDEF
 ```
 
-When you want to customize the cql-starter, you can simply target the file it outside of the 
+When you want to customize the cql-starter, you can simply target the file outside of the 
  NB5 distribution using:
 
 ```shell
