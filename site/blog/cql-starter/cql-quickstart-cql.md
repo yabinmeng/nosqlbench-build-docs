@@ -74,7 +74,7 @@ If you have issues, more details can be found at
 Verify Cassandra is started from logs:
 
 ```shell
-docker container logs <your-container-id>
+docker container logs cass4
 ```
 
 # Running the scenario
@@ -83,6 +83,7 @@ Now, we are ready to run the cql-starter NoSQLBench scenario.
 
 ### 1. Locate NB5 
 Navigate via your local command line to where the nb5 binary was previously downloaded.
+
 ### 2. Verify 
 Ensure that issuing the following command identifies the workload used for this session.
 
@@ -92,7 +93,7 @@ Ensure that issuing the following command identifies the workload used for this 
 
 Example output:
 
-```text
+```text 
 /activities/baselines/cql-starter.yaml
 ```
 
@@ -299,8 +300,8 @@ Discard(); TextOfFile('data/cql-starter-message.txt')
 
 Note: The Discard() function is used to indicate a no-op as the initial message value.  This 
 may change in the future, but for now it is a necessity due to the nature of bindings 
-defaulting to Long values.  This is why the rampup_message was included and it uses a
-`ToString();`  as a binding value.  By default the value is 0L.
+defaulting to Long values.  This is why the `rampup_message` was included for illustration as it uses a
+`ToString();` function assigning a string value.  By default, the binding's value is 0L.
 
 ## Hands on
 
@@ -334,14 +335,20 @@ You should see the single rampup entry along main operation entries in the Cassa
 Now, let’s customize the cql-starter to make it a bit more your own.
 
 #### 1. Save the .yaml file to your local environment.
+One easy way, is to utilize the nb5 --copy command.
+```shell
+./nb5 --copy cql-starter
+```
+This provides a fresh workload file for you for cql-starter.
+
+
 #### 2. Edit the file and uncomment under the default scenario the following entry:
 
-
 ```yaml
-   # rampdown: run driver=cql tags==block:rampdown threads==1 cycles==UNDEF
+# rampdown: run driver=cql tags==block:rampdown threads==1 cycles==UNDEF
 ```
 
-When you want to customize the cql-starter, you can simply target the file outside of the 
+When you want to customize the cql-starter, you can simply target the file outside the 
  NB5 distribution using:
 
 ```shell
