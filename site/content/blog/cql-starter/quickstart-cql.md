@@ -1,5 +1,5 @@
 +++
-title="NB5 QuickByte CQL Starter"
+title = "NB5 QuickByte CQL Starter"
 date = 2023-03-23
 year = "2023"
 author = "Jeff Banks"

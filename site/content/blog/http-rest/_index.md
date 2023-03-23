@@ -1,10 +1,10 @@
 +++
 title= "HTTP-Rest-Starter"
 description = "NoSQLBench http-rest-starter scenario."
-sort_by="date"
-author="Jeff Banks"
-template="blogpost.html"
+date = 2023-03-23
+author = "Jeff Banks"
+template = "blogpost.html"
 [extra]
-inmenu=true
+inmenu = true
 
 +++
