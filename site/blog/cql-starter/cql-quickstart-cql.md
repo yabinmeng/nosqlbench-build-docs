@@ -1,9 +1,8 @@
 +++
 title="NB5 QuickByte CQL Starter"
-date = 2023-03-18
+date = 2023-03-23
 year = "2023"
 author = "Jeff Banks"
-template = "blogpost.html"
 [extra]
 toc=true
 recent=true

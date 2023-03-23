@@ -1,17 +1,18 @@
-<!-- Output copied to clipboard! -->
-
-<!-- You have some errors, warnings, or alerts. If you are using reckless mode, turn it off to see inline alerts.
-* ERRORs: 0
-* WARNINGs: 0
-* ALERTS: 1 -->
-
++++
+title="NB5 QuickByte HTTP-Rest Starter"
+date = 2023-03-23
+year = "2023"
+author = "Jeff Banks"
+[extra]
+toc=true
+recent=true
+authors=["Jeff Banks"]
+[taxonomies]
+authors=["Jeff Banks"]
++++
 
 # NoSQLBench - Http-Rest-Starter (w/ Stargate)
-
-
 ![http-rest](/http-rest-starter-intro.jpg "image_tooltip")
-
-
 
 ## Introduction
 
