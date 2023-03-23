@@ -1,6 +1,6 @@
 +++
-title= "http-rest-starter"
-description = "NoSQLBench cql-starter scenario."
+title= "HTTP-Rest-Starter"
+description = "NoSQLBench http-rest-starter scenario."
 sort_by="date"
 author="Jeff Banks"
 [extra]
