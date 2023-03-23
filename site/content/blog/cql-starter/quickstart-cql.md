@@ -4,12 +4,15 @@ date = 2023-03-23
 year = "2023"
 author = "Jeff Banks"
 template="blogpost.html"
+
 [extra]
-toc=true
-recent=true
-authors=["Jeff Banks"]
+toc = true
+recent = true
+authors = ["Jeff Banks"]
+
 [taxonomies]
-authors=["Jeff Banks"]
+authors = ["Jeff Banks"]
+tags = ["blog", "cql", "cassandra", "starter"]
 +++
 
 # NoSQLBench - CQL-Starter
@@ -42,7 +45,7 @@ This session was tested with:
 
 ### 1. Install Docker
 
-Ensure Docker is installed on your operation system. You can download it from
+Ensure Docker is installed on your operating system. You can download it from
 [here](https://www.docker.com/)
 
 ### 2. Get NB5

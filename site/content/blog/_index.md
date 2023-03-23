@@ -1,8 +1,9 @@
 +++
-title= "NoSQLBench Blogs"
+title = "NoSQLBench Blogs"
 description = "NoSQLBench blog repository"
-sort_by="date"
+date = 2023-03-23
 template="blogposts.html"
+
 [extra]
-localroot=true
+localroot = true
 +++
