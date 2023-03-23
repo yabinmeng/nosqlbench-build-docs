@@ -3,6 +3,7 @@ title="NB5 QuickByte HTTP-Rest Starter"
 date = 2023-03-23
 year = "2023"
 author = "Jeff Banks"
+template="blogpost.html"
 [extra]
 toc=true
 recent=true
@@ -12,7 +13,7 @@ authors=["Jeff Banks"]
 +++
 
 # NoSQLBench - Http-Rest-Starter (w/ Stargate)
-![http-rest](/http-rest-starter-intro.jpg "image_tooltip")
+![http-rest](../http-rest-starter-intro.jpg "http-rest-starter-intro-image")
 
 ## Introduction
 

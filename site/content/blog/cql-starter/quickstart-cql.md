@@ -3,6 +3,7 @@ title="NB5 QuickByte CQL Starter"
 date = 2023-03-23
 year = "2023"
 author = "Jeff Banks"
+template="blogpost.html"
 [extra]
 toc=true
 recent=true
@@ -13,7 +14,7 @@ authors=["Jeff Banks"]
 
 # NoSQLBench - CQL-Starter
 
-![cql-starter](/start_here.png "start_tooltip")
+![cql-starter](../start_here.png "start_here_image")
 
 ## Introduction
 
@@ -23,7 +24,7 @@ available in version 5 of NoSQLBench.
 
 * If you haven't heard of NoSQLBench, checkout our [introduction material](@/introduction/_index.md)
 * If you already have a foundation with NoSQLBench and would like to understand what's included 
-  in the most recent version, checkout the [release notes](@/release-notes/_index.md).
+  in the most recent version, checkout the [release notes](https://github.com/nosqlbench/nosqlbench/releases/latest).
 
 This session illustrates use of CQL, using NoSQLBench v5, along with a Docker deployment of 
  Apache Cassandra 4.1 using its latest image.
@@ -42,12 +43,12 @@ This session was tested with:
 ### 1. Install Docker
 
 Ensure Docker is installed on your operation system. You can download it from
-[https://www.docker.com/](https://www.docker.com/)
+[here](https://www.docker.com/)
 
 ### 2. Get NB5
 
 Obtain official NB5 release, if you don't already have it, from
-[latest nb5 release](https://github.com/nosqlbench/nosqlbench/releases/latest/download/nb5),
+[latest nb5 release](https://github.com/nosqlbench/nosqlbench/releases/latest),
 and then `chmod +x nb5`.
 
 See [get nosqlbench](getting-started/00-get-nosqlbench.md) for other download options.
