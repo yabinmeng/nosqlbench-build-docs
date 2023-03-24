@@ -1,7 +1,7 @@
 +++
 title="NB5 QuickByte HTTP-Rest Starter"
-date = "2023-03-23T11:00:00"
-year = "2023"
+date = 2023-03-23
+year = 2023
 author = "Jeff Banks"
 template = "blogpost.html"
 
