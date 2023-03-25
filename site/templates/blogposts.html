@@ -17,14 +17,12 @@
 {%- block content %}
 {%- set section_item = get_section(path="blog/_index.md") %}
     <div>
-      {%- for year, posts in section_item.pages | group_by(attribute="year") %}
-        <h2>{{ year }}</h2>
-          {%- for post in posts -%}
-            {%- if post is defined -%}
-              <p><a href="{{ post.permalink | safe() }}">{{ post.title }}</a> - <time datetime="{{ post.date }}">{{ post.date | date(format="%F") }}</time>
-              {%- if post.author is defined -%} by {{ post.author }}{%- endif -%}</p>
+        {%- for  ps in section_item.subsections %}
+            {%- if ps is defined -%}
+                {%- set si = get_section(path=ps) %}
+                <p><a href="{{ si.permalink | safe() }}">{{ si.title }}</a>{%- if si.author is defined -%} by {{ si.author }}{%- endif -%}
+                </p>
             {%- endif -%}
         {%- endfor %}
-      {%- endfor %}
     </div>
 {%- endblock content %}

@@ -1,22 +1,17 @@
 +++
-title="NB5 QuickByte HTTP-Rest Starter"
+title="HTTP-Rest Starter"
 date = 2023-03-23
-year = 2023
 author = "Jeff Banks"
 template = "blogpost.html"
-
-[extra]
-toc = true
-recent = true
-authors = ["Jeff Banks"]
+year = 2023
 
 [taxonomies]
 authors = ["Jeff Banks"]
-tags = ["blog", "http", "rest", "starter", "stargate"]
 +++
 
-# NoSQLBench - Http-Rest-Starter (w/ Stargate)
-![http-rest](../http-rest-starter-intro.jpg "http-rest-starter-intro-image")
+# Http-Rest-Starter w/ Stargate
+
+<img width="768" height="461" title="a title" alt="Alt text" src="httprestblog-768x461.jpg">
 
 ## Introduction
 

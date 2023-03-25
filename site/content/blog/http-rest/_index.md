@@ -1,10 +1,9 @@
 +++
-title= "HTTP-Rest-Starter"
-description = "NoSQLBench http-rest-starter scenario."
+title = "HTTP-Rest Starter w/ Stargate"
+description = "NoSQLBench http-rest starter scenario."
 author = "Jeff Banks"
-date = 2023-03-23
+date = 2023-03-24
 
 [extra]
 inmenu = true
-
 +++
