@@ -9,7 +9,7 @@ description = "Learning CQL with a cql-starter."
 +++
 
 # CQL-Starter
-<img width="768" height="461" title="cql" alt="cql-starter" src="cqlstarter-blog-studio-cql.png">
+<img width="768" height="461" title="cql" border=3 alt="cql-starter" src="cqlstarter-blog-studio-cql.png">
 
 ## Introduction
 
@@ -108,8 +108,9 @@ your configuration is constructed properly.  When customizing these for real-wor
 values can be set to millions or more!  That is where the full power of NoSQLBench shines to 
 generate critical metrics for analysis to make a system more robust.
 
-```yaml,linenos
-description: |>
+```yaml
+
+description: >2
  A cql-starter workload.
  * Cassandra: 3.x, 4.x.
  * DataStax Enterprise: 6.8.x.
@@ -136,7 +137,7 @@ bindings:
  time: ElapsedNanoTime(); Mul(1000); ToJavaInstant();
  ts: ElapsedNanoTime(); Mul(1000);
 
-blocks:
+blocks: 
  schema:
    params:
      prepared: false
@@ -210,12 +211,11 @@ Starting from the top of the workload template, the primary sections include:
 * Params - Optional parameters of interest to reference for applying values.
 * Bindings - Named recipes for generated data.  These are referenced in block operations.
 * Blocks - Where the labeled operations reside (e.g. schema, rampup, and main).
-    * Schema - A block section where the schema is actually defined and created.
-    * Rampup - A block section for data setup that becomes the backdrop for testing; it’s the density of data outside the metrics collected in the main block.
-    * Main - A block section that is the target of metrics collection activities.
+  * Schema - A block section where the schema is actually defined and created.
+  * Rampup - A block section for data setup that becomes the backdrop for testing; it’s the density of data outside the metrics collected in the main block.
+  * Main - A block section that is the target of metrics collection activities.
 
-This may look overwhelming at first glance, but the magic of what can be done for load testing 
- target resources becomes more apparent as settings are tweaked for various test cases.
+This may look overwhelming at first glance, but the magic of what can be done for load testing target resources becomes more apparent as settings are tweaked for various test cases.
 
 ### Basic Operations
 

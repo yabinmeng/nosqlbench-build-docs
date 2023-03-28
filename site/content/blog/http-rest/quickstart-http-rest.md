@@ -14,7 +14,7 @@ description = "Learning http-rest using the Stargate date gateway."
 
 # Http-Rest-Starter w/ Stargate
 
-<img width="768" height="461" title="a title" alt="Alt text" src="httprestblog-768x461.jpg">
+<img width="768" height="461" border=3 title="a title" alt="Alt text" src="httprestblog-768x461.jpg">
 
 ## Introduction
 
@@ -59,9 +59,9 @@ Download from: [here](https://github.com/nosqlbench/nosqlbench/releases)
 
 If so, you should be able to see your version installed using:
 
-```shell
-./nb5 --version
 ```
+ ./nb5 --version 
+ ```
 
 ### Clone Stargate locally
 
@@ -70,17 +70,17 @@ Clone from: [here](https://github.com/stargate/stargate)
 
 ### Run Stargate services in Docker
 
-   Navigate to your local Stargate repository and execute the specified script.
+Navigate to your local Stargate repository and execute the specified script.
 
-```shell 
+``` 
 cd ./stargate/docker-compose/cassandra-4.0/
 
 ./start_cass_40_dev_mode.sh
 ```
 
 Verify the Stargate services are started and healthy.
-```text
-7d0c9076153c stargateio/graphqlapi:v2 "/usr/local/s2i/run"` - `Up About a minute (healthy)
+```
+7d0c9076153c stargateio/graphqlapi:v2 "/usr/local/s2i/run" - Up About a minute (healthy)
 
 2757157aa423  stargateio/restapi:v2  "/usr/local/s2i/run" - Up About a minute (healthy)
 
@@ -94,32 +94,31 @@ b0c00f0bdd56   stargateio/docsapi:v2  "/usr/local/s2i/run" - Up About a minute (
 
 Now, we are ready to run the http-rest-starter NoSQLBench scenario.
 
-### Navigate to NB5 binary downloaded
+#### Navigate to NB5 binary downloaded & identify workload
 
-### Identify workload
-
-```shell
+```
 ./nb5 --list-workloads | grep http-rest-starter
 ```
 
 Example output:
-```text
+```
 /activities/baselines/http-rest-starter.yaml
 ```
 
 Note: this scenario resides in the adapter-http parent directory for the repository.
 
 
-
-### Optional step
+#### Optional step
 An alternative is to copy the workload configuration listed below to your own local file in a folder of your choosing.  You can name it whatever you like, as you will specify the absolute file path directly when issuing the scenario command.
 
 
-### Workload file
+#### Workload file
 
 This workload file is designed as a basic foundation for continuing to learn NoSQLBench capabilities as well as a starting point for customizing.  You will notice the cycle values are minimal to support local testing.  Adjust as needed for your own usage.
 
 ```yaml
+
+
 min_version: "5.17.3"
 
 description: |
@@ -246,8 +245,7 @@ blocks:
 ```
 
 
-Before running the scenario, let’s take a look at the layout of the file.  Most of this will be the same layout structure used in most workloads.  As such, this example reveals a large amount of the foundational.  
-In addition, this scenario introduces blocks having HTTP methods included such as: 
+Before running the scenario, let’s take a look at the layout of the file.  Most of this will be the same layout structure used in most workloads.  As such, this example reveals a large amount of the foundational. In addition, this scenario introduces blocks having HTTP methods included such as: 
 * GET
 * POST
 * DELETE
@@ -281,44 +279,42 @@ For the default scenario, a simple table named `http_rest_starter` will be creat
 
 There will be two fields for our table, `key` and `value`, both with types of `text`.
 
-```yaml
-    {
-    "name": "key",
+```
+{
+  "name": "key",
      "typeDefinition": "text"
-    }, 
-    {
-     "name": "value",
+}, 
+{
+   "name": "value",
      "typeDefinition": "text"
-    }
+}
 ```
 
 
 In this scenario, the `key` will become the value for `partitioningKey`:
 
 
-```yaml
-    "primaryKey": {
-     "partitionKey": [
-       "key"
-     ]
 ```
-
-
+"primaryKey": {
+  "partitionKey": [
+    "key"
+  ]
+}
+```
 
 #### Default scenario
 
 For this session, the `default` scenario is being used.  As such, all operations are set up to be targeted and executed.
 
-
 ```yaml
+
+
     scenarios:
      default:
        schema: run driver=http tags==block:"schema.*" threads==1 cycles==UNDEF
        rampup: run driver=http tags==block:"rampup.*" cycles===3 threads=auto
        main: run driver=http tags==block:"main.*" cycles===3 threads=auto
 ```
-
-
 
 #### Bindings
 
@@ -328,18 +324,20 @@ Basic examples are included in the http-rest-starter, but this illustrates how b
 
 
 ```yaml
-    bindings:
 
-     request_id: ToHashedUUID(); ToString();
-     auto_gen_token: Discard(); StargateToken('http://<<host:>>:8081/v1/auth'); ToString();
 
-     seq_key: Mod(10000000); ToString() -> String
-     seq_value: Hash(); Mod(1000000000); ToString() -> String
+bindings:
 
-     rw_key: Uniform(0,10000000)->int; ToString() -> String
-     rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
+ request_id: ToHashedUUID(); ToString();
+ auto_gen_token: Discard(); StargateToken('http://<<host:>>:8081/v1/auth'); ToString();
 
-     restapi_host: ToString(); MirrorToString('<<host:>>');
+ seq_key: Mod(10000000); ToString() -> String
+ seq_value: Hash(); Mod(1000000000); ToString() -> String
+
+ rw_key: Uniform(0,10000000)->int; ToString() -> String
+ rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
+
+ restapi_host: ToString(); MirrorToString('<<host:>>');
 ```
 
 
@@ -360,24 +358,23 @@ Let’s run the http-rest-starter.
 
 #### Run scenario
 
-```shell
+```
 ./nb5 activities/baselines/http-rest-starter.yaml default host=localhost
 ```
 Here, the host is indicating we are targeting the local host services running in Docker.  The port and other URL specifics are included in each of the block operations. 
-
-
 
 #### Examine results
 
 After the workload has been run, let’s take a look at the results.
 
-```shell
+```
 docker container exec -it cass40-stargate-coordinator-1 sh
 ```
 
 #### Stargate log activity
 Here you can poke around at the system.log to view the operations that were executed when running the http-rest-starter.
-```shell 
+
+```
 cd /stargate/log
 tail -100 system.log
 ```
