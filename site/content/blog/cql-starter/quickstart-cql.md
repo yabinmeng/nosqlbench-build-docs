@@ -10,6 +10,8 @@ description = "Learning CQL with a cql-starter."
 
 # CQL-Starter
 <img width="768" height="461" title="cql" border=3 alt="cql-starter" src="cqlstarter-blog-studio-cql.png">
+<p>Author: Jeff Banks (DataStax)</p>
+<p>&nbsp;</p>
 
 ## Introduction
 

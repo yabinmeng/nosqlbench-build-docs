@@ -15,6 +15,8 @@ description = "Learning http-rest using the Stargate date gateway."
 # Http-Rest-Starter w/ Stargate
 
 <img width="768" height="461" border=3 title="a title" alt="Alt text" src="httprestblog-768x461.jpg">
+<p>Author: Jeff Banks (DataStax)</p>
+<p>&nbsp;</p>
 
 ## Introduction
 
