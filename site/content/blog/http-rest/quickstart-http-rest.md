@@ -1,13 +1,16 @@
 +++
 title="HTTP-Rest Starter"
-date = 2023-03-23
-author = "Jeff Banks"
-template = "blogpost.html"
-year = 2023
 
 [taxonomies]
 authors = ["Jeff Banks"]
+
+[extra]
+author = "Jeff Banks"
+published_dt = 2023-03-29
+thumb = "/blog/http-rest/httprestblog-768x461.jpg"
+description = "Learning http-rest using the Stargate date gateway."
 +++
+
 
 # Http-Rest-Starter w/ Stargate
 
@@ -43,16 +46,16 @@ This session was tested with:
 * Stargate  (v2.0.9)
 * NoSQLBench (v5.17.3+)
 
-### 1. Ensure Docker is installed
+### Ensure Docker is installed
 
 Download from: [here](https://www.docker.com/)
 
 
-### 2. Obtain the latest NB5 release
+### Obtain the latest NB5 release
 
 Download from: [here](https://github.com/nosqlbench/nosqlbench/releases)
 
-### 3. Ensure the NB5 binary is accessible
+### Ensure the NB5 binary is accessible
 
 If so, you should be able to see your version installed using:
 
@@ -60,12 +63,12 @@ If so, you should be able to see your version installed using:
 ./nb5 --version
 ```
 
-### 4. Clone Stargate locally
+### Clone Stargate locally
 
 Clone from: [here](https://github.com/stargate/stargate)
 
 
-### 5. Run Stargate services in Docker
+### Run Stargate services in Docker
 
    Navigate to your local Stargate repository and execute the specified script.
 
@@ -91,9 +94,9 @@ b0c00f0bdd56   stargateio/docsapi:v2  "/usr/local/s2i/run" - Up About a minute (
 
 Now, we are ready to run the http-rest-starter NoSQLBench scenario.
 
-### 1. Navigate to NB5 binary downloaded
+### Navigate to NB5 binary downloaded
 
-### 2. Identify workload
+### Identify workload
 
 ```shell
 ./nb5 --list-workloads | grep http-rest-starter
@@ -108,7 +111,7 @@ Note: this scenario resides in the adapter-http parent directory for the reposit
 
 
 
-### 3. Optional step
+### Optional step
 An alternative is to copy the workload configuration listed below to your own local file in a folder of your choosing.  You can name it whatever you like, as you will specify the absolute file path directly when issuing the scenario command.
 
 
@@ -355,7 +358,7 @@ Let’s break down the bindings to understand how they will be used as values in
 
 Let’s run the http-rest-starter.
 
-#### 1. Run scenario
+#### Run scenario
 
 ```shell
 ./nb5 activities/baselines/http-rest-starter.yaml default host=localhost
@@ -364,7 +367,7 @@ Here, the host is indicating we are targeting the local host services running in
 
 
 
-#### 2. Examine results
+#### Examine results
 
 After the workload has been run, let’s take a look at the results.
 
@@ -372,7 +375,7 @@ After the workload has been run, let’s take a look at the results.
 docker container exec -it cass40-stargate-coordinator-1 sh
 ```
 
-#### 3. Stargate log activity
+#### Stargate log activity
 Here you can poke around at the system.log to view the operations that were executed when running the http-rest-starter.
 ```shell 
 cd /stargate/log

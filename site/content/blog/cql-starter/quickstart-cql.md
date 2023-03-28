@@ -1,13 +1,11 @@
 +++
 title = "CQL Starter"
+
+[extra]
 author = "Jeff Banks"
-date = 2023-03-23
-year = 2023
-template="blogpost.html"
-
-[taxonomies]
-authors = ["Jeff Banks"]
-
+published_dt = 2023-03-28
+thumb = "/blog/cql-starter/cqlstarter-blog-dbs-cql.jpg"
+description = "Learning CQL with a cql-starter."
 +++
 
 # CQL-Starter
@@ -38,12 +36,12 @@ This session was tested with:
 * Apache Cassandra (v4.1)
 
 
-#### 1. Install Docker
+#### Install Docker
 
 Ensure Docker is installed on your operating system. You can download it from
 [here](https://www.docker.com/)
 
-#### 2. Get NB5
+#### Get NB5
 
 Obtain official NB5 release, if you don't already have it, from
 [latest nb5 release](https://github.com/nosqlbench/nosqlbench/releases/latest),
@@ -57,7 +55,7 @@ You should be able to see your version installed using:
 ./nb5 --version
 ```
 
-#### 3. Run Cassandra
+#### Run Cassandra
 
 Run the latest Cassandra 4.* docker.
 
@@ -79,10 +77,10 @@ docker container logs cass4
 
 Now, we are ready to run the cql-starter NoSQLBench scenario.
 
-#### 1. Locate NB5 
+#### Locate NB5 
 Navigate via your local command line to where the nb5 binary was previously downloaded.
 
-#### 2. Verify 
+#### Verify 
 Ensure that issuing the following command identifies the workload used for this session.
 
 ```
@@ -95,7 +93,7 @@ Example output:
 /activities/baselines/cql-starter.yaml
 ```
 
-#### 3. Optional step
+#### Optional step
 An alternative is to copy the workload configuration listed below to your own local file in a 
 folder of your choosing. You can name it whatever you like, as you will specify the absolute 
 file path directly when issuing the scenario command.
@@ -259,15 +257,14 @@ For this session, the ‘default’ scenario is being used.
 
 
 One may notice there is an ‘astra’ scenario included in the file with its own set of activities 
-defined (e.g. ‘-astra’).  References to ‘astra’ are simply there to show how additional 
+defined (e.g. `-astra`).  References to `astra` are simply there to show how additional 
 scenarios can be defined in a single workload file.
 
 
 ```yaml
     
     astra:
-      schema: run driver=cql tags==block:schema-astra threads==1 cycles==UNDEF
-      ...
+      schema: run driver=cql tags==block:schema-astra threads==1 cycles==UNDEF      
 ```
 
 This illustrates how flexible and customizable the workload file can become.  The words are 
@@ -309,7 +306,7 @@ defaulting to Long values.  This is why the `rampup_message` was included for il
 
 Let’s run the cql-starter.
 
-#### 1. Running
+#### Running
 
 Using the nb5 binary, issue the following command
 
@@ -320,7 +317,7 @@ Using the nb5 binary, issue the following command
 This command identifies that the default scenario workload is used with the key-value args passed along 
 for use by the cqld4 adapter.
 
-#### 2. Examine the results
+#### Examine the results
 After the workload has been run, let’s take a look at the results from Cassandra itself using cqlsh.
 
 ```
@@ -332,7 +329,7 @@ select * from starter.cqlstarter;
 You should see the single rampup entry along main operation entries in the Cassandra table.
 
 
-#### 3. Customize
+#### Customize
 
 Now, let’s customize the cql-starter to make it a bit more your own.
 

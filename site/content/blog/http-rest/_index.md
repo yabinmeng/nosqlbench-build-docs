@@ -5,5 +5,5 @@ author = "Jeff Banks"
 date = 2023-03-24
 
 [extra]
-inmenu = true
+inmenu = false
 +++

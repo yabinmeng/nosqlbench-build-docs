@@ -9,5 +9,7 @@ tags = ["blog"]
 +++
 
 # NoSQLBench Blogs
-Browse our NoSQLBench blogs, with content contributed by the NoSQLBench community. 
+Browse our [NoSQLBench blogs](@/blog/published.md), with content contributed by the NoSQLBench community.
+
+Feel free to contribute your own content and/or provide input for future content.
 
