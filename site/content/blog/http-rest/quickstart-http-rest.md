@@ -118,132 +118,131 @@ An alternative is to copy the workload configuration listed below to your own lo
 
 This workload file is designed as a basic foundation for continuing to learn NoSQLBench capabilities as well as a starting point for customizing.  You will notice the cycle values are minimal to support local testing.  Adjust as needed for your own usage.
 
-```yaml
-
-
+```
 min_version: "5.17.3"
 
 description: |
- This starter workload uses an open source data gateway called Stargate,
- which works with a simple key-value data model.
- 1. Create a keyspace.
- 2. Drop table if existing.
- 3. Create table
+  This starter workload uses an open source data gateway called Stargate,
+  which works with a simple key-value data model.
+  1. Create a keyspace.
+  2. Drop table if existing.
+  3. Create table
 
 scenarios:
- default:
-   schema: run driver=http tags==block:"schema.*" threads==1 cycles==UNDEF
-   rampup: run driver=http tags==block:"rampup.*" cycles===10 threads=auto
-   main: run driver=http tags==block:"main.*" cycles===10 threads=auto
+  default:
+    schema: run driver=http tags==block:"schema.*" threads==1 cycles==UNDEF
+    rampup: run driver=http tags==block:"rampup.*" cycles===10 threads=auto
+    main: run driver=http tags==block:"main.*" cycles===10 threads=auto
 
 bindings:
- request_id: ToHashedUUID(); ToString();
- auto_gen_token: Discard(); StargateToken('http://<<host:>>:8081/v1/auth'); ToString();
+  request_id: ToHashedUUID(); ToString();
+  token: Discard(); Token('<<auth_token:>>','<<uri:http://localhost:8081/v1/auth>>', '<<uid:cassandra>>', '<<pswd:cassandra>>');
 
- seq_key: Mod(10000000); ToString() -> String
- seq_value: Hash(); Mod(1000000000); ToString() -> String
+  seq_key: Mod(10000000); ToString() -> String
+  seq_value: Hash(); Mod(1000000000); ToString() -> String
 
- rw_key: Uniform(0,10000000)->int; ToString() -> String
- rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
+  rw_key: Uniform(0,10000000)->int; ToString() -> String
+  rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
 
- restapi_host: ToString(); MirrorToString('<<host:>>'); ToString();
 
 blocks:
- schema:
-   ops:
-     create-keyspace:
-       method: POST
-       uri: http://{restapi_host}:8082/v2/schemas/keyspaces
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       body: >2
-         {
-           "name": "starter",
-           "replicas": 1
-         }
+  schema:
+    ops:
+      create-keyspace:
+        method: POST
+        uri: http://<<stargate_host>>:8082/v2/schemas/keyspaces
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        body: >2
+          {
+            "name": "starter",
+            "replicas": 1
+          }
 
-     drop-table:
-       method: DELETE
-       uri: http://{restapi_host}:8082/v2/schemas/keyspaces/starter/tables/http_rest_starter
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       ok-status: "[2-4][0-9][0-9]"
+      drop-table:
+        method: DELETE
+        uri: http://<<stargate_host>>:8082/v2/schemas/keyspaces/starter/tables/http_rest_starter
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        ok-status: "[2-4][0-9][0-9]"
 
-     create-table:
-       method: POST
-       uri: http://{restapi_host}:8082/v2/schemas/keyspaces/starter/tables
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       body: >2
-         {
-           "name": "http_rest_starter",
-           "columnDefinitions": [
-             {
-               "name": "key",
-               "typeDefinition": "text"
-             },
-             {
-               "name": "value",
-               "typeDefinition": "text"
-             }
-           ],
-           "primaryKey": {
-             "partitionKey": [
-               "key"
-             ]
-           },
-           "ifNotExists": true
-         }
- rampup:
-   ops:
-     rampup-insert:
-       method: POST
-       uri: http://{restapi_host}:8082/v2/keyspaces/starter/http_rest_starter
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       body: >2
-         {
-           "key": "{seq_key}",
-           "value": "{seq_value}"
-         }
+      create-table:
+        method: POST
+        uri: http://<<stargate_host>>:8082/v2/schemas/keyspaces/starter/tables
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        body: >2
+          {
+            "name": "http_rest_starter",
+            "columnDefinitions": [
+              {
+                "name": "key",
+                "typeDefinition": "text"
+              },
+              {
+                "name": "value",
+                "typeDefinition": "text"
+              }
+            ],
+            "primaryKey": {
+              "partitionKey": [
+                "key"
+              ]
+            },
+            "ifNotExists": true
+          }
 
- main-read:
-   params:
-     ratio: 5
-   ops:
-     main-select:
-       method: GET
-       uri: http://{restapi_host}:8082/v2/keyspaces/starter/http_rest_starter/{rw_key}
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       ok-status: "[2-4][0-9][0-9]"
+  rampup:
+    ops:
+      rampup-insert:
+        method: POST
+        uri: http://<<stargate_host>>:8082/v2/keyspaces/starter/http_rest_starter
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        body: >2
+          {
+            "key": "{seq_key}",
+            "value": "{seq_value}"
+          }
 
- main-write:
-   params:
-     ratio: 5
-   ops:
-     main-write:
-       method: POST
-       uri: http://{restapi_host}:8082/v2/keyspaces/starter/http_rest_starter
-       Accept: "application/json"
-       X-Cassandra-Request-Id: "{request_id}"
-       X-Cassandra-Token: "{auto_gen_token}"
-       Content-Type: "application/json"
-       body: >2
-         {
-           "key": "{rw_key}",
-           "value": "{rw_value}"
-         }
+  main-read:
+    params:
+      ratio: 5
+    ops:
+      main-select:
+        method: GET
+        uri: http://<<stargate_host>>:8082/v2/keyspaces/starter/http_rest_starter/{rw_key}
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        ok-status: "[2-4][0-9][0-9]"
+
+  main-write:
+    params:
+      ratio: 5
+    ops:
+      main-write:
+        method: POST
+        uri: http://<<stargate_host>>:8082/v2/keyspaces/starter/http_rest_starter
+        Accept: "application/json"
+        X-Cassandra-Request-Id: "{request_id}"
+        X-Cassandra-Token: "{token}"
+        Content-Type: "application/json"
+        body: >2
+          {
+            "key": "{rw_key}",
+            "value": "{rw_value}"
+          }
+
 ```
 
 
@@ -308,14 +307,12 @@ In this scenario, the `key` will become the value for `partitioningKey`:
 
 For this session, the `default` scenario is being used.  As such, all operations are set up to be targeted and executed.
 
-```yaml
-
-
-    scenarios:
-     default:
-       schema: run driver=http tags==block:"schema.*" threads==1 cycles==UNDEF
-       rampup: run driver=http tags==block:"rampup.*" cycles===3 threads=auto
-       main: run driver=http tags==block:"main.*" cycles===3 threads=auto
+```
+scenarios:
+ default:
+   schema: run driver=http tags==block:"schema.*" threads==1 cycles==UNDEF       
+   rampup: run driver=http tags==block:"rampup.*" cycles===3 threads=auto
+   main: run driver=http tags==block:"main.*" cycles===3 threads=auto
 ```
 
 #### Bindings
@@ -331,28 +328,26 @@ Basic examples are included in the http-rest-starter, but this illustrates how b
 bindings:
 
  request_id: ToHashedUUID(); ToString();
- auto_gen_token: Discard(); StargateToken('http://<<host:>>:8081/v1/auth'); ToString();
+ token: Discard(); Token('<<auth_token:>>','<<uri:http://localhost:8081/v1/auth>>', '<<uid:cassandra>>', '<<pswd:cassandra>>');
 
  seq_key: Mod(10000000); ToString() -> String
  seq_value: Hash(); Mod(1000000000); ToString() -> String
 
  rw_key: Uniform(0,10000000)->int; ToString() -> String
  rw_value: Hash(); Uniform(0,1000000000)->int; ToString() -> String
-
- restapi_host: ToString(); MirrorToString('<<host:>>');
+ 
 ```
 
 
 Let’s break down the bindings to understand how they will be used as values in various operations.
 
 * request_id - represents a unique ID used when making the http-rest calls.
-* auto_gen_token - this binding uses a newly added function StargateToken(), providing the generation of an identifying 
- token required by Stargate.  The endpoint `http://{host}:8081/v1/auth` is decoupled from the operation in the event a different 
- endpoint is needed in the future.
+* auto_gen_token - this binding uses a newly added function `Token()`, providing the generation of a 
+ token required by Stargate. If an `auth_token` value is specified, the rest of the values passed to the Token function are ignored, as the logic to generate
+ a new token is not invoked.  If the `auth_token` is not specified, the `uri` can be specified along with the credentials used 
+ for requesting a token generation.  Note that the last 3 arguments all have defaults when customizations aren't required.
 * seq_key and seq_value - are values generated for use by rampup write operations.
 * rw_key and rw_value - are values generated for use by the main read and write operations.
-* restapi_host - constructed a binding value based on the `host` value provided by the user in the command line.  
- The MirrorToString() function does exactly what it says and allows for customization of default and user-supplied values.
 
 ### Running a workload
 
@@ -361,9 +356,9 @@ Let’s run the http-rest-starter.
 #### Run scenario
 
 ```
-./nb5 activities/baselines/http-rest-starter.yaml default host=localhost
+./nb5 activities/baselines/http-rest-starter.yaml default stargate_host=localhost
 ```
-Here, the host is indicating we are targeting the local host services running in Docker.  The port and other URL specifics are included in each of the block operations. 
+Here, the stargate_host is indicating we are targeting the local host services running in Docker.  The port and other URL specifics are included in each of the block operations. 
 
 #### Examine results
 
@@ -378,6 +373,7 @@ Here you can poke around at the system.log to view the operations that were exec
 
 ```
 cd /stargate/log
+
 tail -100 system.log
 ```
 
@@ -401,8 +397,8 @@ In fact, they expand on the use of the Stargate data gateway covering topics suc
 
 ### Want to contribute?
 
-It’s worth mentioning, NoSQLBench is open source and we are looking for contributions to expand its features!  
-Head on over to the [contributions](https://docs.nosqlbench.io/dev-guide/contributing) page to find out more.
+It’s worth mentioning, NoSQLBench is open source, and we are looking for contributions to expand its features!  
+Head over to the [contributions](https://docs.nosqlbench.io/dev-guide/contributing) page to find out more.
 
 
 ### Need more advanced scenarios?
