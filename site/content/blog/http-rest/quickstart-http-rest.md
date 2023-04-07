@@ -6,7 +6,7 @@ authors = ["Jeff Banks"]
 
 [extra]
 author = "Jeff Banks"
-published_dt = 2023-03-29
+published_dt = 2023-04-07
 thumb = "/blog/http-rest/httprestblog-768x461.jpg"
 description = "Learning http-rest using the Stargate date gateway."
 +++
