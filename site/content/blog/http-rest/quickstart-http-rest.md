@@ -118,7 +118,8 @@ An alternative is to copy the workload configuration listed below to your own lo
 
 This workload file is designed as a basic foundation for continuing to learn NoSQLBench capabilities as well as a starting point for customizing.  You will notice the cycle values are minimal to support local testing.  Adjust as needed for your own usage.
 
-```
+```yaml
+
 min_version: "5.17.3"
 
 description: |
