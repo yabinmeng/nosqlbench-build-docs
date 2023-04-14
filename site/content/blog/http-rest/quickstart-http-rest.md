@@ -137,7 +137,7 @@ scenarios:
 
 bindings:
   request_id: ToHashedUUID(); ToString();
-  token: Discard(); Token('<<auth_token:>>','<<uri:http://localhost:8081/v1/auth>>', '<<uid:cassandra>>', '<<pswd:cassandra>>');
+  token: Discard(); Token('<<auth_token:>>','<<auth_uri:http://localhost:8081/v1/auth>>', '<<auth_uid:cassandra>>', '<<auth_pswd:cassandra>>');
 
   seq_key: Mod(10000000); ToString() -> String
   seq_value: Hash(); Mod(1000000000); ToString() -> String
@@ -329,7 +329,7 @@ Basic examples are included in the http-rest-starter, but this illustrates how b
 bindings:
 
  request_id: ToHashedUUID(); ToString();
- token: Discard(); Token('<<auth_token:>>','<<uri:http://localhost:8081/v1/auth>>', '<<uid:cassandra>>', '<<pswd:cassandra>>');
+ token: Discard(); Token('<<auth_token:>>','<<auth_uri:http://localhost:8081/v1/auth>>', '<<auth_uid:cassandra>>', '<<auth_pswd:cassandra>>');
 
  seq_key: Mod(10000000); ToString() -> String
  seq_value: Hash(); Mod(1000000000); ToString() -> String
@@ -345,7 +345,7 @@ Let’s break down the bindings to understand how they will be used as values in
 * request_id - represents a unique ID used when making the http-rest calls.
 * auto_gen_token - this binding uses a newly added function `Token()`, providing the generation of a 
  token required by Stargate. If an `auth_token` value is specified, the rest of the values passed to the Token function are ignored, as the logic to generate
- a new token is not invoked.  If the `auth_token` is not specified, the `uri` can be specified along with the credentials used 
+ a new token is not invoked.  If the `auth_token` is not specified, the `auth_uri` can be specified along with the credentials used 
  for requesting a token generation.  Note that the last 3 arguments all have defaults when customizations aren't required.
 * seq_key and seq_value - are values generated for use by rampup write operations.
 * rw_key and rw_value - are values generated for use by the main read and write operations.
