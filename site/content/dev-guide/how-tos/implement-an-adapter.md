@@ -34,55 +34,60 @@ The adapters-api and nb-annotations  modules contain all of the base classes, in
 
 # Your First Adapter
 
-1. Familiarize yourself with the native driver. You will need to know exactly what functionality you want to test and what the APIs for that functionality look like so you can plan for what your Op classes need to be able to do.
-1. Create a new module in the root of the project using standard naming:
-	2. 	adapter-*\<typeName>* where the chosen selector that will be used with driver=*\<typeName>*
-		1. e.g. adapter-jdbc, adapter-pinecone, etc.
-	2. package naming should follow io.nosqlbench.adapter.*\<typeName>*
-	1. A quick way to create module is to copy an existing adapter's pom.xml into a new directory as pod.xml, modify the naming elements, and then rename pod.xml to pom.xml
-		1. In most cases the only dependencies you should need are adapters-api and nb-annotations (as discussed in the previous section), as well as the api library published for the native driver you are adapting. If you find that you need to pull in additional dependencies, first verify whether they are included in another module already within the nb project to simplify the process.
-	1. Initially, do not add the module to the root pom.xml under modules. You can still build it and test it without requiring it to build for the main module to build. Once it is ready to be included under the main build, then you add it to the modules list. At that time, add it to the list of driver dependencies for the nb5 module, and it will be included in the runtime.
-2. Implement your first Op.
-	3. Implement a POJO which implements one of the Op interfaces and represents a value type for a specific operation.
-		4. It is recommended to use RunnableOp by default. This means you only need to provide a run method to define whatever action this operation encapsulates. The op class itself should be extremely lightweight, as the logic for constructing the operation will take place in the dispenser.
-		5. As a value type it must be repeatable.
-		6. It should capture the details of a single operation for diagnostics and debugging purposes. In database terminology, for example, this might be “insert”, or “delete”, or “update”.
-7. Implement a minimal Adapter Space.
-	8. Stub a POJO which can hold instances of your native driver. This is your context, or adapter space.
-	9. This class should contain any logic needed to establish connectivity as well as any type of initialization required for the native driver.
-	10. The constructor of the adapter space should take a String and an NBConfiguration instance as its parameters. Any variables needed to initialize the environment should be accessible to the adapter space through the NBConfiguration instance. The adapter space class must define what these variables are by implementing the static getConfigModel() method. See existing adapter space implementations for details on this.
-11. Implement the DriverAdapter.
-	12. This class must extend the BaseDriverAdapter class. As the BaseDriverAdapter class is a templated type, this implementation should use the 2 classes previously created, i.e. ```MyDriverAdapter extends BaseDriverAdapter<MyOp, MyAdapterSpace>```
-	13. Add the @Service annotation that makes it available for runtime service looking and late binding. ```@Service(value = DriverAdapter.class, selector = "nativedrivertype")```
-	14. Minimally this class must implement 2 methods, both of which should specify that they are overriding the base class
-		15. getOpMapper - this method will return the OpMapper specific to the types of Op classes that will be created for this driver. As we have not yet implemented this class, for now it can be stubbed to simply return null. The signature should look like ```public OpMapper<MyOp> getOpMapper()```
-		16. getSpaceInitializer - this method accepts an NBConfiguration instance as an argument and will return a function that can be used to instantiate the previously defined adapter space. In its simplest form it will simply pass the configuration along to the constructor for the adapter space. The signature should look like ```public Function<String, ? extends MyAdapterSpace> getSpaceInitializer(NBConfiguration cfg)```
-17. Implement an OpDispenser for this Op type.
-	18. This must extend BaseOpDispenser, which is a templated class. The definition might look like this: ```public class MyOpDispenser extends BaseOpDispenser<MyOp, MyAdapterSpace>```
-	19. The constructor must accept at least a DriverAdapter and an Op of the specified type, and it must call the super constructor, which requires the DriverAdapter and Op to be provided.
-	20. The constructor for this class will need at least the function for retrieving the relevant Adapter Space to facilitate the creation of the Op to be dispensed, and a ParsedOp object which is the operation as derived from the source yaml/JSON file to be converted to the appropriate op type by the dispenser.
-	21. The OpDispenser must also override the apply method defined in the BaseOpDispenser. For each test cycle this apply method will be called, and the OpDispenser will need to return the created Op for that cycle. The typical pattern used in the implementation of the OpDispenser is that at the time of construction it defines a LongFunction to create the Op that is dispensed when the apply method is called. The apply method itself is minimal and applies the input value (the cycle) to this function and dispenses the Op returned.
-	22. This is another place where it should be noted that in an adapter of any complexity there will usually be multiple Op types, each of which will have its own OpDispenser class responsible for dispensing only that type of Op. Don’t implement a hierarchy of Op types and dispense them through a single OpDispenser via dynamic binding. 
-23. Implement an OpMapper to create the OpDispenser
-	24. The OpMapper has a very simple job in the case of having only a single OpDispenser type, it creates the OpDispenser. In more complicated use cases the OpMapper receives an Op and interrogates it to determine the appropriate OpDispenser to create. More on this below.
-	25. Your class should implement the OpMapper<T> interface, with the templated type once again being your Op. It then needs to override the apply(ParsedOp) method to return the OpDispenser. The signature should look something like this: ```public OpDispenser<? extends MyOp> apply(ParsedOp op)```
-	26. At this point you can treat the apply method largely as a pass-through and simply return a new OpDispenser instance (although take a look at the existing implementations, you will probably want to emulate the use of the space cache to pass the dispenser the space object as well).
-	27. The constructor for this class doesn’t have any hard requirements, but if you look at the existing implementations you will notice most of them include as an argument a new class we haven’t talked about yet, the DriverSpaceCache. Not to worry, this is simply a cache to hold your associated context, the details of which are handled once again by the nb plumbing. In the next step we will look at how this is used in the Adapter class.
-28. Wire your classes together and get it to compile cleanly.
-	29. Go back to the Adapter type created in step 5. Now you’re going to fill in that getOpMapper method. If your code looks like the majority of implementations the method body will look like this:  
+1. Familiarize yourself with the native driver. You will need to know exactly what functionality you want to test and what the APIs for that functionality look like so you can plan for what your Op classes need to be able to do.  
+2. Create a new module in the root of the project using standard naming:    
+   * adapter-*\<typeName>* where the chosen selector that will be used with driver=*\<typeName>*, e.g. adapter-jdbc, adapter-pinecone, etc.
+   * package naming should follow io.nosqlbench.adapter.*\<typeName>*
+   * A quick way to create module is to copy an existing adapter's pom.xml into a new directory as pod.xml, modify the naming elements, and then rename pod.xml to pom.xml  
+   * In most cases the only dependencies you should need are adapters-api and nb-annotations (as discussed in the previous section), as well as the api library published for the native driver you are adapting. If you find that you need to pull in additional dependencies, first verify whether they are included in another module already within the nb project to simplify the process.   
+   * Initially, do not add the module to the root pom.xml under modules. You can still build it and test it without requiring it to build for the main module to build. Once it is ready to be included under the main build, then you add it to the modules list. At that time, add it to the list of driver dependencies for the nb5 module, and it will be included in the runtime.
+3. Implement your first Op.
+   * Implement a POJO which implements one of the Op interfaces and represents a value type for a specific operation.   
+   * It is recommended to use RunnableOp by default. This means you only need to provide a run method to define whatever action this operation encapsulates. The op class itself should be extremely lightweight, as the logic for constructing the operation will take place in the dispenser.   
+   * As a value type it must be repeatable.   
+   * It should capture the details of a single operation for diagnostics and debugging purposes. In database terminology, for example, this might be “insert”, or “delete”, or “update”.
+4. Implement a minimal Adapter Space.
+   * Stub a POJO which can hold instances of your native driver. This is your context, or adapter space.
+   * This class should contain any logic needed to establish connectivity as well as any type of initialization required for the native driver.
+   * The constructor of the adapter space should take a String and an NBConfiguration instance as its parameters. Any variables needed to initialize the environment should be accessible to the adapter space through the NBConfiguration instance. The adapter space class must define what these variables are by implementing the static getConfigModel() method. See existing adapter space implementations for details on this.
+5. Implement the DriverAdapter.
+   * This class must extend the BaseDriverAdapter class. As the BaseDriverAdapter class is a templated type, this implementation should use the 2 classes previously created, i.e.   
+   ```MyDriverAdapter extends BaseDriverAdapter<MyOp, MyAdapterSpace>```
+   * Add the @Service annotation that makes it available for runtime service looking and late binding.   
+   ```@Service(value = DriverAdapter.class, selector = "nativedrivertype")```
+   * Minimally this class must implement 2 methods, both of which should specify that they are overriding the base class   
+     * getOpMapper - this method will return the OpMapper specific to the types of Op classes that will be created for this driver. As we have not yet implemented this class, for now it can be stubbed to simply return null. The signature should look like   
+     ```public OpMapper<MyOp> getOpMapper()```  
+     * getSpaceInitializer - this method accepts an NBConfiguration instance as an argument and will return a function that can be used to instantiate the previously defined adapter space. In its simplest form it will simply pass the configuration along to the constructor for the adapter space. The signature should look like   
+     ```public Function<String, ? extends MyAdapterSpace> getSpaceInitializer(NBConfiguration cfg)```
+6. Implement an OpDispenser for this Op type.
+   * This must extend BaseOpDispenser, which is a templated class. The definition might look like this:   
+   ```public class MyOpDispenser extends BaseOpDispenser<MyOp, MyAdapterSpace>```
+   * The constructor must accept at least a DriverAdapter and an Op of the specified type, and it must call the super constructor, which requires the DriverAdapter and Op to be provided.
+   * The constructor for this class will need at least the function for retrieving the relevant Adapter Space to facilitate the creation of the Op to be dispensed, and a ParsedOp object which is the operation as derived from the source yaml/JSON file to be converted to the appropriate op type by the dispenser.
+   * The OpDispenser must also override the apply method defined in the BaseOpDispenser. For each test cycle this apply method will be called, and the OpDispenser will need to return the created Op for that cycle. The typical pattern used in the implementation of the OpDispenser is that at the time of construction it defines a LongFunction to create the Op that is dispensed when the apply method is called. The apply method itself is minimal and applies the input value (the cycle) to this function and dispenses the Op returned.
+   * This is another place where it should be noted that in an adapter of any complexity there will usually be multiple Op types, each of which will have its own OpDispenser class responsible for dispensing only that type of Op. Don’t implement a hierarchy of Op types and dispense them through a single OpDispenser via dynamic binding. 
+7. Implement an OpMapper to create the OpDispenser
+   * The OpMapper has a very simple job in the case of having only a single OpDispenser type, it creates the OpDispenser. In more complicated use cases the OpMapper receives an Op and interrogates it to determine the appropriate OpDispenser to create. More on this below.
+   * Your class should implement the OpMapper<T> interface, with the templated type once again being your Op. It then needs to override the apply(ParsedOp) method to return the OpDispenser. The signature should look something like this:   
+   ```public OpDispenser<? extends MyOp> apply(ParsedOp op)```
+   * At this point you can treat the apply method largely as a pass-through and simply return a new OpDispenser instance (although take a look at the existing implementations, you will probably want to emulate the use of the space cache to pass the dispenser the space object as well).
+   * The constructor for this class doesn’t have any hard requirements, but if you look at the existing implementations you will notice most of them include as an argument a new class we haven’t talked about yet, the DriverSpaceCache. Not to worry, this is simply a cache to hold your associated context, the details of which are handled once again by the nb plumbing. In the next step we will look at how this is used in the Adapter class.
+8. Wire your classes together and get it to compile cleanly.
+   * Go back to the Adapter type created in step 5. Now you’re going to fill in that getOpMapper method. If your code looks like the majority of implementations the method body will look like this:  
 	
-	```
-	DriverSpaceCache<? extends MyAdapterSpace> spaceCache = getSpaceCache();   
-	NBConfiguration config = getConfiguration();    
-	return new MyOpMapper(this, config, spaceCache); 
-	```
-	30. As I pointed out earlier this “just works” because nb already provides the plumbing behind these calls. The BaseDriverAdapter handles the necessary initialization and storage of the appropriate type of space cache and NB configuration, and these can simply be passed in to the constructor for your OpMapper class!
-	31. You should now have:
-		32. An op class that implements the RunnableOp interface and defines a run method that does something specific to the native driver you are working with.
-		33. An adapter space class that encapsulates the context of the native driver and implements any logic necessary for initialization.
-		34. A driver adapter class that contains the logic to instantiate both the op mapper class and the adapter space class.
-		35. An op dispenser class that both contains the logic to construct instances of your op type from a ParsedOp object and implements the apply method to return new instances of your op type.
-		36. An op mapper class, as returned by the driver adapter, that implements the apply method to accept a ParsedOp instance and return an instance of the previously defined op dispenser class.
+   ```
+   DriverSpaceCache<? extends MyAdapterSpace> spaceCache = getSpaceCache();   
+   NBConfiguration config = getConfiguration();    
+   return new MyOpMapper(this, config, spaceCache); 
+   ```
+   * As pointed out earlier this “just works” because nb already provides the plumbing behind these calls. The BaseDriverAdapter handles the necessary initialization and storage of the appropriate type of space cache and NB configuration, and these can simply be passed in to the constructor for your OpMapper class!
+   * You should now have:   
+     * An op class that implements the RunnableOp interface and defines a run method that does something specific to the native driver you are working with.  
+     * An adapter space class that encapsulates the context of the native driver and implements any logic necessary for initialization.   
+     * A driver adapter class that contains the logic to instantiate both the op mapper class and the adapter space class.   
+     * An op dispenser class that both contains the logic to construct instances of your op type from a ParsedOp object and implements the apply method to return new instances of your op type.   
+     * An op mapper class, as returned by the driver adapter, that implements the apply method to accept a ParsedOp instance and return an instance of the previously defined op dispenser class.
 
 # Further Reading
 ## Use Cases With Multiple Op Types
