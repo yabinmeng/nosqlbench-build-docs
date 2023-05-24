@@ -9,7 +9,7 @@ weight: 103
 Procedural data generation is built-in to the NoSQLBench runtime by way of the
 _Virtual Data Set_ library. This allows us to create named data generation recipes. These named
 recipes for generated data are called bindings. Procedural generation for test data has
-[many benefits](/devdocs/nosqlbench/showcase/#virtual-data-set) over shipping bulk test data around,
+[many benefits](/introduction/showcase#virtual-data-set) over shipping bulk test data around,
 including speed and deterministic behavior. With the _Virtual Data Set_ approach, most of the hard
 work is already done for us. We just have to pull in the recipes we want.
 
@@ -129,3 +129,8 @@ when that op template is selected for a specific cycle. The cycle number both se
 operation (via the op sequence) and also provides the input value as the initial input to the
 binding functions.
 
+## Further Details
+
+A deeper explanation of binding concepts can be found in the [Binding Concepts](/reference/bindings/binding-concepts)
+part of the Reference Section, where you will also find documentation about how to use the various
+binding functions that are available.
