@@ -5,7 +5,7 @@ weight: 11
 
 Sometimes you want to run a set of workloads in a particular order, or call other specific test
 setup logic in between activities or workloads. While the full scripting environment allows you 
-to do this and more, it is not necessary to write javascript for every scenario.
+to do this and more, it is not necessary to write JavaScript for every scenario.
 
 For more basic setup and sequencing needs, you can achieve a fair degree of flexibility on the
 command line. A few key API calls are supported directly on the command line. This guide explains
@@ -32,17 +32,15 @@ scenario scripting sees.
 
 ## Concurrency & Control
 
-All activities that run during a scenario run under the control of, parallel to the scenario 
-script. This means that you can have a number of activities running on their own flywheels while 
-the scenario tends to them like an automaton. The scenario only completes when both the 
-scenario script and the activities are finished.
+All activities operate parallel to the scenario script, allowing them to run independently at
+their own pace, while the scenario controls and manages them like an automaton. The scenario concludes
+only when both the scenario script and the activities are finished.
 
 ## Scenario Commands
 
 ### start
 
-example
-: `start driver=<driver> alias=<alias> ...`
+example: `start driver=<driver> alias=<alias> ...`
 
 You can start an activity with this command. At the time this command is evaluated, the activity is
 started, and the script continues without blocking. This is an asynchronous start of an activity. If
@@ -54,8 +52,7 @@ case, it is a good idea to name all your activities with a meaningful alias.
 
 ### await
 
-example
-: `await <alias>`
+example: `await <alias>`
 
 Await the normal completion of an activity with the given alias. This causes the scenario script to
 pause while it waits for the named activity to finish. This does not tell the activity to stop. It
@@ -63,8 +60,7 @@ simply puts the scenario script into a paused state until the named activity is 
 
 ### run
 
-example
-: `run driver=<driver> alias=<alias> ...`
+example: `run driver=<driver> alias=<alias> ...`
 
 Run an activity to completion, waiting until it is complete before continuing with the scenario
 script. It is effectively the same as
@@ -74,8 +70,7 @@ script. It is effectively the same as
 
 ### stop
 
-example
-: `stop <alias>`
+example: `stop <alias>`
 
 Stop an activity with the given alias. This is synchronous, and causes the scenario to pause until
 the activity is stopped. This means that all threads for the activity have completed and signalled
@@ -84,33 +79,29 @@ It waits for a number of seconds for all threads to come to a stopped state and 
 to using forceStop if needed. Threads which are occupied blocking on remote timeouts or blocking 
 behavior can prevent an activity from shutting down gracefully.
 
-### forceStop
+### forcestop
 
-syntax
-: `forcestop <alias>`
+syntax: `forcestop <alias>`
 
 This is like the stop command, except that it doesn't allow the activity to shut down gracefully.
 This command immediately shutdown down the thread pool for a given activity.
 
 ### waitmillis
 
-example
-: `waitmillis <milliseconds>`
+example: `waitmillis <milliseconds>`
 
 Pause the scenario script for this many milliseconds. This doesn't affect any running activities 
 directly. This is useful for controlling workload run duration, etc.
 
 ### script
 
-example
-: `script <script file>`
+example: `script <script file>`
 
 Add the contents of the named file to the scenario script buffer.
 
 ### fragment
 
-example
-: `fragment <script text>`
+example: `fragment <script text>`
 
 Add the contents of the next argument to the scenario script buffer.
 
@@ -144,6 +135,3 @@ Here is a narrative of what happens for each line:
 
 After the stop command at the end of the scenarios script, the whole scenario exits, because all 
 activities are stopped or complete, **and** the script is complete.
-
-
-

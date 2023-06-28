@@ -26,7 +26,7 @@ read the
 # Run an Astra Cluster
 
 You can choose to run a serverless cluster through DataStax AstraDB for functional 
-testing. For tips on how to set-up an Astra DB instance, you can check out this 
+testing. For tips on how to set up an Astra DB instance, you can check out this 
 [[Astra Tutorial](https://github.com/datastaxdevs/workshop-intro-to-cassandra#2-create-a-table)].
 
 If you plan to follow along this tutorial using AstraDB, you will need to follow these steps:
@@ -66,6 +66,3 @@ reference a different directory.
 # Run Apache Cassandra in Docker
 
 https://hub.docker.com/_/cassandra
-
-
-

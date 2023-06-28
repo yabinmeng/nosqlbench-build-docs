@@ -61,13 +61,13 @@ nb5 scenario myworkloads longrun
 # run multiple named scenarios from one workload, and then some from another
 nb5 scenario myworkloads longrun default longrun scenario another.yaml name1 name2
 # In this form ^ you may have to add the explicit form to avoid conflicts between
-# workload names and scenario names. That's why the explicit form is provided, afterall.
+# workload names and scenario names. That's why the explicit form is provided, after all.
 ```
 
 ## Workload selection
 
-The examples above contain no reference to a workload (formerly called _
-yaml_). They don't need to, as they refer to themselves implicitly. You may add a `workload=`
+The examples above contain no reference to a workload (formerly called _yaml_).
+They don't need to, as they refer to themselves implicitly. You may add a `workload=`
 parameter to the command templates if you like, but this is never needed for basic use, and it is
 error-prone to keep the filename matched to the command template. Just leave it out by default.
 
@@ -109,7 +109,7 @@ Silent locking is provided with a form like `param==value`. Any silent locked pa
 overrides from the command line, but will not interrupt the user.
 
 Verbose locking is provided with a form like `param===value`. Any time a user provides a parameter
-on the command line for the named parameter, an error is thrown and they are informed that this is
+on the command line for the named parameter, an error is thrown, and they are informed that this is
 not possible. This level is provided for cases in which you would not want the user to be unaware of
 an unset parameter which is germain and specific to the named scenario.
 

@@ -3,12 +3,12 @@ title="Make a Pull Request"
 weight=55
 +++
 
-This is a detailed step-by-step explanation of how you would typically submit contributiosn to 
+This is a detailed step-by-step explanation of how you would typically submit contributions to 
 the NoSQLBench project.
 
 # Assumptions
 
-- You have a github account
+- You have a GitHub account
 - You know how to build NoSQLBench
 
 # Steps
@@ -42,7 +42,7 @@ the NoSQLBench project.
         reviewers, and there are no unresolved issues.
 
 ## Merge
-   1. merge the PR in github
+   1. merge the PR in GitHub
 
 ## Reset
    1. delete the feature branch

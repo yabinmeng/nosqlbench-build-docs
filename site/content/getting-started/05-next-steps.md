@@ -9,7 +9,7 @@ of customization you want for further testing.
 The sections below describe key areas that users typically customize when working with NoSQLBench.
 
 Everyone who uses NoSQLBench will want to get familiar with the
-[Core Concepts](/../nosqlbench/core-concepts)
+[Core Concepts](/../introduction/core-concepts)
 section. This is essential reading for new and experienced testers alike.
 
 ## High-Level Users

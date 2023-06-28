@@ -32,7 +32,7 @@ The currently supported handler verbs, like `stop` above, are:
   which combines the three forms above.
 * **warn** Log a warning to the log with the error details.
 * **code** Assign a specific result code to any matching errors. You can configure this as
-  short-hand in a handler list as just a number: `errors=RuntimeException:33,warn`
+  shorthand in a handler list as just a number: `errors=RuntimeException:33,warn`
 
 You can use any of these verbs in any order in a handler list.
 
@@ -104,7 +104,7 @@ are protected by quotes:
     # using simplified params form
     "handler=counter,handler=warn,handler=code code=42"
 
-This shows that handler verbs are really just short-hand for more canonical object definitions which
+This shows that handler verbs are really just shorthand for more canonical object definitions which
 have their own properties. The handler property is the one that select which handler implementation
 to use. Each handler implementation may have its own options. Those will be documented as they are
 added.

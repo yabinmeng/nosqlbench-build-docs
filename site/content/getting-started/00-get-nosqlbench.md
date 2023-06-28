@@ -73,11 +73,11 @@ Here is a more detailed command which demonstrates how customizable nb5 is:
  rate=100 \
  --progress console:1s
 ```
-Each line does somethign specific:
-1. Starts the scenario named default from the the workload template examples/binding-basics.
+Each line does something specific:
+1. Starts the scenario named default from the workload template examples/binding-basics.
 2. Sets the filename parameter (part of the stdout driver) to exampledata.out. 
 3. Sets the output format (part of the stdout driver) to CSV. 
-4. Sets the number of cycles to run to 10000, short for 0..10000, which includes 0 through 9999. 
+4. Sets the number of cycles to run to 10000, short for 0..10000, which represents 0 through 9999. 
 5. Sets the cycle rate to 100 per second. 
 6. Tells nb5 to report activity progress to the console every second.
 

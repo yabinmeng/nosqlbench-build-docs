@@ -18,16 +18,15 @@ NoSQLBench is a serious performance testing tool for the NoSQL ecosystem.
 **NoSQLBench brings advanced testing capabilities into one tool that are not found in other testing
 tools.**
 
-- You can run common testing workloads directly from the command line. You can start doing this
-  within 5 minutes of reading this.
+- You can run common testing workloads directly from the command line within 5 minutes of reading this.
 - You can generate virtual data sets of arbitrary size, with deterministic data and statistically
   shaped values.
 - You can design custom workloads that emulate your application, contained in a single file, based
-  on statement templates - no IDE or coding required.
+  on statement templates—no IDE or coding required.
 - You can immediately plot your results in a docker and grafana stack on Linux with a single command
   line option.
-- When needed, you can open the access panels and rewire the runtime behavior of NoSQLBench to do
-  advanced testing, including a full scripting environment with Javascript.
+- You can open the access panels when necessary and rewire the runtime behavior of NoSQLBench for advanced 
+  testing. This includes access to a full scripting environment with Javascript.
 
 The core machinery of NoSQLBench has been built with attention to detail. It has been battle tested
 within DataStax as a way to help users validate their data models, baseline system performance, and

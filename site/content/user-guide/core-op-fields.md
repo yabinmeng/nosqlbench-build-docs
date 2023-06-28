@@ -7,7 +7,7 @@ Some op template fields are reserved by nb5. These are provided by the runtime, 
 particular driver, and can be used in any op template.
 
 👉 op fields can be defined at any level of a workload template with a `param` property. Op 
-template which do not have this op field by name will automatically inherit it.
+templates which do not have this op field by name will automatically inherit it.
 
 # Core Op Fields
 
@@ -87,7 +87,7 @@ the relative ratio of op "s3" would be 60% overall. It is important to remember 
 are always relative to the total sum of the active ops' ratios.
 
 This op field works closely with the core activity 
-parameter [seq](../core-activity-parameters/#seq) 
+parameter [seq](../core-activity-params/#seq) 
 
 ## instrument
 
@@ -140,6 +140,7 @@ ops:
     op: "example stmt"
     stop-timers: stanza2
 ```
+
 In this case, before op1 is executed, a timer is started for stanza1 and stanza2. After op2 has 
 been executed, successful or not, the timer for stanza1 will be stopped. After 
 op3 has been executed, successful or not, the timer named stanza2 will be stopped.
@@ -150,4 +151,3 @@ the measurements are an aggregate over all threads.
 👉 The instancing of these named timers is per-thread! There is no way to cross the streams, so 
 measurements are coherent within serialized operations which represent real access patterns in a 
 given application thread.
-

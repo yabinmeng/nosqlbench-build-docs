@@ -13,7 +13,7 @@ operations that you want to execute must be defined in template form beforehand.
 As templates, you indicate where the variable parts are filled in when needed. How this is done 
 will be explained in the [bindings](../03-data-bindings) section.
 
-# simple statements
+# Simple statements
 
 In essence, the config format is *all about configuring operations*. Every other element in the
 config format is in some way modifying or otherwise helping create operations to be used in an
@@ -77,4 +77,3 @@ ops:
 
 Actually, every op template in a YAML file has a name. If you don't provide one, then a name is
 auto-generated for the op template based on its position in the YAML file.
-

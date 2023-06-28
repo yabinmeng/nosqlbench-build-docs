@@ -7,9 +7,9 @@ weight: 102
 
 👉 The commands in this section are examples to show you how the command line works with nb5.
 
-## run a scenario
+## Run a scenario
 
-To run a simple built-in scenario run one of these:
+To run a simple built-in scenario, run one of these:
 
 ```
 ./nb5 cql-keyvalue host=<addr> localdc=<localdcname>
@@ -38,7 +38,7 @@ This also captures some workflow for us. It takes care of:
 How this works is explained in more depth throughout this guide. For now, just know that all of 
 these details are completely open for you to change simply by modifying the workload template.
 
-## discover Scenarios
+## Discover Scenarios
 
 To get a list of built-in scenarios run:
 
@@ -64,7 +64,7 @@ You can also include the example path prefix which will show many more:
 When learning about bindings, it is recommended for first time users to use the above command to 
 find lots of examples for inspiration.
 
-## compose scenarios
+## Compose scenarios
 
 We could easily ask nb5 to run a different named scenario of our choosing by running this:
 
@@ -89,7 +89,7 @@ they invoke directly.
 > You can skip the next part of this page if you want to just use built-in scenarios. If you 
 > want to know how to drill down to the steps and test them individually, continue on. 
 
-## create a schema
+## Create a schema
 
 We will start by creating a simple schema in the database: 
 
@@ -140,7 +140,7 @@ If you like, you can verify the result of this command by describing your
 keyspace in cqlsh or DataStax Studio with
 `DESCRIBE KEYSPACE baselines`.
 
-## load some data
+## Load some data
 
 Before running a test of typical access patterns where you want to capture the results, you 
 need to make the test more interesting than loading an empty table. For this, we use the 
@@ -216,7 +216,7 @@ cql-keyvalue-astra (remaining,active,completed)=(0,0,100000) 100% (last report)
 
 ## Run the main activity
 
-Now that we have a base dataset of 50K rows in the database, we will now
+Now that we have a base dataset of 100K rows in the database, we will now
 run a mixed read / write workload, by default this runs a 50% read / 50%
 write workload. This time we will add a `-v` option for more context.
 
@@ -224,7 +224,7 @@ write workload. This time we will add a `-v` option for more context.
  ./nb5 run driver=cql workload=cql-keyvalue tags='block:main.*' \
  cycles=50k cyclerate=5000 threads=50 --progress console:1s ...
 ```
-You can go ahead and past your activity parameters on the end. nb5 will always parse out the 
+You can go ahead and paste your activity parameters on the end. nb5 will always parse out the 
 global options (those with a dash) and leave your commands intact.
 
 You should see output that looks like this:
@@ -263,4 +263,4 @@ Note in the above output, we
 see `Configured scenario log at logs/scenario_20230113_135200_029.log`.
 
 By default, NoSQLBench records the metrics from the run in this file, we will go into detail 
- about these metrics in the next section [example results](../03_example_results).
+about these metrics in the next section [example results](@/getting-started/03-example-results.md).

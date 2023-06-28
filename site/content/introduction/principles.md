@@ -33,7 +33,3 @@ users' time is exchanged for incremental value in results.
 We build high-fidelity measurement tools and instruments into NoSQLBench, so that the results 
 are not only useful, but repeatable and reproducible. We build efficiency into the NoSQLBench 
 machinery, so that testing tools maintain headroom enough to make accurate measurements at speed.
-
-
-
-
