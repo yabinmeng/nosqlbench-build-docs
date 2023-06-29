@@ -11,10 +11,10 @@ find those places where the docs are lacking. Maybe you can help us by adding so
 ## Doc Site
 
 This site is intended to be the first and most useful form of documentation for NoSQLBench. It is
-hosted on a separate project repo on github so that it can be owned and maintained by the NoSQLBench
-user and developer community. (Click the github link [[here](https://github.com/nosqlbench/nosqlbench-docs)]  to go directly there.) If you
+hosted on a separate project repo on GitHub so that it can be owned and maintained by the NoSQLBench
+user and developer community. (Click the GitHub link [[here](https://github.com/nosqlbench/nosqlbench-docs)] to go directly there.) If you
 see something here that should be updated or expanded, please submit an issue, reach out on discord,
-or even better, submit a pull request!
+or best of all, submit a pull request!
 
 ## Discord Server
 
@@ -54,7 +54,7 @@ detailed, or which include steps to reproduce any issues will get attention firs
 
 ## Feature Requests
 
-If you would like to see something in NoSQLBench that is not there yet,please
+If you would like to see something in NoSQLBench that is not there yet, please
 [[submit a feature request](https://github.com/nosqlbench/nosqlbench/issues/new?labels=feature)]
 .
 
@@ -63,4 +63,3 @@ If you would like to see something in NoSQLBench that is not there yet,please
 If you would like to see a specific NoSQLBench or testing topic added to the guidebook, please
 [[request docs content](https://github.com/nosqlbench/nosqlbench/issues/new?labels=docs)]
 .
-

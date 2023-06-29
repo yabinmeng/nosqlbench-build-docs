@@ -11,9 +11,9 @@ find those places where the docs are lacking. Maybe you can help us by adding so
 ## Doc Site
 
 This site is intended to be the first and most useful form of documentation for NoSQLBench. It is
-hosted on a separate project repo on github so that it can be owned and maintained by the NoSQLBench
+hosted on a separate project repo on GitHub so that it can be owned and maintained by the NoSQLBench
 user and developer community. 
-(Click the github link [[here](https://github.com/nosqlbench/nosqlbench-docs)]  to go directly there.) If you
+(Click the GitHub link [[here](https://github.com/nosqlbench/nosqlbench-docs)]  to go directly there.) If you
 see something here that should be updated or expanded, please submit an issue, reach out on discord,
 or even better, submit a pull request!
 
@@ -26,7 +26,7 @@ each other. Please
 ## Contributing
 
 We welcome all builders to NoSQLBench to help us improve it. Whether you are focused on improving
-docs or building a new subsystem or scripting extension, there is room for everyone, and all are
+docs, building a new subsystem or developing a new scripting extension, there is room for everyone, and all are
 appreciated. We have a new [contributing](@/dev-guide/contributing/_index.md) section 
 if you are interested.
 
@@ -34,7 +34,7 @@ if you are interested.
 
 The primary documentation for NoSQLBench has been moved to this site. While there are still some 
 comment line help facilities, like `nb5 help <driver>`, this is the best place to read it.
-When nb5 is built, it automatically exports all of the rendered docs content to this site.
+When nb5 is built, it automatically exports all the rendered docs content to this site.
 
 This site contains much more documentation than you will want to browse on the command line. 
 It is recommended that you look here first with the search function when possible.
@@ -49,7 +49,7 @@ detailed, or which include steps to reproduce any issues will get attention firs
 
 ## Feature Requests
 
-If you would like to see something in NoSQLBench that is not there yet,please
+If you would like to see something in NoSQLBench that is not there yet, please
 [[submit a feature request](https://github.com/nosqlbench/nosqlbench/issues/new?labels=feature)]
 .
 
@@ -58,4 +58,3 @@ If you would like to see something in NoSQLBench that is not there yet,please
 If you would like to see a specific NoSQLBench or testing topic added to the guidebook, please
 [[request docs content](https://github.com/nosqlbench/nosqlbench/issues/new?labels=docs)]
 .
-

@@ -80,7 +80,7 @@ expanded before structural parsing.
 If the file is a Jsonnet file (by extension), then a local jsonnet interpreter will be run 
 against it before being handled as above. Within this evaluation context, all provided activity 
 parameters are available as external variables and accessible via the standard Jsonnet APIs, 
-specifially [std.extVar(str)](https://jsonnet.org/ref/stdlib.html#extVar). For doing robust data 
+specifically [std.extVar(str)](https://jsonnet.org/ref/stdlib.html#extVar). For doing robust data 
 type conversion, use [std.parseJson(str)](https://jsonnet.org/ref/stdlib.html#parseJson) by default.
 
 URLs are supported as well, with the above expansion rules, based on the path name (extension) of 
@@ -182,7 +182,7 @@ have been specified.
 
 ## errors
 
-- `errors=<error-handler-spec>`
+- `errors=<error handler spec>`
 - _default_: `errors=stop`
 - _required_: no
 - _dynamic_: no
@@ -256,7 +256,7 @@ does: _WORKLOAD_SCENARIO_STEP_. These values are not interpolated for you at thi
 
 ## instrument
 
-- `instrument=true`
+- `instrument=<boolean>`
 - _default_: false
 - _required: no
 - _dynamic_: no
@@ -266,7 +266,7 @@ This activity param allows you to set the default value for the
 
 ## hdr_digits
 
-- `hdr_digits=3`
+- `hdr_digits=<num digits>`
 - _default_: `4`
 - _required_: no
 - _dynamic_: no
@@ -285,8 +285,8 @@ set `hdr_digits=1` on some of them to save client resources.
 
 ## cyclerate
 
-- `cyclerate=<cycle_per_second>`
-- `cyclerate=<cycles_per_second>,<burst_ratio>`
+- `cyclerate=<cycle per second>`
+- `cyclerate=<cycles per second>,<burst_ratio>`
 - _default_: unset
 - _required_: no
 - _dynamic_: yes
@@ -300,7 +300,7 @@ come at a cost. For extremely high throughput testing, consider carefully whethe
 would benefit more from concurrency-based throttling such as adjust the number of threads.
  
 When the cyclerate parameter is provided, two additional metrics are tracked: the wait time and 
-the response time. See [Timing Terms Explained](/timing_terms) for more details.
+the response time. See [Timing Terms Explained](/user-guide/advanced-topics/timing-terms) for more details.
 
 When you try to set very high cyclerate values on systems with many cores, the performance will 
 degrade. Be sure to use dryrun features to test this if you think it is a limitation. You can 
@@ -434,11 +434,11 @@ An op sequence is planned for every activity. With the default ratio on
 every statement as 1, and the default bucket scheme, the basic result is
 that each active statement will occur once in the order specified. Once
 you start adding ratios to statements, the most obvious thing that you
-might expect wil happen: those statements will occur multiple times to
+might expect will happen: those statements will occur multiple times to
 meet their ratio in the op mix. You can customize the op mix further by
 changing the seq parameter to concat or interval.
 
-👉 The op sequence is a look up table of statement templates, *not*
+👉 The op sequence is a look-up table of op templates, *not*
 individual statements or operations. Thus, the cycle still determines the
 uniqueness of an operation as you would expect. For example, if statement
 form ABC occurs 3x per sequence because you set its ratio to 3, then each

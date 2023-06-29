@@ -326,7 +326,7 @@ ops:
 
 ```
 
-## Binding Points at any position in op field data
+## binding points at any position in op field data
 
 You can use either named binding points references like `{userid}` or binding definitions such
 as `{{Template('user-{}',ToString())}}`. The only exception to this rule is that you may not

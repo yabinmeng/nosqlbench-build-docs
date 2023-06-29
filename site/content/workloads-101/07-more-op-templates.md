@@ -182,7 +182,7 @@ statements:
 This form is arguably the easiest to read, but retains all the expressive power of the other forms
 too. The distinction between this form and the named properties form is that the structure
 underneath the first value is a map rather than a single value. Particularly, under the 'foostmt'
-name above, all of content contained within it is formatted as properties of it -- indented
+name above, all the content contained within is formatted as properties of it—indented
 properties.
 
 Here are the basic rules for using this form:
@@ -208,9 +208,9 @@ sequence:
 ```yaml
 statements:
   - first statement body
-  - name: statement3
-    stmt: third statement body
   - second: second statement body
+  - name: third
+    stmt: third statement body
   - forth: fourth statement body
     freeparam1: freeparamvalue1
     tags:
@@ -238,30 +238,15 @@ statements:
 
   # ---------------------------------------------------------------------------------------
 
-  # string form
+  # string form:
   # detected when the element is a single string value
 
   - first statement body
 
-    # read as:
-    # {
-    #   name: 'stmt1', // a generated name is also added
-    #   stmt: 'first stmt body'
-    # }
-
-  # ---------------------------------------------------------------------------------------
-
-  # properties form
-
-  # detected when the element is a map and the value of the first entry is not a map
-
-  - name: statement3
-    stmt: third statement body
-
   # read as:
   # {
-  #   name: 'statement3', 
-  #   stmt: 'third statement body'
+  #   name: 'stmt1', // a generated name is also added
+  #   stmt: 'first stmt body'
   # }
 
   # ---------------------------------------------------------------------------------------
@@ -280,6 +265,20 @@ statements:
 
   # ---------------------------------------------------------------------------------------
 
+  # properties form:
+  # detected when the element is a map and the value of the first entry is not a map
+
+   name: third
+   stmt: third statement body
+
+  # read as:
+  # {
+  #   name: 'third', 
+  #   stmt: 'third statement body'
+  # }
+
+  # ---------------------------------------------------------------------------------------
+
   # properties form with free parameters:
   # detected when properties are used which are not reserved words.
   # Unrecognized words are pushed into the parameters map automatically.
@@ -289,21 +288,21 @@ statements:
     tags:
       type: preload
 
-    # read as: 
-    # {
-    #   name: 'fourth', 
-    #   stmt: 'fourth statement body',
-    #   params: {
-    #     freeparam1: 'freeparamvalue1'
-    #   },
-    #   tags: {
-    #     tag2: 'tagvalue2'
-    #   }
-    #  }
+  # read as: 
+  # {
+  #   name: 'fourth', 
+  #   stmt: 'fourth statement body',
+  #   params: {
+  #     freeparam1: 'freeparamvalue1'
+  #   },
+  #   tags: {
+  #     tag2: 'tagvalue2'
+  #   }
+  # }
 
   # ---------------------------------------------------------------------------------------
 
-  # named statement maps
+  # named statement maps:
   # detected when the element is a map and the only entry is a map.
 
   - fifth:
@@ -314,16 +313,15 @@ statements:
 
   # read as:
   # {
-  #    name: 'fifth',
-  #    stmt: 'fifth statement body'
-  #    params: {
-  #      freeparam2: 'freeparamvalue2'
-  #    },
-  #    tags: {
-  #      tag2: 'tagvalue2'
-  #    }
+  #   name: 'fifth',
+  #   stmt: 'fifth statement body'
+  #   params: {
+  #     freeparam2: 'freeparamvalue2'
+  #   },
+  #   tags: {
+  #     tag2: 'tagvalue2'
+  #   }
   # }
 
   # ---------------------------------------------------------------------------------------    
 ```
-

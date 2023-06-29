@@ -5,7 +5,7 @@ draft: false
 weight: 3
 ---
 
-NoSQLBench has enjoyed a history of unique innovation, driven by the vision of its users and
+NoSQLBench has enjoyed a history of unique innovation: driven by the vision of its users and
 builders, forged by the need for practical methods to test modern systems. This section covers a
 sampling of what makes NoSQLBench unique. Many of these features simply could not be found in other
 testing systems when they were needed. Thus, NoSQLBench took form as we solved them one after
@@ -20,12 +20,12 @@ taken for granted.
 
 This has multiple positive effects on the fidelity of a test:
 
-* It is very much more efficient than interacting with storage systems and piping data around. Even
-  loading data from lightweight storage like NVMe will be more time intensive than simply generating
-  it in most cases.
+* It is very much more efficient than interacting with storage systems and piping data around. In most 
+  cases, even loading data from lightweight storage like NVMe will be more time intensive than simply 
+  generating it.
 * As such, it leaves significant headroom on the table for introducing other valuable capabilities
-  into the test system, like advanced rate metering, coordinated omission awareness, etc.
-* Changing the data which is generated is as easy as changing the recipe.
+  into the test system, like advanced rate metering, coordinated omission awareness, and more.
+* Changing the generated data is as easy as changing the recipe.
 * The efficiency of the client is often high enough to support single-client test setups without
   appreciable loss of capacity.
 * Because of modern procedural generation techniques, the variety and shape of data available is
@@ -52,7 +52,7 @@ their respective density functions. The existing Apache Commons Math libraries h
 into a set of interpolated Inverse Cumulative Distribution sampling functions. This means that you
 can use them all in the same place as you would a Uniform distribution, and once initialized, they
 sample with identical overhead. This means that by changing your test definition, you don't
-accidentally change the behavior of your test client, only the data as intended.
+accidentally change the behavior of your test client; only the data, as intended.
 
 ##### A Purpose-Built Tool
 
@@ -78,7 +78,7 @@ basis.
 This means that if you find something interesting in a test run, you can go back to it just by
 specifying the cycles in question. It also means that you aren't losing comparative value between
 tests with additional randomness thrown in. The data you generate will still look random to the
-human eye, but that doesn't mean that it can't be reproducible.
+human eye, but that doesn't mean that it won't be reproducible.
 
 ##### Statistically Shaped
 
@@ -107,7 +107,7 @@ also be used this way, so you're not strictly limited to US census data.
 ##### Java Idiomatic Extension
 
 The way that the virtual dataset component works allows Java developers to write any extension to
-the data generation functions simply in the form of Java Functional interfaces. As long
+the data generation functions simply in the form of Java functional interfaces. As long
 as they include the annotation processor and annotate their classes, they will show up in the
 runtime and be available to any workload by their class name.
 
@@ -128,8 +128,8 @@ All the workloads that you can build with NoSQLBench are self-contained in a wor
 is a statement-oriented configuration file that contains templates for the operations you want to
 run in a workload.
 
-This defines part of an activity - the iterative flywheel part that is run directly within an
-activity type. This file contains everything needed to run a basic activity -- A set of statements
+This defines part of an activity—the iterative flywheel part that is run directly within an
+activity type. This file contains everything needed to run a basic activity: a set of statements
 in some ratio. It can be used to start an activity, or as part of several activities within a
 scenario.
 
@@ -140,14 +140,14 @@ specialized around describing statements for a workload. That means that you can
 format to describe a workload for kafka as you can for Apache Cassandra or DSE.
 
 The YAML structure has been tailored to describing statements, their data generation bindings, how
-they are grouped and selected, and the parameters needed by drivers, like whether they should be
+they are grouped and selected, and the parameters needed by drivers, such as whether they should be
 prepared statements or not.
 
-Further, the YAML format allows for defaults and overrides with a very simple mechanism that reduces
+Furthermore, the YAML format allows for defaults and overrides with a very simple mechanism that reduces
 editing fatigue for frequent users.
 
 You can also templatize document-wide macro parameters which are taken from the command line just
-like any other parameter. This is a way of templating a workload and make it multi-purpose or
+like any other parameter. This is a way of templating a workload and making it multipurpose or
 adjustable on the fly.
 
 ### Experimentation Friendly
@@ -231,7 +231,7 @@ user's creative control. Most DSLs aren't rich enough to do much that is interes
 simulation perspective.
 
 In NoSQLBench, we don't force the user to use the programming abstractions except at a very surface
-level -- the CLI. It is up to the user whether to open the secret access panel for the more
+level: the CLI. It is up to the user whether to open the secret access panel for the more
 advanced functionality. If they decide to do this, we give them a commodity language (ECMAScript),
 and we wire it into all the things they were already using. We don't take away their creative
 freedom by telling them what they can't do. This way, users can pick their level of investment and
@@ -240,7 +240,7 @@ reward as best fits their individual needs, as it should be.
 ##### Scripting Extensions
 
 Also mentioned under the section on modularity, it is relatively easy for a developer to add their
-own scripting extensions into NoSQLBench as named service objects.
+own scripting extensions into NoSQLBench in the form of named service objects.
 
 ## Modular Architecture
 
@@ -296,8 +296,7 @@ Particularly, NoSQLBench tries to avoid the term "latency" altogether as it is o
 thus prone to confusing people.
 
 Instead, the terms `service time`, `wait time`, and `response time` are used. These are abbreviated
-in metrics as `servicetime`, `waittime`, and
-`responsetime`.
+in metrics as `servicetime`, `waittime`, and `responsetime`.
 
 The `servicetime` metric is the only one which is always present. When a rate limiter is used, then
 additionally `waittime` and `responsetime` are reported.
@@ -312,7 +311,7 @@ become familiar with the basic options first.
 Rate limiting is a complicated endeavor, if you want to do it well. The basic rub is that going fast
 means you have to be less accurate, and vice-versa. As such, rate limiting is a parasitic drain on
 any system. The act of rate limiting itself poses a limit to the maximum rate, regardless of the
-settings you pick. This occurs as a side-effect of forcing your system to interact with some
+settings you pick. This occurs as a side effect of forcing your system to interact with some
 hardware notion of time passing, which takes CPU cycles that could be going to the thing you are
 limiting.
 

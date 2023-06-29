@@ -5,22 +5,25 @@ weight: 10
 
 ### Command-Line Options ###
 
-Help ( You're looking at it. )
+Help (You're looking at it.)
 
     --help
 
-Short options, like '-v' represent simple options, like verbosity. Using multiples increases the
+Short options, like '-v', represent simple options, like verbosity. Using multiples increases the
 level of the option, like '-vvv'.
 
-Long options, like '--help' are top-level options that may only be used once. These modify general
+Long options, like '--help', are top-level options that may only be used once. These modify general
 behavior, or allow you to get more details on how to use nb5.
 
-All other options are either commands, or named arguments to commands. Any single word without
-dashes is a command that will be converted into script form. Any option that includes an equals sign
-is a named argument to the previous command. The following example is a commandline with a command *
-start*, and two named arguments to that command.
+All other options are either commands, or named arguments to commands.
+ - *Any single word without dashes is a command that will be converted into script form.*
+ - *Any option that includes an equals sign is a named argument to the previous command.*
 
-    nb5 start driver=diag alias=example
+The following example is a commandline with a command *start*, and two named arguments to that command.
+
+```
+nb5 start driver=diag alias=example
+```
 
 ### Discovery options ###
 
@@ -51,7 +54,7 @@ Copy a workload or other file to your local directory as a starting point:
 
     --copy <name>
 
-Provide the metrics that are available for scripting
+Provide the metrics that are available for scripting:
 
     --list-metrics <activity type> [ <activity name> ]
 
@@ -116,8 +119,8 @@ Specify the logging pattern for logfile only:
     # ANSI variants are auto promoted for console if --ansi=enable
     # ANSI variants are auto demoted for logfile in any case
 
-Explicitly enable or disable ANSI logging support:
-(ANSI support is enabled if the TERM environment variable is defined)
+Explicitly enable or disable ANSI logging support
+(ANSI support is enabled if the TERM environment variable is defined):
 
     --ansi=enabled
     --ansi=disabled
@@ -181,7 +184,7 @@ may do so with this option:
     --classic-histograms 'prefix:.*'               # same as above
     --classic-histograms 'prefix:.*specialmetrics' # subset of names
 
-Name the current session, for logfile naming, etc By default, this will be "scenario-TIMESTAMP", and
+Name the current session, for logfile naming, etc. By default, this will be "scenario-TIMESTAMP", and
 a logfile will be created for this name.
 
     --session-name <name>
@@ -238,7 +241,7 @@ name and log directory.
 
 The reason for the optional timing parameter is to allow for results of short scenario runs to be
 squelched. Metrics for short runs are not generally accurate nor meaningful. Spamming the console
-with boiler-plate in such cases is undesirable. If the minimum session length is not specified, it
+with boilerplate in such cases is undesirable. If the minimum session length is not specified, it
 is assumed to be 0, meaning that a report will always show on that channel.
 
 

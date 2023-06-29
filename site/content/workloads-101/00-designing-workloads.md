@@ -17,11 +17,10 @@ describe operations that you want to execute, using any available operation type
 template is usually provided in a YAML file according to the conventions and formats provided in 
 this section. From here on, we'll simply call them _workloads_.
 
-
 👉 Workload templates are basically blueprints for operations that you organize in whatever 
 order and mix you need.
 
-With NoSQLBench a standard configuration format is provided that is used across all workloads.
+With NoSQLBench, a standard configuration format is provided that's used across all workloads.
 This makes it easy to specify op templates, parameters, data bindings, and tags. By default, we 
 use YAML as our workload format, but you could just as easily use JSON. (YAML is a superset of 
 JSON). After all, workloads templates are really collections of data structure templates.

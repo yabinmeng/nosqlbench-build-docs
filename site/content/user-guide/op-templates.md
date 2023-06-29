@@ -78,7 +78,7 @@ core nb5 code base, tested for validity with every build. You can only see a doc
 working specification on this site.
 
 The design principles used when building this standard include:
-- If it looks like what it does and it does what it looks like, then it is valid.
+- If it looks like what it does, and it does what it looks like, then it is valid.
 - If there is a reasonable chance of ambiguity, then disallow the pattern, or make the user be 
   more specific.
 
@@ -153,7 +153,7 @@ lost in the layers, just remember that everything follows this pattern: From the
 the map keys mean _property name_ &gt; _member name_ &gt; _property name_ &gt; _member name_ ...
 until the very end where leaf nodes are simply values.
 
-# Synthetic op Values
+# Synthetic Op Values
 
 The power of an op template comes from the fact that it is a real template. If your op template 
 contains a string template `select user_id from mytable where token={user_token}`, you can't 
@@ -194,7 +194,7 @@ This shows a few example op templates.
 
 ## op1
 
-The one named `op1` looks like A string template, but it has no prefix nor suffix in the string.
+The one named `op1` looks like a string template, but it has no prefix nor suffix in the string.
 The double curly brace form removes the need to reference a binding by name. It is an anonymous 
 binding function directly within the bind point. Further, it isn't necessary to put _only a bind 
 point_ in a string template like this when you are assigning a string value. That happens 
@@ -222,7 +222,7 @@ where the whole protocol is described within an JSON object for example, the par
 useless.
 
 👉 **When you have a trivial op structure with no need for params, you need to specify neither the 
-`op` nor the`params` property, and all non-reserved keys will automatically be stored in the 
+`op` nor the `params` property, and all non-reserved keys will automatically be stored in the 
 `op`.** This is recommended as the convention for all new drivers. Usage of the `params` 
 property is still supported, but should only be employed by driver developers when it is 
 strictly necessary.
@@ -238,7 +238,3 @@ specify that you want a raw, prepared, or other type of statement to be executed
 template must pick one. This is necessary to allow activities to pre-compute or pre-bake much 
 of the op synthesis logic as it can. This can be done much more efficiently if at least the 
 type of operation doesn't change from cycle to cycle.
-
-
-
-

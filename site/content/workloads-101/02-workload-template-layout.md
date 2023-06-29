@@ -7,7 +7,7 @@ extra:
  math_auto_render: true
 ---
 
-It is best to keep every workload templaet self-contained within a single YAML file, including 
+It is best to keep every workload template self-contained within a single YAML file, including 
 schema, rampup, and the main steps in your testing workflow. These steps in a typical testing 
 workflow are controlled by tags as described below.
 
@@ -43,14 +43,14 @@ users.
 ## Schema step
 
 The schema step is simply where you create the necessary schema on your target system. For CQL, 
-this generally consists of a keyspace and one ore more table statements. There is no special 
+this generally consists of a keyspace and one or more table statements. There is no special 
 schema layer in NoSQLBench. All statements executed are simply statements. This provides the 
 greatest flexibility in testing since every activity type is allowed to control its DDL and DML 
 using the same machinery.
 
 The schema step is normally executed with defaults for most parameters. This means that 
 operations will execute in the order specified in the workload template, serially, exactly once.
-This is a welcome side-effect of how the initial parameters like _cycles_ are set from the 
+This is a welcome side effect of how the initial parameters like _cycles_ are set from the 
 op templates which are activated by tagging.
 
 The nb5 way of selecting all op templates in a block is to use the built-in block name in a tag 
