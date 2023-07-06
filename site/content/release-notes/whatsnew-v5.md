@@ -6,7 +6,7 @@ weight = 50
 
 # Updates in Progress
 
-👉 **The docs are presently being rewritten to support NoSQLBench v5.0.** 👈
+👉 **The docs are presently updated to support NoSQLBench v5.17.** 👈
 
 Welcome to NB5! This release represents a massive leap forward. There are so many improvements
 that should have gone into smaller releases along the way, but here we are. We've had our heads

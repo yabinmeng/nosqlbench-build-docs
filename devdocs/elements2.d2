@@ -1,0 +1,147 @@
+# https://www.eclipse.org/elk/reference/options.html
+# https://rtsys.informatik.uni-kiel.de/elklive/index.html
+direction: right
+
+classes: {
+ contains-many: {
+  style.stroke: red
+  style.stroke-width: 3
+  source-arrowhead.label: "contains"
+  source-arrowhead.shape: diamond
+  target-arrowhead.label: "[*]"
+ }
+ contains: {
+  style.stroke: red
+  style.stroke-width: 3
+  source-arrowhead.label: "contains"
+  source-arrowhead.shape: diamond
+ }
+ feeds: {
+  style.stroke: blue
+  style.stroke-width: 3
+  source-arrowhead.label: "used by"
+  # target-arrowhead.label: "uses"
+  source-arrowhead.shape: none
+ }
+ flows: {
+  style.stroke: blue
+  style.stroke-width: 3
+  source-arrowhead.label: "dataflow"
+  source-arrowhead.shape: none
+ }
+ creates: {
+  style.stroke: blue
+  style.stroke-width: 4
+  source-arrowhead.label: "creates"
+  target-arrowhead.shape: triangle
+  source-arrowhead.shape: none
+ }
+ refs: {
+  style.stroke: blue
+  style.stroke-width: 2
+  style.stroke-dash: 2
+  source-arrowhead.shape: triangle
+  target-arrowhead.shape: none
+#  source-arrowhead.label: "ref"
+  target-arrowhead.label: "references"
+ }
+}
+
+activity-params: "Activity Params" {
+   alias { tooltip: "The name of the activity" }
+   seq { tooltip: "The sequencer"; link: "https://docs.nosqlbench.io/user-guide/core-activity-params/#seq"}
+   recycles { tooltip: "outside repeating interval" }
+   cycles { tooltip: "inside repeating interval"; link: "https://docs.nosqlbench.io/user-guide/core-activity-params/#cycles" }
+   rmin: "min"
+   rmax: "max"
+   cmin: "min"
+   cmax: "max"
+   recycles -> rmin
+   recycles -> rmax
+   cycles -> cmin
+   cycles -> cmax
+ }
+
+
+workload: "Workload\nNormalization" {
+ JSON: "Raw JSON with\ntemplate vars"
+ YAML: "Raw YAML with\ntemplate vars"
+ _.activity-params <-> jsonnet-evaluator: {class: refs}
+ _.activity-params <-> template-var-evaluator-json: {class: refs};
+ _.activity-params <-> template-var-evaluator-yaml: {class: refs};
+ JSON <-> template-var-evaluator-json: { class: feeds; }
+ YAML <-> template-var-evaluator-yaml: { class: feeds; }
+ Jsonnet <-> jsonnet-evaluator: {class: feeds}
+ jsonnet-evaluator: "Jsonnet\nEvaluator"
+ json-parser: "JSON Parser"
+ json-parser <-> workload-data { class: feeds }
+ template-var-evaluator-json: "Template Var\nEvaluator (JSON)"
+ template-var-evaluator-yaml: "Template Var\nEvaluator (YAML)"
+ template-var-evaluator-yaml <-> yaml-parser {class: flows}
+ yaml-parser <-> workload-data {class: feeds}
+ normalizer: |md
+  ### Desugaring
+    - auto naming
+    - auto tagging
+    - property layering
+    - tag filtering
+ |
+ jsonnet-evaluator <-> JSON;
+ template-var-evaluator-json <-> json-parser {class: flows};
+ yaml-parser: "Yaml Parser"
+ flattened-ops <-> _.parsed-ops.virtdata-parser {class: refs}
+ workload-data: "Workload\nData-Structure"
+ workload-data <-> normalizer: { class: feeds }
+ scenario-script: "Scenario\nScripting API"
+ scenario-script <-> workload-data {class: creates};
+ normalizer <-> flattened-ops: { class: creates }
+ flattened-ops: "Flattened\nOp Templates"
+ parsed-ops: "Parsed Op\nTemplates"
+ _.parsed-ops.virtdata-parser <-> _.parsed-ops.ops {class: creates; target-arrowhead.label: "[*]"}
+}
+
+parsed-ops: "Parsed Op API" {
+ virtdata-parser: "Virtual\nDataset\nParser" { tooltip: "Parser for bindings and capture points & procedural generation function resolver." }
+ ops: "Parsed Op\nTemplates"
+ ratios: "ratios"
+ ops <-> ratios {class:contains}
+}
+
+ op-sequencing: "Op Sequencing" {
+  sequencer: "Op\nSequencer"
+  sequence: "Op Template\nSequence"
+  LUT <-> sequence: { class: refs }
+  sequencer <-> LUT: { class: creates }
+  sequencer <-> sequence: { class: creates }
+ }
+
+
+activity-init: "Activity\nInitialization" {
+
+ _.activity-params.seq <-> _.op-sequencing.sequencer: { class: refs }
+ _.parsed-ops.ratios <-> _.op-sequencing.sequencer: { class: refs}
+ _.parsed-ops.ops <-> _.op-sequencing.sequencer { class: refs }
+ _.parsed-ops.ops <-> _.op-sequencing.sequence: { class: refs }
+
+
+ opmapping: "Op Mapping" {
+  op-mapper: "Op Mapper"
+  op-dispensers: "Op Dispenser\nSequence"
+  space-function: "Space\nFunction"
+  driver-field: "Driver\nField"
+ }
+
+ op-sequencing.sequence <-> opmapping.op-mapper: { class: refs }
+
+ opmapping.op-mapper <-> opmapping.op-dispensers: { class: creates }
+}
+
+# optemplate -> mapper: feeds
+
+dispensing: {
+ label: Op Dispensing
+ cycle -> dispenser: applied to
+ dispenser: "Driver-Specific\ndispenser"
+}
+
+#workload.parsed-ops <-> activity-init.

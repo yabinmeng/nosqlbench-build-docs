@@ -1,0 +1,46 @@
+#!/bin/bash
+binname=${binname:-d2}
+
+if ! which jq > /dev/null 2>&1
+then
+ printf "Install the jq command first\n"
+ exit 2
+fi
+
+if [ -x "./$binname" ]
+then
+ printf "The $binname binary exists. To force fetching it, remove it first.\n"
+ exit 1
+fi
+
+distributor=$(lsb_release -i)
+if ! echo $distributor | grep Ubuntu >/dev/null 2>&1
+then
+ printf "This is not a supported system. Update the script to include your system.\n"
+fi
+
+export release=$1
+
+if [ -z "${release}" ]
+then release='latest'
+else release="tags/${release}"
+fi
+
+ORGNAME="terrastruct"
+PROJECT="d2"
+
+export download_url=$(
+ curl -s https://api.github.com/repos/${ORGNAME}/${PROJECT}/releases/${release} | \
+ jq -r '{assets} | .[] | .[] | {url: .browser_download_url} | .url' | \
+ egrep '.*?linux-amd64.tar.gz'
+)
+
+printf "url: %s\n" ${download_url}
+
+curl -L -O "${download_url}"
+tar -xvf d2-v*-linux-amd64.tar.gz
+rm d2-v*-linux-amd64.tar.gz
+ln -s d2-v*/bin/d2 ./d2
+
+
+
