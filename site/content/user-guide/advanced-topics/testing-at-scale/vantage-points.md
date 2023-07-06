@@ -9,7 +9,7 @@ determines what you measure.
 
 Consider the following diagram:
 
-<img src="../layers.svg" alt="drawing" width="75%"/>
+<img src="../layers.png" alt="drawing" width="75%"/>
 
 
 This diagram illustrates a prototypical set of services and their inner service dependencies. This
