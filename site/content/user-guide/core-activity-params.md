@@ -36,8 +36,8 @@ important.
 - _dynamic_: no
 
 Every activity can have a default driver. If provided, it will be used for any op template which 
-does not have one directly assigned in the workload template. For each op template in the 
-workload, if no driver is set, an error is thrown.
+does not have one directly assigned as an op field. For each op template in the workload, if no 
+driver is set, an error is thrown.
 
 As each activity can have multiple op templates, and each op template can have its own driver, 
 the available activity params for a workload are determined by the superset of valid params for 
@@ -67,15 +67,30 @@ activity params documented in this section.
 
 - `driver=stdout` - set the default driver to `stdout`
 
-## workload | op
+## workload
 
-The workload param tells an activity where to load its op template from. This can be a 
-[YAML](https://yaml.org/) file, a [JSON](https://json.org/) file, 
-a [Jsonnet](https://jsonnet.org/) file, a URL, or an Amazon S3 URL, assuming you have locally 
-configured authentication.
+- _default_: unset, _required_: one of `workload=` or `op=` or `stmt=`, _dynamic_: no
 
-If the file is a JSON or YAML file, it will be loaded as is, with any template variables 
-expanded before structural parsing.
+- `workload=<filename>` where filename is a 
+  [YAML](https://yaml.org/), 
+  [JSON](https://json.org/), or 
+  [Jsonnet](https://jsonnet.org/) file with matching extension.
+  If the extension is missing, then it is presumed to be a yaml file. Workload filenames are 
+  resolved on the local filesystem first, then from the files which are bundled into the 
+  nosqlbench binary or jar.
+- `workload="<URL>"` where [URL](https://en.wikipedia.org/wiki/URL) with an valid
+  [scheme](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#scheme), 
+  like http, https, or
+  [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html#accessing-a-bucket-using-S3-format).
+  S3 support has been added directly, so you can use these URIs so long as you have a valid AWS 
+  configuration. 
+- `workload="<JSON Object>"` where the param value is a JSON object starting with `{`. Escaping 
+  might be necessary for some characters when using this on the command line.
+  - example: `workload=`{"bindings":{"b1":"NumberNameToString()},"op":"testing {b1}"}'`
+
+The workload param tells an activity where to load its [workload template]
+(@/workloads-101/_index.md) from. The workload template is a collection of op templates which 
+are blueprints for the operations that an activity runs. 
 
 If the file is a Jsonnet file (by extension), then a local jsonnet interpreter will be run 
 against it before being handled as above. Within this evaluation context, all provided activity 
@@ -83,12 +98,17 @@ parameters are available as external variables and accessible via the standard J
 specifically [std.extVar(str)](https://jsonnet.org/ref/stdlib.html#extVar). For doing robust data 
 type conversion, use [std.parseJson(str)](https://jsonnet.org/ref/stdlib.html#parseJson) by default.
 
-URLs are supported as well, with the above expansion rules, based on the path name (extension) of 
-the resource.
+## op
 
-When the `op` param is provided, then the contents of this are taken as an op template which 
+
+When the `op` param is provided, then the contents of this are taken as an op template which are 
+which 
 consists of a string template only. This is equivalent to providing a workload which contains a 
 single op with a single op field named `stmt`.
+
+## stmt
+
+
 
 ## tags
 

@@ -9,7 +9,7 @@ particular driver, and can be used in any op template.
 👉 op fields can be defined at any level of a workload template with a `param` property. Op 
 templates which do not have this op field by name will automatically inherit it.
 
-# Core Op Fields
+# General
 
 ## *driver*
 
@@ -89,6 +89,8 @@ are always relative to the total sum of the active ops' ratios.
 This op field works closely with the core activity 
 parameter [seq](../core-activity-params/#seq) 
 
+# Instrumentation
+
 ## instrument
 
 By setting this to true, each named op template will be instrumented with a set of metrics, with 
@@ -152,7 +154,7 @@ the measurements are an aggregate over all threads.
 measurements are coherent within serialized operations which represent real access patterns in a 
 given application thread.
 
-## verifier
+# Result Verification
 
 You can now verify results of operations using property-based assertions or result equality.
 These methods use a compiled script which has access to binding variables in the same way that
@@ -166,10 +168,25 @@ Language Documentation](https://docs.groovy-lang.org/latest/html/documentation/)
 the [Groovy API docs](https://docs.groovy-lang.org/latest/html/api/) for more details on the
 language.
 
-Within the scripting environment of verifier, the result of the last operation is accessed as the
-`result` variable. This makes assertion logic read like what it does. For example, if you want
-to verify that the result of an operation is equal to the string "this worked 42!", you can
-specify something like this:
+### verifier variables
+
+Within the scripting environment of the verifier, you can access some pre-defined variables:
+
+- result - The result of the last operation. This value is provided optionally by different 
+  drivers, so if you are using a verifier, ensure that the driver adapter you are using is 
+  compatible
+- cycle - The cycle number associated with the op.
+- _parsed_op - The op template in full-parsed form. This can be used for things like naming 
+  or labeling data for metrics, or to make some verifier logic conditional on other fields.
+- _bindings_ - any binding variables which are defined for your op template can be used. You 
+  reference these just as in op templates, like `{mybindingvalue}`. These are computed and 
+  injected per-cycle.
+
+## verifier
+
+Using the result variable, you can make your assertion logic read like what it does. For 
+example, if you want to verify that the result of an operation is equal to the string "this 
+worked 42!", you can specify something like this:
 
 ```yaml
 ops:
@@ -178,7 +195,6 @@ ops:
      verifier: |
       result.equals("this worked 42!\n");
 ```
-
 The verifier allows you to use bindings in exactly the same format as your string-based op
 templates:
 ```yaml
@@ -204,7 +220,9 @@ When multiple verifiers are supplied, they are executed each in turn. This means
 present distinctly when verifiers are separated for clarity.
 
 All verifier execution contexts share the same compiled script for a given verifier code body, but
-each thread has its own instanced variable state, including results.
+each thread has its own instanced variable state, including results. However, the variables 
+which were present after any verifier-init code are injected into the initial context for each 
+instance.  
 
 ## expected-result
 
@@ -232,5 +250,12 @@ literal forms.
 For the verifier capabilities explained above, you may need to import symbols from packages in
 your runtime. This allows you to do so. These imports will apply equally to any per-cycle
 verification logic for the given op template, and only need to be specified once (per op template).
+
+## verifier-init
+
+Sometimes you want to initialize your verifier logic once before you invoke it every cycle. Any 
+verifier code provided in _verifier-init_ fields is run exactly this way. The variable bindings 
+which are created here are persisted and injected into every other verifier as such. This allows 
+you to create instrumentation, for example.
 
 
