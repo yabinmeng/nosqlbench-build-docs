@@ -129,8 +129,8 @@ configurations, in detail, and over time.
 __Tags__
 
 Tags are meant to be useful filters for specifying __which things should be used in a test__, 
-and are applied ad-hoc within workload templates for the purposes of tailoring individual 
-scenarios around specific test requirements at the time they are run.
+and are applied ad-hoc within workload templates for the purposes of customizing scenarios 
+around specific operations to be included.
 
 Each layer is configured and informed by a set of inputs. Each layer adds a specific set of
 labels, one or more.
