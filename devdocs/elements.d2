@@ -1,0 +1,19 @@
+#direction: right;
+
+Process: "process{1}" {
+ Scenario: "[scenario]{*}" {
+  Activity {
+   cycle {
+    ops {
+     op {
+      driver {
+       space;
+      }
+     }
+    }
+   }
+  }
+ }
+}
+
+p1 -> sc1: -> a1 -> c1 -> d1 -> sp1
