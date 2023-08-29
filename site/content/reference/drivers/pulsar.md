@@ -1,12 +1,25 @@
 ---
-title: pulsar
+title: Pulsar
 weight: 202308731
 ---
-# pulsar
+
+- [1. Overview](#1-overview)
+    - [1.1. Issues Tracker](#11-issues-tracker)
+- [2. Execute the NB Pulsar Driver Workload](#2-execute-the-nb-pulsar-driver-workload)
+    - [2.1. NB Pulsar Driver Yaml File High Level Structure](#21-nb-pulsar-driver-yaml-file-high-level-structure)
+    - [2.2. NB Pulsar Driver Configuration Parameters](#22-nb-pulsar-driver-configuration-parameters)
+        - [2.2.1. Global Level Parameters](#221-global-level-parameters)
+        - [2.2.2. Document Level Parameters](#222-document-level-parameters)
+- [3. NB Pulsar Driver OpTemplates](#3-nb-pulsar-driver-optemplates)
+- [4. Message Generation and Schema Support](#4-message-generation-and-schema-support)
+    - [4.1. Message Generation](#41-message-generation)
+    - [4.2. Schema Support](#42-schema-support)
+
+---
 
 # 1. Overview
 
-This driver allows you to simulate and run different types of workloads (as below) against a Pulsar cluster through NoSQLBench (NB).
+The NB Pulsar driver allows you to simulate and run different types of workloads (as below) against a Pulsar cluster through NoSQLBench (NB).
 * Admin API - create/delete tenants
 * Admin API - create/delete namespaces
 * Admin API - create/delete topics
@@ -159,6 +172,7 @@ For the Pulsar NB driver, Document level parameters can only be statically bound
         * `out_of_order`: simulate message out of sequence
         * `msg_loss`: simulate message loss
         * `msg_dup`: simulate message duplication
+    * This value should be used only for testing purposes. It is not recommended to use this parameter in actual testing environments.
 * ***e2e_starting_time_source***:
     * Starting timestamp for end-to-end operation. When specified, will update the `e2e_msg_latency` histogram with the calculated end-to-end latency. The latency is calculated by subtracting the starting time from the current time. The starting time is determined from a configured starting time source. The unit of the starting time is milliseconds since epoch.
     * The possible values for `e2e_starting_time_source`:
