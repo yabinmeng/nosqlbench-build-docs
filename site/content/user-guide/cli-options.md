@@ -1,9 +1,9 @@
 ---
-title: "CLI Options"
+title: "Command Line Options"
 weight: 10
 ---
 
-### Command-Line Options ###
+### The NoSQLBench CLI ###
 
 Help (You're looking at it.)
 
@@ -244,4 +244,29 @@ squelched. Metrics for short runs are not generally accurate nor meaningful. Spa
 with boilerplate in such cases is undesirable. If the minimum session length is not specified, it
 is assumed to be 0, meaning that a report will always show on that channel.
 
+## Labeling Options
 
+For an in-depth introduction to descriptive metadata support in NoSQLBench, see the
+[Labeling and Tagging](@/user-guide/advanced-topics/labeling_and_tagging.md) section.
+
+You can add labels and their values to a NoSQLBench session:
+
+    # all at once
+    --add-labels "label1:value1,label2:value2"
+    
+    # incrementally
+    --add-labels "label1:value1" --add-labels "label2:value2"
+
+All such labels must have names and values which are compatible with metrics systems, which 
+means the initial character must be alphabetic, and all subsequent characters must be 
+alphanumeric or underscores. 
+
+You can establish labeling specification (standard forms) for metrics and annotations with:
+
+    # set both --annotate-labelspec and --metrics-labelspec
+    --labelspec "+instance,+session,+specialcircumstancelabel"
+    # set different labelspecs for metrics and annotation:
+    --metrics-labelspec "+instance,+session" --annotate-labelspec "+instance,+session,+region"
+
+These can serve as a safety against sending invalid label data to a downstream system and polluting
+the namespace of all results.

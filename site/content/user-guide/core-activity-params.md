@@ -2,8 +2,8 @@
 title: "Core Activity Params"
 weight: 23
 extra:
- math: true
- math_auto_render: true
+  math: true
+  math_auto_render: true
 ---
 
 Activity parameters are passed as named arguments for an activity, either on the command line
@@ -21,12 +21,11 @@ to configure it with additional driver params as well as what op template forms 
 
 # Essential
 
-The activity params described in this section are those which you will use almost all the time 
+The activity params described in this section are those which you will use almost all the time
 when configuring activities.
 
-👉 If you aren't using one of these options with a `run` or `start` 
-command, or otherwise in your named scenarios, double check that you aren't missing something 
-important.
+👉 If you aren't using one of these options with a `run` or `start` command, or otherwise in your 
+named scenarios, double check that you aren't missing something important.
 
 ## driver
 
@@ -35,32 +34,32 @@ important.
 - _required_: no
 - _dynamic_: no
 
-Every activity can have a default driver. If provided, it will be used for any op template which 
-does not have one directly assigned as an op field. For each op template in the workload, if no 
+Every activity can have a default driver. If provided, it will be used for any op template which
+does not have one directly assigned as an op field. For each op template in the workload, if no
 driver is set, an error is thrown.
 
-As each activity can have multiple op templates, and each op template can have its own driver, 
-the available activity params for a workload are determined by the superset of valid params for 
+As each activity can have multiple op templates, and each op template can have its own driver,
+the available activity params for a workload are determined by the superset of valid params for
 all active drivers.
 
-You can find out what drivers are available in nb5 with the `--list-drivers` option from 
-[discovery options](@/user-guide/cli-options.md#discovery-options). You can then get details on 
+You can find out what drivers are available in nb5 with the `--list-drivers` option from
+[discovery options](@/user-guide/cli-options.md#discovery-options). You can then get details on
 what each of these drivers allow with `nb5 help <driver>`.
 
-The driver selection for an op template determines the valid constructions for the op template. 
+The driver selection for an op template determines the valid constructions for the op template.
 For example:
 
 ```yaml
 # file test.yaml
 ops:
- op1:
-  op:
-   driver: stdout
-   stmt: "example {{/*Identity()*/}}"
+  op1:
+    op:
+      driver: stdout
+      stmt: "example {{/*Identity()*/}}"
 ```
 
-If an activity were started up which references this file as `workload=test.yaml`, then all 
-the activity params recognized by the stdout driver would be valid, in addition to the core 
+If an activity were started up which references this file as `workload=test.yaml`, then all
+the activity params recognized by the stdout driver would be valid, in addition to the core
 activity params documented in this section.
 
 *examples*
@@ -71,44 +70,46 @@ activity params documented in this section.
 
 - _default_: unset, _required_: one of `workload=` or `op=` or `stmt=`, _dynamic_: no
 
-- `workload=<filename>` where filename is a 
-  [YAML](https://yaml.org/), 
-  [JSON](https://json.org/), or 
+- `workload=<filename>` where filename is a
+  [YAML](https://yaml.org/),
+  [JSON](https://json.org/), or
   [Jsonnet](https://jsonnet.org/) file with matching extension.
-  If the extension is missing, then it is presumed to be a yaml file. Workload filenames are 
-  resolved on the local filesystem first, then from the files which are bundled into the 
+  If the extension is missing, then it is presumed to be a yaml file. Workload filenames are
+  resolved on the local filesystem first, then from the files which are bundled into the
   nosqlbench binary or jar.
 - `workload="<URL>"` where [URL](https://en.wikipedia.org/wiki/URL) with an valid
-  [scheme](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#scheme), 
+  [scheme](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#scheme),
   like http, https, or
   [S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-bucket-intro.html#accessing-a-bucket-using-S3-format).
-  S3 support has been added directly, so you can use these URIs so long as you have a valid AWS 
-  configuration. 
-- `workload="<JSON Object>"` where the param value is a JSON object starting with `{`. Escaping 
+  S3 support has been added directly, so you can use these URIs so long as you have a valid AWS
+  configuration.
+- `workload="<JSON Object>"` where the param value is a JSON object starting with `{`. Escaping
   might be necessary for some characters when using this on the command line.
-  - example: `workload=`{"bindings":{"b1":"NumberNameToString()},"op":"testing {b1}"}'`
+    - example: `workload=`{"bindings":{"b1":"NumberNameToString()},"op":"testing {b1}"}'`
 
 The workload param tells an activity where to load its [workload template]
-(@/workloads-101/_index.md) from. The workload template is a collection of op templates which 
-are blueprints for the operations that an activity runs. 
+(@/workloads-101/_index.md) from. The workload template is a collection of op templates which
+are blueprints for the operations that an activity runs.
 
-If the file is a Jsonnet file (by extension), then a local jsonnet interpreter will be run 
-against it before being handled as above. Within this evaluation context, all provided activity 
-parameters are available as external variables and accessible via the standard Jsonnet APIs, 
-specifically [std.extVar(str)](https://jsonnet.org/ref/stdlib.html#extVar). For doing robust data 
+If the file is a Jsonnet file (by extension), then a local jsonnet interpreter will be run
+against it before being handled as above. Within this evaluation context, all provided activity
+parameters are available as external variables and accessible via the standard Jsonnet APIs,
+specifically [std.extVar(str)](https://jsonnet.org/ref/stdlib.html#extVar). For doing robust data
 type conversion, use [std.parseJson(str)](https://jsonnet.org/ref/stdlib.html#parseJson) by default.
 
 ## op
 
-
-When the `op` param is provided, then the contents of this are taken as an op template which are 
-which 
-consists of a string template only. This is equivalent to providing a workload which contains a 
-single op with a single op field named `stmt`.
+This is a serialized version of an operation to be parsed as an op template. It can be in one of 
+a few supported forms: JSON, as indicated by a leading `{` character, or a simple params map, 
+which is indicated by interior `name=value` assignments. If you want to provide a simpler form 
+which is representative a string statement, use the stmt form below.
 
 ## stmt
 
-
+This is a short form version of an op template which contains a single op field for `stmt`, 
+which is the default form for any _statement-oriented_ operations in common protocols like CQL, 
+SQL, stdout, or similar. If you need to provide more op template details than this form allows, 
+then either use the _op_ form above, or provide a full workload.
 
 ## tags
 
@@ -117,17 +118,18 @@ single op with a single op field named `stmt`.
 - _required_: no
 - _dynamic_ : no
 
-Tags are used to filter the set of op templates presented for sequencing in an activity. Each op 
+Tags are used to filter the set of op templates presented for sequencing in an activity. Each op
 template has a set of tags, which include two auto-tags that are provided by the runtime:
-- `block` - the block name that contains the op template. All op templates are part of some 
-  block, even if they are configured at the root of a document. There is a virtual block named 
+
+- `block` - the block name that contains the op template. All op templates are part of some
+  block, even if they are configured at the root of a document. There is a virtual block named
   `block0` which all of the root-level op templates are assigned to.
-- `name` - a unique name for the op template within the workload template. This is a 
-  concatenation of the block name, two dashes (--) and the base op template name. For example, 
-  an op in `block0` with a base name of `opexample2` would be `block0--opexample2`. This allows for 
+- `name` - a unique name for the op template within the workload template. This is a
+  concatenation of the block name, two dashes (--) and the base op template name. For example,
+  an op in `block0` with a base name of `opexample2` would be `block0--opexample2`. This allows for
   regex matching that can be globally distinct within a workload.
 
-The rules for tag filtering are explained in depth in the [Op Tags](@/workloads-101/05-op-tags.md) 
+The rules for tag filtering are explained in depth in the [Op Tags](@/workloads-101/05-op-tags.md)
 of the [Workloads 101](@/workloads-101/_index.md) tutorial.
 
 ## threads
@@ -200,6 +202,28 @@ have been specified.
 - `cycles=20M` - run an activity over cycles $[0,20000000)$.
 - `cycles=2k..3k` - run an activity over cycles $[2000,3000)$.
 
+## recycles
+
+- `recycles=<recycle count>`
+- `recycles=<recycle min>..<recycle max>`
+- _default_: 1
+- _required_: no
+- _dynamic_: no
+
+This is another layer of iteration around the cycles values. With this, it is easy to set any
+activity to repeat arbitrarily, or to have multiple specific iterations of some base workload.
+Recycles is effectively the higher-order ordinal which wraps repeated
+use of the same cycles interval. The combination of cycle and recycle is mathematically 
+consistent. If you set `recycles=1 cycles=1`, then you will have one total cycle executed. If 
+you set `recycles=10 cycles=10`, then you will have 100. If either of them is effectively set 
+to zero, then no cycles will occur.
+
+They are also both interval-specific, so canonically, `recycles=37..39 cycles=7..11` is distinct 
+from `recycles=39..41 cycles=7..11`, although this is of limited utility until recycles is hoisted
+further into op execution. In the future, this value may be used, for example, to bracket 
+instancing of metrics around specific recycle values, so that metrics are collected distinctly 
+for each _recycle_.
+
 ## errors
 
 - `errors=<error handler spec>`
@@ -207,23 +231,43 @@ have been specified.
 - _required_: no
 - _dynamic_: no
 
-This activity param allows you to specify what happens when an exception is thrown during 
-execution of an operation (within a cycle). You can configure any named exception to be handled 
+This activity param allows you to specify what happens when an exception is thrown during
+execution of an operation (within a cycle). You can configure any named exception to be handled
 with any of the available handler verbs in the order your choosing.
 
-👉 By default, any single error in any operation will cause your test to stop. This is not 
+👉 By default, any single error in any operation will cause your test to stop. This is not
 generally what you want to do for significant test scenarios.
 
-You generally want to configure this so that you can run an activity as long as needed without a 
-single error stopping the whole thing. However, it is important for users to know exactly how 
+You generally want to configure this so that you can run an activity as long as needed without a
+single error stopping the whole thing. However, it is important for users to know exactly how
 this is configured, so it is up to the user to set this appropriately.
 
 The detailed configuration of error handlers is covered in
 [error handlers](@/user-guide/error-handlers.md)
 
+## maxtries
+
+- `maxtries=<maxtries>`
+- _default_: `maxtries=10`
+- _required_: no
+- _dynamic_: no
+
+This sets the number of times an operation will be retried in the event that it fails and the
+error handler is set to retry it.
+
+## labels
+
+- `labels=<label_key>=<label_value>[,...]`
+- _default_: ``
+- _required_: no
+- _dynamic_: no
+
+The labels provided in this form will be appended to the labels for this activity, used in
+metrics reporting and annotations.
+
 # Diagnostic
 
-These params allow you to see more closely how an activity works for the purpose of 
+These params allow you to see more closely how an activity works for the purpose of
 troubleshooting or test verification.
 
 ## dryrun
@@ -233,15 +277,16 @@ troubleshooting or test verification.
 - _required_: no
 - _dynamic_: no
 
-This option is checked at various stages of activity initialization in order to modify the 
-way an activity runs. Some of the dryrun options stop an activity and dump out a summary of some 
-specific step. Others wrap normal mechanisms in a 
-[noop](https://en.wikipedia.org/wiki/NOP_(code)) in order to exercise other parts of the 
+This option is checked at various stages of activity initialization in order to modify the
+way an activity runs. Some of the dryrun options stop an activity and dump out a summary of some
+specific step. Others wrap normal mechanisms in a
+[noop](https://en.wikipedia.org/wiki/NOP_(code)) in order to exercise other parts of the
 machinery at full speed.
 
 *examples*
+
 - `dryrun=jsonnet` - When rendering a jsonnet workload, dump the result to the console and exit.
-- `dryrun=op` - Wrap the operation in a noop, to measure core nb5 execution speed without 
+- `dryrun=op` - Wrap the operation in a noop, to measure core nb5 execution speed without
   invoking operations.
 
 # Metrics
@@ -280,8 +325,8 @@ does: _WORKLOAD_SCENARIO_STEP_. These values are not interpolated for you at thi
 - _default_: false
 - _required: no
 - _dynamic_: no
- 
-This activity param allows you to set the default value for the 
+
+This activity param allows you to set the default value for the
 [instrument](@/user-guide/core-op-fields.md) op field.
 
 ## hdr_digits
@@ -311,24 +356,25 @@ set `hdr_digits=1` on some of them to save client resources.
 - _required_: no
 - _dynamic_: yes
 
-The cyclerate parameter sets a maximum op rate for individual cycles within the activity, 
- across the whole activity, irrespective of how many threads are active.
+The cyclerate parameter sets a maximum op rate for individual cycles within the activity,
+across the whole activity, irrespective of how many threads are active.
 
-👉 The cyclerate is a rate limiter, and can thus only throttle an activity to be slower than it 
-would otherwise run. Rate limiting is also an invasive element in a workload, and will always 
-come at a cost. For extremely high throughput testing, consider carefully whether your testing 
+👉 The cyclerate is a rate limiter, and can thus only throttle an activity to be slower than it
+would otherwise run. Rate limiting is also an invasive element in a workload, and will always
+come at a cost. For extremely high throughput testing, consider carefully whether your testing
 would benefit more from concurrency-based throttling such as adjust the number of threads.
- 
-When the cyclerate parameter is provided, two additional metrics are tracked: the wait time and 
-the response time. See [Timing Terms Explained](/user-guide/advanced-topics/timing-terms) for more details.
 
-When you try to set very high cyclerate values on systems with many cores, the performance will 
-degrade. Be sure to use dryrun features to test this if you think it is a limitation. You can 
-always set the rate high enough that the rate limiter can't sustain. This is like telling it to 
-get in the way and then get out of the way even faster. This is just the nature of this type of 
+When the cyclerate parameter is provided, two additional metrics are tracked: the wait time and
+the response time. See [Timing Terms Explained](/user-guide/advanced-topics/timing-terms) for more
+details.
+
+When you try to set very high cyclerate values on systems with many cores, the performance will
+degrade. Be sure to use dryrun features to test this if you think it is a limitation. You can
+always set the rate high enough that the rate limiter can't sustain. This is like telling it to
+get in the way and then get out of the way even faster. This is just the nature of this type of
 rate limiter.
 
-There are plans to make the rate limiter adaptive across a wider variety of performance 
+There are plans to make the rate limiter adaptive across a wider variety of performance
 scenarios, which will improve this.
 
 *examples*
@@ -434,7 +480,6 @@ differently. This can be important when simulating the access patterns of applic
 *examples*
 
 - `stride=1000` - set the stride to 1000
-
 
 ## seq
 

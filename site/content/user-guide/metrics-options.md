@@ -26,6 +26,26 @@ options for the other methods. Except these, the others may generally be combine
 combination. The command line options for enabling these are documented in the command line docs,
 although some examples of these may be found below.
 
+## Metrics via HTTP push
+
+You can have your metrics pushed up to a metrics store via HTTP push method and the
+[OpenMetrics Exposition](https://github.com/OpenObservability/OpenMetrics/blob/main/specification/OpenMetrics.md)
+format.
+
+    --report-prompush-to "<push gateway URL>"
+
+When used with a receiving system like
+[VictoriaMetrics API](https://docs.victoriametrics.com/url-examples.html#apiv1importprometheus),
+data is sent directly from NoSQLBench at the time of reporting directly to the downstream collector.
+This is a preferred method because it puts episodic (session-oriented) data into a near-synchronous 
+alignment with respect to client behavior and dashboard visibility.
+
+However, when used with the original
+[Prometheus pushgateway](https://github.com/prometheus/pushgateway), 
+the dataflow is still subject to a secondary polling time base as well as the requirement to set 
+up the gateway as a polling target. This takes substantial control out of the hands of the 
+testing system in terms of timeliness, timing resolution, ephemeral fixtures, and so on.
+
 ## Metrics via Graphite
 
 If you like to have all of your testing data in one place, then you may be interested in reporting

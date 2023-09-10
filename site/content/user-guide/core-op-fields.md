@@ -38,10 +38,9 @@ params](@/user-guide/core-activity-params.md).
 
 The space is a named cache of driver state. For each driver, a cache of driver-specific "driver 
 space" objects is kept. If the value is not set in the op template, then the effect is the same 
-as all op templates sharing a single instance of a driver for a given name (Where the name is 
-the same for multiple op templates). However, if the users sets the `space` op field to 
-a binding, then the driver will be virtualized over the names provided, allowing for a given 
-driver to be effectively multi-instanced within the activity.
+as all op templates sharing a single instance of that driver. However, if the users sets the 
+`space` op field to a binding, then the driver will be virtualized over the names provided, 
+allowing for a given driver to be effectively multi-instanced within the activity.
 
 👉 **Be careful with this op field!** The way it works allows for quite advanced testing 
 scenarios to be built with _very minimal_ effort, compared to nearly all other approaches. 
@@ -90,6 +89,11 @@ This op field works closely with the core activity
 parameter [seq](../core-activity-params/#seq) 
 
 # Instrumentation
+
+## labels
+
+If you add a labels property to an op, then these labels are appended to the labels already 
+provided wherever the op is represented in metrics or annotations.
 
 ## instrument
 
