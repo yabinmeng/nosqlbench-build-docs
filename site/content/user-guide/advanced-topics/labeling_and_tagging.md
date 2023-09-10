@@ -263,3 +263,11 @@ a full end-to-end functional validation of all your test workflows before runnin
 intensive versions. This helps you shake out any issues with late-validation, such as a bad
 label set in a later stage of testing.
 
+## TBD: conditional validation
+
+There is a very clear need to make the validation work a bit more reasonably with regard to
+labeling context. For example, requiring an `activity` label at the top level does not work well 
+for the session annotation, nor does requiring and `activity` label when the `scenario` label is 
+not present. There are some simple forms which can support these coherently and these will be 
+added shortly. 
+
