@@ -216,6 +216,14 @@ Show version, long form, with artifact coordinates.
 
     --version
 
+The logged metrics reporting to console at INFO level is often problematic. This can be explicitly
+enabled or disabled:
+
+    # the current default, soon to be deprecated
+    --enable-logged-metrics 
+    # use this if you need to stop being spammed by a high-frequency reporting interval
+    --disable-logged-metrics
+
 ### Summary Reporting
 
 The classic metrics logging format is used to report results into the logfile for every scenario.

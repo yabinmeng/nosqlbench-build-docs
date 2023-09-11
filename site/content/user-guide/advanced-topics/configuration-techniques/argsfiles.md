@@ -44,6 +44,9 @@ An args file simply contains an argument on each line, like this:
     --annotate all
     --grafana-baseurl http://localhost:3000/
 
+Argument values which contain single or double quotes are unwrapped on storage and retrieval.
+Lines that start with `#` are ignored, but should be preserved between changes.
+
 # Pinning
 
 ## Pin an option

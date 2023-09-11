@@ -257,7 +257,7 @@ error handler is set to retry it.
 
 ## labels
 
-- `labels=<label_key>=<label_value>[,...]`
+- `labels=<label_key>:<label_value>[,...]`
 - _default_: ``
 - _required_: no
 - _dynamic_: no
